@@ -1,0 +1,30 @@
+.form{
+
+    &.form__center--column{
+        @include flex_center(column);
+        gap: 40px;
+
+        .row{
+            @include flex_center(column);
+
+            label{
+                align-self: baseline;
+                color: $light-gray-color;
+            }
+
+            input{
+                height: 35px;
+                width: 80vw;
+                max-width: 500px;
+                padding-left: 5px;
+                border-radius: 4px;
+               
+                &:focus{
+                    outline: 1px solid $brand_color;
+                }
+            }
+
+
+        }
+    }
+}

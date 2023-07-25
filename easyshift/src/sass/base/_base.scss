@@ -36,6 +36,10 @@ h1{
 
 body{
   overflow-x: hidden;
+  background-color: $secondary_color;
 }
 
 
+input{
+  appearance: none;
+}

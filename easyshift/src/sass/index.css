@@ -19,6 +19,45 @@ components
   color: rgb(240, 7, 135);
 }
 
+.form.form__center--column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.form.form__center--column .row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form.form__center--column .row label {
+  align-self: baseline;
+  color: #CBD0D4;
+}
+.form.form__center--column .row input {
+  height: 35px;
+  width: 80vw;
+  max-width: 500px;
+  padding-left: 5px;
+  border-radius: 4px;
+}
+.form.form__center--column .row input:focus {
+  outline: 1px solid rgb(240, 7, 135);
+}
+
+.cta-btn {
+  font-weight: bold;
+  background-color: transparent;
+  color: #FFFFFF;
+  padding: 10px;
+  width: 40vw;
+  max-width: 180px;
+  border: 1px solid rgb(240, 7, 135);
+  cursor: pointer;
+}
+
 /*
 layout: header
 */
@@ -342,6 +381,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.required {
+  color: rgb(240, 7, 135);
+}
+
 html {
   box-sizing: border-box;
 }
@@ -369,4 +412,11 @@ h1 {
 
 body {
   overflow-x: hidden;
+  background-color: #003a54;
+}
+
+input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }/*# sourceMappingURL=index.css.map */
