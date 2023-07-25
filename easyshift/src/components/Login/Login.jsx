@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Title from '../Title/Title'
+import LoginForm from './LoginForm'
 
 
 const Login = () => {
@@ -14,20 +15,14 @@ const Login = () => {
   return (
     <div className='login'>
         <div className='login__container'>
-        <Title title={"EASYSHIFT"} titleClassname={"br-typo title-logo txt-l"} />
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div >
-                <label htmlFor="username">Username *</label>
-                <input type="text" id='username' value={username} maxLength={25} onChange={(e)=> setUsername(e.target.value)} />
-              </div>
-              <div >
-                <label htmlFor="password">Password *</label>
-                <input type="text" id='password' value={password} maxLength={60} onChange={(e)=> setUsername(e.target.value)} />
-              </div>
-               <input type="submit" value="ENTER" />
-            </form>
-          </div>
+        <Title title={"EASYSHIFT"} classname={"brand"} />
+        <LoginForm
+          username={username}
+          handleSubmit={handleSubmit}
+          password={password}
+          setPassword={(value) => setPassword(value)}
+          setUsername={(value) => setUsername(value)}
+        />
         </div>
     </div>
   )

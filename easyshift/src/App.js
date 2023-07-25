@@ -3,11 +3,11 @@ import Login from './components/Login/Login';
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path={'/'} element={<Login/>} />
-      </Routes>
-    </div>
+    <main className="App">
+        <Routes>
+          <Route path={'/'} element={<Login/>} />
+        </Routes>
+    </main>
   );
 }
 

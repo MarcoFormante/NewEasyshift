@@ -1,0 +1,7 @@
+.page-title{
+    @include flex_center(row);
+    height: 134px;
+    .brand{
+        color:$brand_color;
+    }
+}
