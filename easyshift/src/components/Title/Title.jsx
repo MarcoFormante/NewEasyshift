@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Title = ({title,style}) => {
+
+const Title = ({ title, titleClassname }) => {
+  
   return (
     <div className='page-title'>
-          <h1 style={{...style}}>{title}</h1>
+          <h1 className={titleClassname}>{title}</h1>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from './Nav/Nav'
-import './header.scss'
+
 
 const Header = () => {
   return (
