@@ -1,3 +1,30 @@
 .required{
-    color: $brand_color;
+    color: $brand_color  
+}
+
+.btn{
+    cursor: pointer;
+}
+
+
+.container__flex--center{
+    @include flex_center(column);
+}
+
+.gap-20{
+    gap: 20px;
+}
+
+a.brand__link{
+       
+        color: $brand_color;
+        border-bottom: 1px solid $white_color;
+        font-weight: 600;
+        width: fit-content;
+       
+
+        @media screen and (max-width:map-get($breakpoints,"medium")) {
+            display: block;
+            margin: auto;
+        }
 }

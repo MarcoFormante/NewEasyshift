@@ -36,7 +36,8 @@ h1{
 
 body{
   overflow-x: hidden;
-  background-color: $secondary_color;
+  background: linear-gradient(4deg,rgb(51, 177, 246),rgb(66, 37, 75)) no-repeat fixed;
+  color: $white_color;
 }
 
 

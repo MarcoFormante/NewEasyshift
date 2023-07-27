@@ -10,13 +10,18 @@ components
 @import url("https://fonts.googleapis.com/css2?family=Scope+One&display=swap");
 .page-title {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 134px;
 }
 .page-title .brand {
   color: rgb(240, 7, 135);
+  font-size: 32px;
+}
+.page-title .brand__quote {
+  color: white;
+  border-bottom: 1px solid rgb(240, 7, 135);
 }
 
 .form.form__center--column {
@@ -49,13 +54,18 @@ components
 
 .cta-btn {
   font-weight: bold;
-  background-color: transparent;
+  background-color: #be066b;
   color: #FFFFFF;
-  padding: 10px;
+  padding: 12px;
   width: 40vw;
-  max-width: 180px;
-  border: 1px solid rgb(240, 7, 135);
+  border: 1px solid #FFFFFF;
   cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  max-width: 180px;
+}
+.cta-btn:hover {
+  background-color: #740341;
 }
 
 /*
@@ -385,6 +395,35 @@ body {
   color: rgb(240, 7, 135);
 }
 
+.btn {
+  cursor: pointer;
+}
+
+.container__flex--center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+
+a.brand__link {
+  color: rgb(240, 7, 135);
+  border-bottom: 1px solid #FFFFFF;
+  font-weight: 600;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+@media screen and (max-width: 768px) {
+  a.brand__link {
+    display: block;
+    margin: auto;
+  }
+}
+
 html {
   box-sizing: border-box;
 }
@@ -412,7 +451,8 @@ h1 {
 
 body {
   overflow-x: hidden;
-  background-color: #003a54;
+  background: linear-gradient(4deg, rgb(51, 177, 246), rgb(66, 37, 75)) no-repeat fixed;
+  color: #FFFFFF;
 }
 
 input {
