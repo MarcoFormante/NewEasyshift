@@ -1,0 +1,53 @@
+.header{
+    width: 100vw;
+    background-color: $brand_color;
+    height: 50px;
+  
+    &__container,&__container__left{
+        height: inherit;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       padding: 10px;
+       gap: 50px;
+    }
+
+    .menu-btn{
+        width: 35px;
+        height: 25px;
+        @include flex(column,space-between,center,0);
+      
+
+        &__line{
+            transition: all 0.3s ease;
+            width: 35px;
+            height: 3px;
+            background-color: black;
+            display: block;
+        }
+
+        &--active{
+            .menu-btn__line{
+             
+               &:first-child{
+                visibility: hidden;
+                display: none;
+               }
+
+               &:nth-child(2){
+                    background-color: aquamarine;
+                    transform: rotate(45deg) translateY(15px);
+               }
+
+               &:last-child{
+                background-color: bisque;
+                transform: rotate(-45deg)  translateY(-16px);
+               }
+            }
+        }
+
+        @media screen and (min-width:(map-get($breakpoints,"medium")+ 1)) {
+           display: none;
+        }
+    }
+}

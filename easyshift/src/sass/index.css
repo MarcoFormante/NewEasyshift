@@ -71,6 +71,53 @@ components
 /*
 layout: header
 */
+.header {
+  width: 100vw;
+  background-color: rgb(240, 7, 135);
+  height: 50px;
+}
+.header__container, .header__container__left {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  gap: 50px;
+}
+.header .menu-btn {
+  width: 35px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
+.header .menu-btn__line {
+  transition: all 0.3s ease;
+  width: 35px;
+  height: 3px;
+  background-color: black;
+  display: block;
+}
+.header .menu-btn--active .menu-btn__line:first-child {
+  visibility: hidden;
+  display: none;
+}
+.header .menu-btn--active .menu-btn__line:nth-child(2) {
+  background-color: aquamarine;
+  transform: rotate(45deg) translateY(15px);
+}
+.header .menu-btn--active .menu-btn__line:last-child {
+  background-color: bisque;
+  transform: rotate(-45deg) translateY(-16px);
+}
+@media screen and (min-width: 769px) {
+  .header .menu-btn {
+    display: none;
+  }
+}
+
 /*
 pages: home
 */
