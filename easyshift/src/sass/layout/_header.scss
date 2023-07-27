@@ -12,6 +12,9 @@
        gap: 50px;
     }
 
+    
+
+/* Menu Button  */
     .menu-btn{
         width: 35px;
         height: 25px;
@@ -19,7 +22,7 @@
       
 
         &__line{
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             width: 35px;
             height: 3px;
             background-color: black;
@@ -27,21 +30,23 @@
         }
 
         &--active{
+           position: relative;
+           z-index: 10;
             .menu-btn__line{
-             
+                background-color: $white-color;
                &:first-child{
-                visibility: hidden;
-                display: none;
+               opacity: 0;
+               
                }
 
                &:nth-child(2){
-                    background-color: aquamarine;
-                    transform: rotate(45deg) translateY(15px);
+                    
+                transform: rotate(45deg) translateY(4px) translateX(-3px);
                }
 
                &:last-child{
-                background-color: bisque;
-                transform: rotate(-45deg)  translateY(-16px);
+                
+                transform: rotate(-45deg)  translateY(-12px) translateX(3px);
                }
             }
         }

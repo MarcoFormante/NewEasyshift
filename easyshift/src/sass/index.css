@@ -75,6 +75,7 @@ layout: header
   width: 100vw;
   background-color: rgb(240, 7, 135);
   height: 50px;
+  /* Menu Button  */
 }
 .header__container, .header__container__left {
   height: inherit;
@@ -94,23 +95,27 @@ layout: header
   gap: 0;
 }
 .header .menu-btn__line {
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   width: 35px;
   height: 3px;
   background-color: black;
   display: block;
 }
+.header .menu-btn--active {
+  position: relative;
+  z-index: 10;
+}
+.header .menu-btn--active .menu-btn__line {
+  background-color: #FFFFFF;
+}
 .header .menu-btn--active .menu-btn__line:first-child {
-  visibility: hidden;
-  display: none;
+  opacity: 0;
 }
 .header .menu-btn--active .menu-btn__line:nth-child(2) {
-  background-color: aquamarine;
-  transform: rotate(45deg) translateY(15px);
+  transform: rotate(45deg) translateY(4px) translateX(-3px);
 }
 .header .menu-btn--active .menu-btn__line:last-child {
-  background-color: bisque;
-  transform: rotate(-45deg) translateY(-16px);
+  transform: rotate(-45deg) translateY(-12px) translateX(3px);
 }
 @media screen and (min-width: 769px) {
   .header .menu-btn {
