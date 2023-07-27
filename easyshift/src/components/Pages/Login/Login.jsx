@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Title from '../Title/Title'
-import LoginForm from './LoginForm'
+import Title from '../../Title/Title'
+import Form from './Form'
 
 
 
@@ -14,17 +14,17 @@ const Login = () => {
   }
   
   return (
-    <div className='login'>
-        <div className='login__container container__flex--center gap-20'>
+    <div>
+        <div className='container__flex--center gap-20'>
         <Title title={"EASYSHIFT"} quote={true} classname={"brand"} />
-        <LoginForm
+        <h2>Login</h2>
+        <Form
           username={username}
           handleSubmit={handleSubmit}
           password={password}
           setPassword={(value) => setPassword(value)}
           setUsername={(value) => setUsername(value)}
         />
-        
         </div>
     </div>
   )

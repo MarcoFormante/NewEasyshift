@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const LoginForm = ({handleSubmit,username,password,setUsername,setPassword}) => {
+const Form = ({ handleSubmit, username, password, setUsername, setPassword }) => {
+  
   return (
     <div className='container__flex--center gap-20'>
        <form className='form form__center--column' onSubmit={handleSubmit}>
@@ -13,13 +14,21 @@ const LoginForm = ({handleSubmit,username,password,setUsername,setPassword}) => 
                <label htmlFor="password">Password <span className='required'>*</span> </label>
                <input type="text" id='password' value={password} maxLength={60} onChange={(e)=> setPassword(e.target.value)} />
             </div>
-              <input className='cta-btn' type="submit" value="ENTER" />
+            <div className='row'>
+              <label htmlFor="role">Role <span className='required'>*</span> </label>
+              <select name="role" id="role">
+                  <option value=""></option>
+                  <option value="Photographer">Photographer</option>
+                  <option value="Duty">Duty</option>
+              </select>
+            </div>
+            <input className='cta-btn' type="submit" value="REGISTER" />
       </form>
       <span>
-          You don’t have an account yet? <Link className='btn brand__link' to={"/asd"}>Create Account</Link>
+        Do you have an account yet? <Link className='btn brand__link' to={"/"}>Login</Link>
         </span>
     </div>
   )
 }
 
-export default LoginForm
+export default Form

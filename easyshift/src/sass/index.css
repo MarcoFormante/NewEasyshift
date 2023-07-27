@@ -41,14 +41,14 @@ components
   align-self: baseline;
   color: #CBD0D4;
 }
-.form.form__center--column .row input {
+.form.form__center--column .row input, .form.form__center--column .row select {
   height: 35px;
   width: 80vw;
   max-width: 500px;
   padding-left: 5px;
   border-radius: 4px;
 }
-.form.form__center--column .row input:focus {
+.form.form__center--column .row input:focus, .form.form__center--column .row select:focus {
   outline: 1px solid rgb(240, 7, 135);
 }
 
@@ -417,7 +417,7 @@ a.brand__link {
   width: -moz-fit-content;
   width: fit-content;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 374px) {
   a.brand__link {
     display: block;
     margin: auto;
