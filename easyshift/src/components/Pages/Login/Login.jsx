@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Title from '../../Title/Title'
+import Title from '../../Layout/Title/Title'
 import Form from './Form'
 
 
