@@ -3,6 +3,7 @@ import Nav from './Nav/Nav'
 import { Link } from 'react-router-dom'
 import MenuButton from './MenuButton'
 import HeaderRightElement from './HeaderRightElement'
+import HeaderSidebar from './HeaderSidebar'
 
 
 
@@ -57,35 +58,7 @@ const Header = () => {
           />
         </div>
       </div>
-
-      <div className={`header__right-elements__sidebar ${windowToggle ? "header__right-elements__sidebar--active" : ""}`} >
-        {
-          <>
-              <div className='exit btn' onClick={()=>handleWindowToggle("")}></div>
-         { windowToggle
-            ?
-              (
-                <>
-              
-                {windowType === "Notifications"
-              ?
-                <Notifications />
-              :
-            windowType === "Profile"
-              ?
-                <Profile />
-              :
-                ""
-              }
-              </>
-              )
-            :
-              ""
-            }
-            </>
-        }
-     
-        </div>
+      <HeaderSidebar windowToggle={windowToggle } handleWindowToggle={(value)=>handleWindowToggle(value) } windowType={windowType } />
     </header>
   )
 }
@@ -93,22 +66,3 @@ const Header = () => {
 export default Header
 
 
-const Notifications = () => {
-  const [notifications, setNotifications] = useState([])
-
-  
-  return (
-      <div>
-      Notifications
-      </div>
-  )
-}
-
-const Profile = () => {
-  
-  return (
-      <div>
-      Profile
-      </div>
-  )
-}
