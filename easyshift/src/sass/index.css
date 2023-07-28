@@ -128,11 +128,12 @@ layout: header
   justify-content: center;
   align-items: center;
   gap: 15px;
-}
-@media screen and (max-width: 768px) {
-  .header .nav {
-    display: none;
-  }
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  position: static;
+  gap: 30px;
 }
 .header .nav a {
   color: #FFFFFF;
@@ -143,17 +144,98 @@ layout: header
   width: fit-content;
   font-weight: bold;
   color: #3F4572;
+  border-bottom: 1px solid #3F4572;
+}
+@media screen and (max-width: 768px) {
+  .header .nav {
+    transition: all 0.5s ease;
+    width: 100vw;
+    overflow: hidden;
+    height: 100vh;
+    position: fixed;
+    flex-direction: column;
+    top: 50%;
+    right: -100%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    gap: 30px;
+  }
+  .header .nav a {
+    opacity: 0;
+    font-size: 20px;
+    color: #FFFFFF;
+  }
+  .header .nav a.active {
+    border-bottom: 1px solid white;
+    color: #FFFFFF;
+  }
+}
+.header .nav__mobile {
+  right: 0%;
+  background-color: #3F4572;
+}
+.header .nav__mobile a, .header .nav__mobile .active {
+  opacity: 1;
 }
 
 .header__right-elements {
   gap: 24px;
-  margin-right: 34px;
+}
+@media screen and (min-width: 769px) {
+  .header__right-elements {
+    margin-right: 34px;
+  }
 }
 .header__right-elements__container__img {
   width: 30px;
 }
 .header__right-elements__container__text {
   font-size: 12px;
+}
+.header__right-elements__sidebar {
+  width: 0px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #3F4572;
+  transition: width 0.3s ease;
+}
+.header__right-elements__sidebar .exit {
+  opacity: 0;
+}
+.header__right-elements__sidebar--active {
+  width: 100vw;
+}
+@media screen and (min-width: 769px) {
+  .header__right-elements__sidebar--active {
+    width: 264px;
+  }
+}
+.header__right-elements__sidebar--active .exit {
+  transition: all 0.8s ease;
+  opacity: 1;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+}
+.header__right-elements__sidebar--active .exit::after {
+  content: "";
+  width: inherit;
+  height: 3px;
+  background-color: #FFFFFF;
+  position: absolute;
+  transform: rotate(45deg) translate(10px, 10px);
+}
+.header__right-elements__sidebar--active .exit::before {
+  content: "";
+  width: inherit;
+  height: 3px;
+  background-color: #FFFFFF;
+  position: absolute;
+  transform: rotate(-45deg) translate(-10px, 10px);
 }
 
 /*

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from './Nav/Nav'
 import { Link } from 'react-router-dom'
 import MenuButton from './MenuButton'
@@ -8,7 +8,31 @@ import HeaderRightElement from './HeaderRightElement'
 
 const Header = () => {
   const [menuToggle,setMenuToggle] = useState(false)
+  const [windowToggle, setWindowToggle] = useState(false)
+  const [windowType, setWindowType] = useState("")
+  const [windowWidth,setWindowWidth] = useState(window.innerWidth)
   
+  function handleWindowToggle(windowTypeText) {
+    setWindowToggle(!windowToggle)
+    setWindowType(windowTypeText)
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowWidth(window.innerWidth)
+    })
+
+    window.removeEventListener("resize", () => {
+      setWindowWidth(window.innerWidth)
+    })
+  }, [setWindowWidth])
+  
+  useEffect(() => {
+    if (windowWidth > 768 ) {
+        setMenuToggle(false)
+    }
+  },[windowWidth])
+
 
   return (
     <header className='header'>
@@ -22,21 +46,69 @@ const Header = () => {
               />
             </Link>
           </div>
-            <Nav />
+          <Nav menuToggle={menuToggle} setMenuToggle={(value)=>setMenuToggle(value)} />
         </div>
         <div className='header__right-elements container__flex--center--row'>
-          <HeaderRightElement src={"/icons/notifications.svg"}  text={"Notifications"}/>
-          <HeaderRightElement src={"/icons/profile.svg"}  text={"Profile"}/>
+          <HeaderRightElement src={"/icons/notifications.svg"} windowToggle={windowToggle} onClick={()=>handleWindowToggle("Notifications")} text={"Notifications"}/>
+          <HeaderRightElement src={"/icons/profile.svg"}  windowToggle={windowToggle} onClick={()=>handleWindowToggle("Profile")} text={"Profile"}/>
           <MenuButton
             menuToggle={menuToggle}
             setMenuToggle={(value) => setMenuToggle(value)}
           />
         </div>
-       
       </div>
+
+      <div className={`header__right-elements__sidebar ${windowToggle ? "header__right-elements__sidebar--active" : ""}`} >
+        {
+          <>
+              <div className='exit btn' onClick={()=>handleWindowToggle("")}></div>
+         { windowToggle
+            ?
+              (
+                <>
+              
+                {windowType === "Notifications"
+              ?
+                <Notifications />
+              :
+            windowType === "Profile"
+              ?
+                <Profile />
+              :
+                ""
+              }
+              </>
+              )
+            :
+              ""
+            }
+            </>
+        }
+     
+        </div>
     </header>
   )
 }
 
 export default Header
 
+
+const Notifications = () => {
+  const [notifications, setNotifications] = useState([])
+
+  
+  return (
+      <div>
+      Notifications
+      </div>
+  )
+}
+
+const Profile = () => {
+  
+  return (
+      <div>
+      Profile
+      </div>
+  )
+}

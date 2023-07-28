@@ -1,12 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const Nav = () => {
+const Nav = ({ menuToggle,setMenuToggle}) => {
+  
   return (
-    <div className='nav'>
-     <NavLink to={"/home"}>Home</NavLink> 
-     <NavLink to={"/newRequest"}>New Request</NavLink> 
-     <NavLink to={"/myRequests"}>MyRequests</NavLink> 
+    <div className={`nav ${menuToggle ? " nav__mobile" : ""}`} >
+     <NavLink to={"/home"} onClick={()=>setMenuToggle(!menuToggle)}>Home</NavLink > 
+     <NavLink to={"/newRequest"} onClick={()=>setMenuToggle(!menuToggle)}>New Request</NavLink> 
+     <NavLink to={"/myRequests"} onClick={()=>setMenuToggle(!menuToggle)}>My Requests</NavLink> 
     </div>
   )
 }
