@@ -84,3 +84,17 @@
         }
     }
 }
+
+
+.header__right-elements{
+   gap: 24px;
+   margin-right: 34px;
+   
+    &__container__img{
+        width: 30px;
+    }
+
+    &__container__text{
+        font-size: 12px;
+    }
+}

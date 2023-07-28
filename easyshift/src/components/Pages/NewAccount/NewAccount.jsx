@@ -14,7 +14,7 @@ const NewAccount = () => {
 
   return (
     <div>
-    <div className='container__flex--center'>
+    <div className='container__flex--center--column'>
         <Title title={"EASYSHIFT"} quote={true} classname={"brand"} />
         <h2>Register</h2>
         <Form

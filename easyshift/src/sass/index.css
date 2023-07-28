@@ -152,6 +152,17 @@ layout: header
   height: 2px;
 }
 
+.header__right-elements {
+  gap: 24px;
+  margin-right: 34px;
+}
+.header__right-elements__container__img {
+  width: 30px;
+}
+.header__right-elements__container__text {
+  font-size: 12px;
+}
+
 /*
 pages: home
 */
@@ -480,9 +491,16 @@ body {
   cursor: pointer;
 }
 
-.container__flex--center {
+.container__flex--center--column {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container__flex--center--row {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }

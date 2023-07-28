@@ -7,8 +7,12 @@
 }
 
 
-.container__flex--center{
+.container__flex--center--column{
     @include flex_center(column);
+}
+
+.container__flex--center--row{
+    @include flex_center(row);
 }
 
 .gap-20{

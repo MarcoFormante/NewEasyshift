@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const Form = ({ handleSubmit, username, password, setUsername, setPassword }) => {
   
   return (
-    <div className='container__flex--center gap-20'>
+    <div className='container__flex--center--column gap-20'>
        <form className='form form__center--column' onSubmit={handleSubmit}>
             <div className='row'>
                <label htmlFor="username">Username <span className='required'>*</span> </label>
