@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Nav from './Nav/Nav'
 import { Link } from 'react-router-dom'
+import MenuButton from './MenuButton'
 
 
 const Header = () => {
@@ -18,14 +19,11 @@ const Header = () => {
           </div>
             <Nav />
         </div>
-        <div className={`menu-btn ${menuToggle ? "menu-btn--active" : ""} btn`} onClick={()=>setMenuToggle(!menuToggle)}>
-          <span className='menu-btn__line'></span>
-          <span className='menu-btn__line'></span>
-          <span className='menu-btn__line'></span>
-        </div>
+        <MenuButton menuToggle={menuToggle} setMenuToggle={(value)=>setMenuToggle(value)}/>
       </div>
     </header>
   )
 }
 
 export default Header
+

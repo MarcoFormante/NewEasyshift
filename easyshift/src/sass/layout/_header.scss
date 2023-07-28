@@ -55,4 +55,32 @@
            display: none;
         }
     }
+
+    .nav{
+        @include flex(row,center,center,15px);
+
+        @media screen and (max-width:(map-get($breakpoints,"medium"))) {
+            display: none;
+        }
+
+        a{
+            color: $white_color;
+        }
+
+        .active{
+            position: relative;
+            width: fit-content;
+            
+            &::after{
+                content: '';
+                display: block;
+                position: absolute;
+                width: 43px;
+                background-color: $secondary_color;
+                z-index: 1;
+                height: 2px;
+            }
+           
+        }
+    }
 }
