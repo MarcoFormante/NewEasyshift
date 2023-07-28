@@ -141,15 +141,8 @@ layout: header
   position: relative;
   width: -moz-fit-content;
   width: fit-content;
-}
-.header .nav .active::after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 43px;
-  background-color: #3F4572;
-  z-index: 1;
-  height: 2px;
+  font-weight: bold;
+  color: #3F4572;
 }
 
 .header__right-elements {

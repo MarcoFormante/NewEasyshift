@@ -70,17 +70,8 @@
         .active{
             position: relative;
             width: fit-content;
-            
-            &::after{
-                content: '';
-                display: block;
-                position: absolute;
-                width: 43px;
-                background-color: $secondary_color;
-                z-index: 1;
-                height: 2px;
-            }
-           
+            font-weight:bold;
+            color: $secondary_color;
         }
     }
 }
