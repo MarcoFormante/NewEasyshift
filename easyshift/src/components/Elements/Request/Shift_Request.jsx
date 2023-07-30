@@ -1,10 +1,11 @@
 import React from 'react'
 
 const ShiftRequest = () => {
+    
   return (
-    <div>
-      
-    </div>
+    
+    <div className='request-card__shift-request'></div>
+    
   )
 }
 

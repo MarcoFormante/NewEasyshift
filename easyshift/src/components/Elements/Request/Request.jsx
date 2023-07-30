@@ -4,13 +4,14 @@ import ShiftRequest from './Shift_Request'
 import CommentInput from './CommentInput'
 import CommentsIcon from './CommentsIcon'
 
-const Request = () => {
+const Request = ({ request }) => {
+    
   return (
-    <div>
-      <UserInfo/>
-      <ShiftRequest/>
-      <CommentInput/>
-      <CommentsIcon/>
+    <div className='request-card'>
+        <UserInfo username={request.username} role={request.role} />
+        <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} request={request.request} />
+        <CommentInput requestID={ request.id} />
+        <CommentsIcon lockedUserComment={ request.locked_user_id} />
     </div>
   )
 }

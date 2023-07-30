@@ -2,9 +2,7 @@ import React from 'react'
 
 const CommentInput = () => {
   return (
-    <div>
-      
-    </div>
+    <div className='request-card__inpt-comment'></div>
   )
 }
 

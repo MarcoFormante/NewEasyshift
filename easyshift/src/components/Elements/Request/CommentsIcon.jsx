@@ -2,9 +2,7 @@ import React from 'react'
 
 const CommentsIcon = () => {
   return (
-    <div>
-      
-    </div>
+    <div className='request-card__comments'></div>
   )
 }
 
