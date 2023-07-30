@@ -5,9 +5,9 @@ const Nav = ({ menuToggle,setMenuToggle}) => {
   
   return (
     <div className={`nav ${menuToggle ? " nav__mobile" : ""}`} >
-     <NavLink to={"/home"} onClick={()=>setMenuToggle(!menuToggle)}>Home</NavLink > 
-     <NavLink to={"/newRequest"} onClick={()=>setMenuToggle(!menuToggle)}>New Request</NavLink> 
-     <NavLink to={"/myRequests"} onClick={()=>setMenuToggle(!menuToggle)}>My Requests</NavLink> 
+     <NavLink to={"/home"} onClick={()=>setMenuToggle(false)}>Home</NavLink > 
+     <NavLink to={"/newRequest"} onClick={()=>setMenuToggle(false)}>New Request</NavLink> 
+     <NavLink to={"/myRequests"} onClick={()=>setMenuToggle(false)}>My Requests</NavLink> 
     </div>
   )
 }

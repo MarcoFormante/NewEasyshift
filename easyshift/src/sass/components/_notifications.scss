@@ -1,0 +1,51 @@
+.sidebar__title{
+    @include flex_center(row);
+    margin-top: 10px;
+}
+
+.notifications{
+    margin-top: 50px;
+   
+    &__container{
+        @include flex_center(column);
+      
+    }
+
+    &__notif{
+        padding: 20px 0;
+        width: 100%;
+        min-height: 70px;
+        border: 1px solid $white_color;
+        position: relative;
+        border-left: none;
+        border-right: none;
+        background: linear-gradient(10deg,lighten($secondary_color,30),$secondary_color);
+    
+
+        
+
+        &__message{
+            position: absolute;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            min-height: 100%;
+            font-size: 15px;
+            z-index: 0;
+        }
+
+        &__delete{
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 1;
+            background-image: url(/public/icons/delete.svg);
+        
+        }
+    }
+}

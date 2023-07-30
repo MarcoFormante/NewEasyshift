@@ -142,6 +142,7 @@
         background-color: $secondary_color;
         transition: width 0.3s ease;
 
+    
         .exit {
             opacity: 0;
         }
@@ -152,8 +153,8 @@
             @media screen  and (min-width:(map-get($breakpoints,"medium")+ 1) ){
                  width: 264px;
             }
-            
-            
+
+           
             .exit{
                 transition: all 0.8s ease;
                 opacity: 1;
