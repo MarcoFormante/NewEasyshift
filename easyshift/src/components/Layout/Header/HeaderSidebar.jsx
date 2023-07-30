@@ -16,7 +16,7 @@ const HeaderSidebar = ({windowToggle,handleWindowToggle,windowType}) => {
               
                 {windowType === "Notifications"
               ?
-                <Notifications />
+                <Notifications  handleWindowToggle={(value)=> handleWindowToggle(value)} />
               :
             windowType === "Profile"
               ?

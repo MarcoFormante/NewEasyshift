@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Notifications = () => {
+const Notifications = ({handleWindowToggle}) => {
     const [notifications, setNotifications] = useState([])
+    const navigate = useNavigate()
 
     const deleteNotification = (id) => {
         setNotifications(notifications.filter(notif => notif.id !== id))
+    }
+
+    const viewRequest = (id) => {
+        navigate("/request/" + id)
+        handleWindowToggle("")
     }
 
     
@@ -35,7 +42,7 @@ useEffect(() => {
                 <div className='notifications__container'>
                 {notifications && notifications.map((notif, index) =>
                     <div key={notif.id} className='notifications__notif container__flex--center--row gap-20'>
-                        <div className='notifications__notif__message btn'>{notif.message}asdjkashdkjsad </div>
+                        <div className='notifications__notif__message btn' onClick={()=>viewRequest(notif.request_id)}>{notif.message}</div>
                         <div className='notifications__notif__delete btn' onClick={()=>deleteNotification(notif.id)}></div>
                     </div>
                 )
