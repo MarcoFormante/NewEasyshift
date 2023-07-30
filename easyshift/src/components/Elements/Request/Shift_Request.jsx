@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Request = () => {
+const ShiftRequest = () => {
   return (
     <div>
-      Post
+      
     </div>
   )
 }
 
-export default Request
+export default ShiftRequest

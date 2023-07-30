@@ -10,7 +10,7 @@ const Notifications = ({handleWindowToggle}) => {
     }
 
     const viewRequest = (id) => {
-        navigate("/request/" + id)
+        navigate("/viewRequest/" + id)
         handleWindowToggle("")
     }
 
