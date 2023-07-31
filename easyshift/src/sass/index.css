@@ -215,6 +215,32 @@ components
   align-items: center;
   margin: 10px auto;
 }
+.request-card__inpt-comment button:not(:active) {
+  background-color: rgb(240, 7, 135);
+}
+.request-card__comments__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  top: -6px;
+}
+.request-card__comments__icon {
+  width: 29px;
+  height: 27px;
+  background-image: url(../../src/icons/comment.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.request-card__comments__total {
+  position: absolute;
+  top: -12px;
+  right: -3px;
+  font-size: 12px;
+}
 
 /*
 layout: header

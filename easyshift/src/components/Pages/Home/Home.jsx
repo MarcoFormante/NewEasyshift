@@ -14,6 +14,7 @@ const Home = () => {
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
+        total_comments:10,
         locked_user_id:null
       },
       {
@@ -23,6 +24,7 @@ const Home = () => {
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
+        total_comments:10,
         locked_user_id:null
       },
       {
@@ -32,6 +34,7 @@ const Home = () => {
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
+        total_comments:10,
         locked_user_id:null
       },
       {
@@ -41,6 +44,7 @@ const Home = () => {
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
+        total_comments:10,
         locked_user_id:null
       },
       {
@@ -50,6 +54,7 @@ const Home = () => {
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
+        total_comments:10,
         locked_user_id:null
       },
       {
@@ -59,6 +64,7 @@ const Home = () => {
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
+        total_comments:10,
         locked_user_id:null
       },
     ])

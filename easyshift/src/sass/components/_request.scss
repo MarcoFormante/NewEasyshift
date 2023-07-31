@@ -8,7 +8,7 @@
     padding: 10px;
     @include flex(column,baseline,space-between,23px);
   
-
+//User info container
     &__user-info{
         @include flex(row,space-between,center,0);
         
@@ -44,7 +44,7 @@
         }
     }
 
-
+//Shift-request container
     &__shift-request{
         @include flex(column,center,flex-start,3px); 
         margin-top: 9px;
@@ -58,7 +58,7 @@
         }
     }
 
-
+//Input-new-comment Container
     &__inpt-comment{
 
         textarea{
@@ -77,6 +77,37 @@
             height: 30px;
             @include flex_center(row);
             margin: 10px auto;
+
+            &:not(:active){
+                background-color: $brand_color;
+            }
+        }
+    }
+
+//Comments-section(icon & total) Container
+    &__comments{
+
+        &__container{
+            @include flex(row,right,center,0);
+            position: relative;
+            top: -6px;
+           
+        }
+
+        &__icon{
+            width: 29px;
+            height: 27px;
+            background-image: url(../../src/icons/comment.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        &__total{
+            position: absolute;
+            top: -12px;
+            right: -3px;
+            font-size: 12px;
         }
     }
 

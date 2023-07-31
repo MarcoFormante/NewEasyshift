@@ -11,7 +11,7 @@ const Request = ({ request }) => {
         <UserInfo username={request.username} role={request.role} />
         <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} request={request.request} />
         <CommentInput requestID={request.id} />
-        <CommentsIcon lockedUserComment={ request.locked_user_id} />
+      <CommentsIcon lockedUserComment={request.locked_user_id} totalComments={request.total_comments} />
     </div>
   )
 }
