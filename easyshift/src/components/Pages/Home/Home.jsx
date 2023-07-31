@@ -15,7 +15,7 @@ const Home = () => {
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
         total_comments:10,
-        locked_user_id:null
+        locked_user_id:2
       },
       {
         id: 2,
@@ -35,7 +35,7 @@ const Home = () => {
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
         total_comments:10,
-        locked_user_id:null
+        locked_user_id:1
       },
       {
         id: 4,

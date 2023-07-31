@@ -1,6 +1,10 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 
-const viewRequest = () => {
+const ViewRequest = () => {
+  const location = useLocation()
+
+  console.log({...location?.state});
   return (
     <div>
       Post
@@ -8,4 +12,4 @@ const viewRequest = () => {
   )
 }
 
-export default viewRequest
+export default ViewRequest
