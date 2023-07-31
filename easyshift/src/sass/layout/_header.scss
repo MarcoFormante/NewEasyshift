@@ -141,6 +141,7 @@
         right: 0;
         background-color: $secondary_color;
         transition: width 0.3s ease;
+        z-index: 1;
 
     
         .exit {

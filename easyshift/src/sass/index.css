@@ -53,6 +53,9 @@ components
 }
 
 .cta-btn {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   font-weight: bold;
   background-color: #be066b;
   color: #FFFFFF;
@@ -189,6 +192,29 @@ components
 .request-card__shift-request__title {
   color: #bfbfbf;
 }
+.request-card__inpt-comment textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border-radius: 4px;
+  font-size: 13px;
+  width: 100%;
+  padding: 5px 0 0 5px;
+}
+.request-card__inpt-comment textarea::-moz-placeholder {
+  padding: 5px;
+}
+.request-card__inpt-comment textarea::placeholder {
+  padding: 5px;
+}
+.request-card__inpt-comment button {
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+}
 
 /*
 layout: header
@@ -322,6 +348,7 @@ layout: header
   right: 0;
   background-color: #3F4572;
   transition: width 0.3s ease;
+  z-index: 1;
 }
 .header__right-elements__sidebar .exit {
   opacity: 0;
