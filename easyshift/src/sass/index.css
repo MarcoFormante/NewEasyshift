@@ -117,6 +117,56 @@ components
   background-image: url(/public/icons/delete.svg);
 }
 
+.request-card {
+  width: 280px;
+  height: 340px;
+  border: 1px solid white;
+  position: relative;
+  border-radius: 4px;
+  background-color: rgba(52, 60, 82, 0.3843137255);
+  padding: 10px;
+}
+.request-card__user-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
+.request-card__user-info__left-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  gap: 16px;
+}
+.request-card__user-info__slicedName {
+  width: 34px;
+  height: 34px;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-transform: capitalize;
+}
+.request-card__user-info__name {
+  text-transform: capitalize;
+}
+.request-card__user-info__right-container {
+  width: 35px;
+  height: 35px;
+}
+.request-card__user-info__role {
+  display: block;
+  width: inherit;
+  height: inherit;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /*
 layout: header
 */

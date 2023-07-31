@@ -1,0 +1,44 @@
+.request-card{
+    width: 280px;
+    height: 340px;
+    border: 1px solid white;
+    position: relative;
+    border-radius: 4px;
+    background-color: #343c5262;
+    padding: 10px;
+
+    &__user-info{
+        @include flex(row,space-between,center,0);
+        
+        &__left-container{
+            @include flex(row,left,center,16px)
+        }
+       
+        &__slicedName{
+            width: 34px;
+            height: 34px;
+            background-color: black;
+            @include flex_center(row);
+            border-radius: 50%;
+            text-transform: capitalize;
+        }
+
+        &__name{
+            text-transform: capitalize;
+        }
+
+        &__right-container{
+            width: 35px;
+            height: 35px;
+        }
+
+        &__role{
+            display: block;
+            width: inherit;
+            height: inherit;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}
