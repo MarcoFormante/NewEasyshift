@@ -125,6 +125,11 @@ components
   border-radius: 4px;
   background-color: rgba(52, 60, 82, 0.3843137255);
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: space-between;
+  gap: 23px;
 }
 .request-card__user-info {
   display: flex;
@@ -165,6 +170,24 @@ components
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+.request-card__shift-request {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3px;
+  margin-top: 9px;
+}
+.request-card__shift-request__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1px;
+}
+.request-card__shift-request__title {
+  color: #bfbfbf;
 }
 
 /*
