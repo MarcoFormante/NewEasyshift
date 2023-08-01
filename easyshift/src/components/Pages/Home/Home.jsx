@@ -72,7 +72,7 @@ const Home = () => {
   
   return (
     <div>
-      <div>
+      <div className='requests__container'>
         {requests.map(request =>
           <>
             <Request request={request}/>

@@ -6,7 +6,7 @@ const ShiftRequest = ({shiftStart,shiftEnd,request}) => {
     <div className='request-card__shift-request'>
       <div className='request-card__shift-request__container'>
         <span className='request-card__shift-request__title'>Shift</span>
-        <span><time>{shiftStart}</time>/ <time>{ shiftEnd}</time></span>
+        <span><time>{shiftStart}</time> / <time>{ shiftEnd}</time></span>
       </div>
       <div className='request-card__shift-request__container'>
         <span className='request-card__shift-request__title'>Request</span>

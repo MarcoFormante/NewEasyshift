@@ -120,8 +120,27 @@ components
   background-image: url(/public/icons/delete.svg);
 }
 
+.requests__container {
+  display: grid;
+  width: 100vw;
+  padding: 40px;
+  grid-template-columns: repeat(auto-fill, 330px);
+  margin: auto;
+}
+@media screen and (max-width: 1400px) {
+  .requests__container {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+
 .request-card {
-  width: 280px;
+  margin: 20px;
+  min-width: 280px;
   height: 340px;
   border: 1px solid white;
   position: relative;
@@ -208,6 +227,7 @@ components
   padding: 5px;
 }
 .request-card__inpt-comment button {
+  min-width: 150px;
   height: 30px;
   display: flex;
   flex-direction: row;
@@ -775,6 +795,10 @@ a.brand__link {
     display: block;
     margin: auto;
   }
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 html {
