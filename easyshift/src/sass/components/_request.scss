@@ -1,7 +1,6 @@
 .requests__container{
     display: grid;
     width: 100vw;
-    padding: 40px;
     grid-template-columns:repeat(auto-fill, 330px);
     margin: auto;
    
@@ -132,7 +131,7 @@
 
     &__locked{
         border-color: $locked_request_color;
-        box-shadow: 0 0 7px white;
+        box-shadow: 0 0 7px $locked_request_color;
     }
 
 
