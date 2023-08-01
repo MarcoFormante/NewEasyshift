@@ -4,11 +4,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './sass/index.css'
+import Loading from './components/Elements/Loading/Loading';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
+      <Loading isLoading={false}/>
       <App />
     </Router>
   </React.StrictMode>

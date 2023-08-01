@@ -4,8 +4,9 @@ $brand_color:rgb(240, 7, 135);
 $secondary_color:#3F4572;
 $white_color:#FFFFFF;
 $light_gray-color:#CBD0D4;
-$dark_gray_color:#7D7D7D;
+$dark_gray_color:#7D7D7D; 
 $locked_request_color:rgb(255, 208, 0);
+$background_fixed:  linear-gradient(180deg,$secondary_color,lighten($brand_color,20)) no-repeat fixed;
 
 
 /* @type header height */

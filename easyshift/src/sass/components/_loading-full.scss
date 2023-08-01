@@ -1,0 +1,148 @@
+.loading-fp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    background: $background_fixed;
+    @include flex-center(row);
+
+    &__container{
+        width: inherit;
+        height: inherit;
+        @include flex-center(row);
+    }
+
+    &__item{
+        width: 320px;
+        height: 320px;
+        @include flex-center(row);
+        position: relative;
+
+        &__circle-md{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 120px;
+            height: 110px;
+            border-radius: 50%;
+            background:  linear-gradient(40deg,$secondary_color,$brand_color);
+            border: 1px solid white;
+            transform-style: preserve-3d;
+            perspective-origin: 50% 50%;
+            backface-visibility: visible;
+            animation: pulse 2s  infinite linear;
+            
+            &::after{
+                content:'Loading...';
+                position: absolute;
+                width: fit-content;
+                overflow: hidden;
+                animation: loading-text 1.5s ease infinite alternate;
+            }
+        }
+
+        &__circle-sd-left{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(40deg,$secondary_color,$brand_color);
+            border: 1px solid rgb(255, 255, 255);
+            transform-style: preserve-3d;
+            perspective-origin: 50% 50%;
+            backface-visibility: visible;
+            animation: spin 2s 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite  ; 
+            position: relative;
+            top: -70px;
+            right: 20px;
+        }
+
+         &__circle-sd-right{
+            position: relative;
+            top: -70px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background:  linear-gradient(40deg,$secondary_color,$brand_color);
+            border: 1px solid white;
+            border-color: linear-gradient(40deg,$secondary_color,$brand_color);
+            transform-style: preserve-3d;
+            perspective-origin: 50% 50%;
+            backface-visibility: visible;
+            animation: spin 2s 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite  ; 
+         }
+    }
+}
+
+@keyframes spin{
+    0%{
+        transform: perspective(800px) rotate3d(0,0,0,0deg);
+    }
+    30%{
+        transform: perspective(800px) rotate3d(-20,-20,-20,100deg) ;
+    }
+
+    50%{
+        transform: perspective(800px) rotate3d(2,5,6,150deg) ;
+    }
+    100%{
+        transform: perspective(800px) rotate3d(0,0,0,360deg) ;
+    }
+}
+
+
+@keyframes pulse {
+    0%{
+        box-shadow: 0 0 10px white;
+    }
+}
+
+@keyframes loading-text {
+    0%{
+        content:'L';
+    }
+
+    10%{
+        content:'Lo';
+    }
+
+    20%{
+        content:'Loa';
+    }
+
+    30%{
+        content:'Load';
+    }
+
+    40%{
+        content:'Loadi';
+    }
+
+    50%{
+        content:'Loadin';
+    }
+
+    60%{
+        content:'Loading';
+    }
+
+    70%{
+        content:'Loading.';
+    }
+
+    80%{
+        content:'Loading.';
+    }
+
+    90%{
+        content:'Loading..';
+    }
+
+    100%{
+        content:'Loading...';
+    }
+}
+

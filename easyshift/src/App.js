@@ -19,7 +19,6 @@ function App() {
             <Route path={'/newRequest'} element={<NewRequest />} />
             <Route path={'/myRequests'} element={<MyRequests />} />
             <Route path={'/viewRequest/:id'} element={<ViewRequest/>}/>
-           
           </Route>
         </Routes>
     </main>
