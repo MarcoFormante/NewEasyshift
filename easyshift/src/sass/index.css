@@ -122,7 +122,8 @@ components
 
 .requests__container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 330px);
+  grid-template-columns: repeat(auto-fill, 320px);
+  margin: auto;
 }
 @media screen and (max-width: 1400px) {
   .requests__container {
@@ -521,6 +522,7 @@ layout: header
     transform: translateY(-50%);
     font-size: 24px;
     gap: 30px;
+    z-index: 10;
   }
   .header .nav a {
     opacity: 0;
@@ -965,6 +967,14 @@ a.brand__link {
   flex-wrap: wrap;
 }
 
+.mar-auto {
+  margin: auto;
+}
+
+.pad-m {
+  padding: 40px;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -994,6 +1004,9 @@ body {
   overflow-x: hidden;
   background: linear-gradient(180deg, #3F4572, #fa63b6) no-repeat fixed;
   color: #FFFFFF;
+}
+body.fixed {
+  position: fixed;
 }
 
 input {

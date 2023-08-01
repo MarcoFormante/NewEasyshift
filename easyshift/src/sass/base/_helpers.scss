@@ -15,9 +15,11 @@
     @include flex_center(row);
 }
 
+
 .gap-20{
     gap: 20px;
 }
+
 
 a.brand__link{
        
@@ -33,6 +35,16 @@ a.brand__link{
         }
 }
 
+
 .flex-wrap{
     flex-wrap: wrap;
+}
+
+.mar-auto{
+    margin: auto;
+}
+
+
+.pad-m{
+    padding: 40px;
 }

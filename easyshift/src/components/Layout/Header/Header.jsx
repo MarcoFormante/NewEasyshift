@@ -34,6 +34,14 @@ const Header = () => {
     }
   },[windowWidth])
 
+  useEffect(() => {
+      if (menuToggle) {
+        document.body.className = "fixed"
+      } else {
+        document.body.className = ""
+      }
+    
+  },[menuToggle])
 
   return (
     <header className='header'>

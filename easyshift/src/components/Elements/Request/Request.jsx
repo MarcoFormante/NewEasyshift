@@ -8,8 +8,6 @@ const Request = ({ request }) => {
   const [isLocked, setIsLocked] = useState(false)
   const [addCommentNum, setAddCommentNum] = useState(0)
   
-  console.log(addCommentNum);
-  
   const handleAddComment = () => {
     setAddCommentNum(addCommentNum + 1)
   }
@@ -19,7 +17,7 @@ const Request = ({ request }) => {
   }
   
   useEffect(() => {
-    console.log(request);
+    
     if (request.locked_user_id !== null||undefined ) {
       setIsLocked(true)
     }

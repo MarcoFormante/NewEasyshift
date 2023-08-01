@@ -89,6 +89,7 @@
             transform: translateY(-50%);
             font-size: map-get($font_size,"medium" );
             gap: 30px;
+            z-index: 10;
            
                 a{
                     opacity: 0;
