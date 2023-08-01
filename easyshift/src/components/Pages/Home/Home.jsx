@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Request from '../../Elements/Request/Request'
 import Title from '../../Layout/Title/Title'
+import LoadingSection from '../../Elements/Loading/LoadingSection'
+import { useCallback } from 'react'
 
 
 const Home = () => {
   const [requests, setRequests] = useState([])
-
+ 
+  
+ 
   useEffect(() => {
     setRequests([
       {
@@ -73,6 +77,7 @@ const Home = () => {
   
   return (
     <div>
+      
       <Title classname={"page-title"} title={"All requests"} style={{fontSize:24}}/>
       <div className='requests__container'>
         {requests.map(request =>
@@ -80,7 +85,9 @@ const Home = () => {
             <Request request={request}/>
           </>
         )}
+        <LoadingSection isLoadingData={false} />
       </div>
+     
     </div>
   )
 }
