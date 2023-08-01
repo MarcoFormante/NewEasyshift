@@ -438,6 +438,9 @@ layout: header
   width: 100vw;
   background-color: rgb(240, 7, 135);
   height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 98;
   /* Menu Button  */
 }
 .header__container, .header__container__left {
@@ -1006,7 +1009,7 @@ body {
   color: #FFFFFF;
 }
 body.fixed {
-  position: fixed;
+  overflow: hidden;
 }
 
 input {

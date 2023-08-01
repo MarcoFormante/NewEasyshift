@@ -2,6 +2,9 @@
     width: 100vw;
     background-color: $brand_color;
     height: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 98;
   
     &__container,&__container__left{
         height: inherit;

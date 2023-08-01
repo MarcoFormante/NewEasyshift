@@ -4,7 +4,6 @@ import Title from '../../Layout/Title/Title'
 import LoadingSection from '../../Elements/Loading/LoadingSection'
 
 
-
 const Home = () => {
   const [requests, setRequests] = useState([])
   const [isLoadingData, setIsLoadingData] = useState(false)

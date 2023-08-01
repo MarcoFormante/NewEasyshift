@@ -38,9 +38,9 @@ body{
   overflow-x: hidden;
   background: linear-gradient(180deg,$secondary_color,lighten($brand_color,20)) no-repeat fixed;
   color: $white_color;
-  
+
   &.fixed{
-    position: fixed;
+    overflow: hidden;
   
   }
 }
