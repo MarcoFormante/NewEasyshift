@@ -1,0 +1,35 @@
+.request-card__comments__section{
+    @include flex(column,baseline,space-between,0);
+    min-width: 280px;
+}
+
+.request-card__comment{
+    border: 1px solid $white_color;
+    border-top: none;
+    padding: 13px 13px 5px 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgba(52, 60, 82, 0.3843137255);
+
+    &__last{
+        @include flex(row,space-between,center,0);
+
+        .delete{
+            width: 34px;
+            height: 34px;
+            background-image:url(../icons/delete.svg) ;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .lock{
+            width: 34px;
+            height: 34px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    }
+}

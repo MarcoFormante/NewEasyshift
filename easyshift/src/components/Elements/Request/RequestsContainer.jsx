@@ -3,7 +3,8 @@ import Request from './Request'
 import LoadingSection from '../Loading/LoadingSection'
 
 
-const RequestsContainer = ({showCommentsTarget,setShowCommentsTarget,isLoadingData,requests}) => {
+const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
+  
   return (
     <div>
       <div className={`requests__container  ${showCommentsTarget ? "requests__container__showComments" : ""}`}>
@@ -15,11 +16,11 @@ const RequestsContainer = ({showCommentsTarget,setShowCommentsTarget,isLoadingDa
         }
 
         {requests.map(request =>
-          <>
+          <div key={request.id}>
             {!showCommentsTarget &&
-              <Request request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
+              <Request  request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
             }
-            </>
+          </div>
         )}
           <LoadingSection isLoadingData={isLoadingData} />
       </div>

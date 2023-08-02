@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom'
 
 
 
-const CommentsIcon = ({totalComments, requestID ,setShowCommentsTarget,request,showComments}) => {
+const CommentsIcon = ({ totalComments, requestID, setShowCommentsTarget, request, showComments }) => {
+
   const navigate = useNavigate()
   
-  console.log(showComments);
   const viewRequest = (id) => {
      navigate("/viewRequest/" + id,{state:{requestID}}) 
-}
+  }
 
   return (
     <div className='request-card__comments'>

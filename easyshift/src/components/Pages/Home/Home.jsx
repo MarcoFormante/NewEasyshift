@@ -152,12 +152,12 @@ const Home = () => {
     }, 1000);
     
   }
-  
+
   
   return (
     <div className={`${showCommentsTarget ? "absolute-top z-200 back_gradient" : ""}`}>
       <Title classname={"page-title"}
-        title={` ${showCommentsTarget ? "View comments" : "All requests"}`}
+        title={`${showCommentsTarget ? "View comments" : "All requests"}`}
         style={{ fontSize: 24 }}
       />
 

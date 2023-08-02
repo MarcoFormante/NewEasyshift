@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 
-const CommentInput = ({ setAddCommentNum }) => {
+const CommentInput = ({ requestID, handleAddComment, addNewComment }) => {
   const [comment, setComment] = useState("")
   
   
   const handleSendComment = () => {
     if (comment) {
-      setAddCommentNum()
+      handleAddComment({
+        user_id: 1,
+        request_id: requestID,
+        comment:comment
+      })
       setComment("")
     }
   }

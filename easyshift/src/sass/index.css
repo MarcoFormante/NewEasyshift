@@ -497,6 +497,47 @@ components
   left: 5px;
 }
 
+.request-card__comments__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: space-between;
+  gap: 0;
+  min-width: 280px;
+}
+
+.request-card__comment {
+  border: 1px solid #FFFFFF;
+  border-top: none;
+  padding: 13px 13px 5px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgba(52, 60, 82, 0.3843137255);
+}
+.request-card__comment__last {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
+.request-card__comment__last .delete {
+  width: 34px;
+  height: 34px;
+  background-image: url(../icons/delete.svg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.request-card__comment__last .lock {
+  width: 34px;
+  height: 34px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 /*
 layout: header
 */
