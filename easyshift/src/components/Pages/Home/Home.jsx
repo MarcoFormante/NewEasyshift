@@ -7,7 +7,8 @@ import LoadingSection from '../../Elements/Loading/LoadingSection'
 const Home = () => {
   const [requests, setRequests] = useState([])
   const [isLoadingData, setIsLoadingData] = useState(false)
-  const [totalRequests,setTotalRequests] = useState(0)
+  const [totalRequests, setTotalRequests] = useState(0)
+  const [showCommentsTarget,setShowCommentsTarget] = useState(null)
  
   
   useEffect(() => {
@@ -155,21 +156,31 @@ const Home = () => {
   return (
     <div>
       <Title classname={"page-title"}
-        title={"All requests"}
+        title={` ${showCommentsTarget ? "View comments" : "All requests"}`}
         style={{ fontSize: 24 }}
       />
 
-      <div className='requests__container'>
+      <div className={`requests__container  ${showCommentsTarget ? "requests__container__showComments" : ""}`}>
+        {showCommentsTarget &&
+          <>
+          <div onClick={()=>setShowCommentsTarget(null)}>exit</div>
+            <Request showComments={true} request={showCommentsTarget}/> 
+          </>
+        }
+
         {requests.map(request =>
 
           <>
-              <Request request={request} />
+            {!showCommentsTarget &&
+              <Request request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
+            }
             </>
-          )}
+        )}
+        
           <LoadingSection isLoadingData={isLoadingData} />
       </div>
 
-      {!isLoadingData && <div  className='btn container__flex--center--row pad-m show-more-btn mar-auto'>
+      {(!isLoadingData && !showCommentsTarget) && <div  className='btn container__flex--center--row pad-m show-more-btn mar-auto'>
         <span className='cta-btn container__flex--center--row '  onClick={handleShowMore}>Show more</span>
       </div>}
     </div>

@@ -135,6 +135,14 @@ components
     flex-wrap: wrap;
   }
 }
+.requests__container__showComments {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
 .request-card {
   margin: 20px;

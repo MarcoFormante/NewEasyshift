@@ -4,7 +4,7 @@ import ShiftRequest from './Shift_Request'
 import CommentInput from './CommentInput'
 import CommentsIcon from './CommentsIcon'
 
-const Request = ({ request }) => {
+const Request = ({ request,setShowCommentsTarget, showComments}) => {
   const [isLocked, setIsLocked] = useState(false)
   const [addCommentNum, setAddCommentNum] = useState(0)
   
@@ -28,7 +28,7 @@ const Request = ({ request }) => {
         <UserInfo username={request.username} role={request.role} />
         <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} request={request.request} />
         <CommentInput requestID={parseInt(request.id)} setAddCommentNum={()=>handleAddComment()} />
-      <CommentsIcon lockedUserComment={parseInt(request.locked_user_id)} totalComments={parseInt(request.total_comments) + addCommentNum} requestID={parseInt(request.id)} />
+      <CommentsIcon showComments={showComments} request={request}  setShowCommentsTarget={ (value)=>setShowCommentsTarget(value)} lockedUserComment={parseInt(request.locked_user_id)} totalComments={parseInt(request.total_comments) + addCommentNum} requestID={parseInt(request.id)} />
     </div>
   )
 }

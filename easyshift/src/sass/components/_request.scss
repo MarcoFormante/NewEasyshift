@@ -8,6 +8,12 @@
         @include flex_center(row);
         flex-wrap: wrap;
     }
+
+    &__showComments{
+        width: 100vw;
+        @include flex_center(row);
+        flex-wrap: wrap;
+    }
 }
 
 .request-card{
