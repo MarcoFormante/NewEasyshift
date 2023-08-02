@@ -9,7 +9,7 @@ const RequestsContainer = ({showCommentsTarget,setShowCommentsTarget,isLoadingDa
       <div className={`requests__container  ${showCommentsTarget ? "requests__container__showComments" : ""}`}>
         {showCommentsTarget &&
           <>
-          <div onClick={()=>setShowCommentsTarget(null)}>exit</div>
+          <div className='back-btn btn' onClick={()=>setShowCommentsTarget(null)}></div>
             <Request showComments={true} request={showCommentsTarget}/> 
           </>
         }

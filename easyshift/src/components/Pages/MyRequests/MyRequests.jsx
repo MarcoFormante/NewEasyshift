@@ -153,7 +153,7 @@ const MyRequests = () => {
 
   
   return (
-    <div>
+    <div className={`${showCommentsTarget ? "absolute-top z-200 back_gradient" : ""}`}>
       <Title classname={"page-title"}
         title={"My requests"}
         style={{ fontSize: 24 }}
@@ -166,7 +166,7 @@ const MyRequests = () => {
         isLoadingData={isLoadingData}
       />
 
-      {!isLoadingData && <div  className='btn container__flex--center--row pad-m show-more-btn mar-auto'>
+      {!isLoadingData && !showCommentsTarget && <div  className='btn container__flex--center--row pad-m show-more-btn mar-auto'>
         <span className='cta-btn container__flex--center--row '  onClick={handleShowMore}>Show more</span>
       </div>}
     </div>

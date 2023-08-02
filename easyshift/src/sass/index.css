@@ -96,7 +96,7 @@ components
   position: relative;
   border-left: none;
   border-right: none;
-  background: linear-gradient(10deg, #8b91bf, #3F4572);
+  background: linear-gradient(10deg, #a498c3, #56487A);
 }
 .notifications__notif__message {
   position: absolute;
@@ -279,7 +279,7 @@ components
   width: 100vw;
   height: 100vh;
   z-index: 99;
-  background: linear-gradient(180deg, #3F4572, #fa63b6) no-repeat fixed;
+  background: linear-gradient(180deg, #56487A, #fa63b6) no-repeat fixed;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -310,7 +310,7 @@ components
   width: 120px;
   height: 110px;
   border-radius: 50%;
-  background: linear-gradient(40deg, #3F4572, rgb(240, 7, 135));
+  background: linear-gradient(40deg, #56487A, rgb(240, 7, 135));
   border: 1px solid white;
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
@@ -329,7 +329,7 @@ components
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(40deg, #3F4572, rgb(240, 7, 135));
+  background: linear-gradient(40deg, #56487A, rgb(240, 7, 135));
   border: 1px solid rgb(255, 255, 255);
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
@@ -346,9 +346,9 @@ components
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(40deg, #3F4572, rgb(240, 7, 135));
+  background: linear-gradient(40deg, #56487A, rgb(240, 7, 135));
   border: 1px solid white;
-  border-color: linear-gradient(40deg, #3F4572, rgb(240, 7, 135));
+  border-color: linear-gradient(40deg, #56487A, rgb(240, 7, 135));
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
   backface-visibility: visible;
@@ -488,6 +488,15 @@ components
   margin-top: 32px;
 }
 
+.back-btn {
+  width: 45px;
+  height: 45px;
+  background-image: url("../../src/icons/back.svg");
+  position: fixed;
+  top: 10px;
+  left: 5px;
+}
+
 /*
 layout: header
 */
@@ -566,8 +575,8 @@ layout: header
   width: -moz-fit-content;
   width: fit-content;
   font-weight: bold;
-  color: #3F4572;
-  border-bottom: 1px solid #3F4572;
+  color: #56487A;
+  border-bottom: 1px solid #56487A;
 }
 @media screen and (max-width: 768px) {
   .header .nav {
@@ -596,7 +605,7 @@ layout: header
 }
 .header .nav__mobile {
   right: 0%;
-  background-color: #3F4572;
+  background-color: #56487A;
 }
 .header .nav__mobile a, .header .nav__mobile .active {
   opacity: 1;
@@ -622,7 +631,7 @@ layout: header
   position: fixed;
   top: 0;
   right: 0;
-  background-color: #3F4572;
+  background-color: #56487A;
   transition: width 0.3s ease;
   z-index: 1;
 }
@@ -1045,7 +1054,7 @@ a.brand__link {
 }
 
 .back_gradient {
-  background: linear-gradient(180deg, #3F4572, #fa63b6) no-repeat fixed;
+  background: linear-gradient(180deg, #56487A, #fa63b6) no-repeat fixed;
 }
 
 html {
@@ -1075,7 +1084,7 @@ h1 {
 
 body {
   overflow-x: hidden;
-  background: linear-gradient(180deg, #3F4572, #fa63b6) no-repeat fixed;
+  background: linear-gradient(180deg, #56487A, #fa63b6) no-repeat fixed;
   color: #FFFFFF;
 }
 body.fixed {

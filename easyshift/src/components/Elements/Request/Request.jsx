@@ -28,7 +28,7 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
         <UserInfo username={request.username} role={request.role} />
         <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} request={request.request} />
         <CommentInput requestID={parseInt(request.id)} setAddCommentNum={()=>handleAddComment()} />
-      <CommentsIcon showComments={showComments} request={request}  setShowCommentsTarget={ (value)=>setShowCommentsTarget(value)} lockedUserComment={parseInt(request.locked_user_id)} totalComments={parseInt(request.total_comments) + addCommentNum} requestID={parseInt(request.id)} />
+        <CommentsIcon showComments={showComments} request={request}  setShowCommentsTarget={ (value)=>setShowCommentsTarget(value)} lockedUserComment={parseInt(request.locked_user_id)} totalComments={parseInt(request.total_comments) + addCommentNum} requestID={parseInt(request.id)} />
     </div>
   )
 }
