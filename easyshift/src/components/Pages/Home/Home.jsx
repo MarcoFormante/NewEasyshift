@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Request from '../../Elements/Request/Request'
 import Title from '../../Layout/Title/Title'
 import LoadingSection from '../../Elements/Loading/LoadingSection'
+import RequestsContainer from '../../Elements/Request/RequestsContainer'
 
 
 const Home = () => {
@@ -160,25 +161,12 @@ const Home = () => {
         style={{ fontSize: 24 }}
       />
 
-      <div className={`requests__container  ${showCommentsTarget ? "requests__container__showComments" : ""}`}>
-        {showCommentsTarget &&
-          <>
-          <div onClick={()=>setShowCommentsTarget(null)}>exit</div>
-            <Request showComments={true} request={showCommentsTarget}/> 
-          </>
-        }
-
-        {requests.map(request =>
-
-          <>
-            {!showCommentsTarget &&
-              <Request request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
-            }
-            </>
-        )}
-        
-          <LoadingSection isLoadingData={isLoadingData} />
-      </div>
+      <RequestsContainer
+        showCommentsTarget={showCommentsTarget}
+        requests={requests}
+        setShowCommentsTarget={setShowCommentsTarget}
+        isLoadingData={isLoadingData}
+      />
 
       {(!isLoadingData && !showCommentsTarget) && <div  className='btn container__flex--center--row pad-m show-more-btn mar-auto'>
         <span className='cta-btn container__flex--center--row '  onClick={handleShowMore}>Show more</span>

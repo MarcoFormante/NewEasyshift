@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Title from '../../Layout/Title/Title'
 import LoadingSection from '../../Elements/Loading/LoadingSection'
 import Request from '../../Elements/Request/Request'
+import RequestsContainer from '../../Elements/Request/RequestsContainer'
 
 const MyRequests = () => {
   const [requests, setRequests] = useState([])
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [totalRequests, setTotalRequests] = useState(0)
+  const [showCommentsTarget,setShowCommentsTarget] = useState(null)
   
   useEffect(() => {
     setRequests([
@@ -148,6 +150,8 @@ const MyRequests = () => {
     }, 1000);
     
   }
+
+  
   return (
     <div>
       <Title classname={"page-title"}
@@ -155,15 +159,12 @@ const MyRequests = () => {
         style={{ fontSize: 24 }}
       />
 
-      <div className='requests__container'>
-        {requests.map(request =>
-
-          <>
-              <Request request={request} />
-            </>
-          )}
-          <LoadingSection isLoadingData={isLoadingData} />
-      </div>
+      <RequestsContainer
+        showCommentsTarget={showCommentsTarget}
+        requests={requests}
+        setShowCommentsTarget={setShowCommentsTarget}
+        isLoadingData={isLoadingData}
+      />
 
       {!isLoadingData && <div  className='btn container__flex--center--row pad-m show-more-btn mar-auto'>
         <span className='cta-btn container__flex--center--row '  onClick={handleShowMore}>Show more</span>
