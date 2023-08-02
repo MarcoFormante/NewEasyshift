@@ -9,7 +9,7 @@ import ViewRequest from './components/Pages/ViewRequest/ViewRequest';
 
 function App() {
   return (
-    <main className="App">
+    <div className="App">
         <Routes>
           <Route exact path={'/'} element={<Login/>} />
           <Route path={'/newAccount'} element={<NewAccount />} />
@@ -21,7 +21,7 @@ function App() {
             <Route path={'/viewRequest/:id'} element={<ViewRequest/>}/>
           </Route>
         </Routes>
-    </main>
+    </div>
   );
 }
 

@@ -48,3 +48,16 @@ a.brand__link{
 .pad-m{
     padding: 40px;
 }
+
+.absolute-top{
+position: absolute;
+top: 0;
+} 
+
+.z-200{
+z-index: 200;
+}
+
+.back_gradient{
+    background: $background_fixed;
+}

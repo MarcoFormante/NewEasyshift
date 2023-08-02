@@ -10,8 +10,11 @@ const location = useLocation()
 return  auth 
     ?
     <>
-        <Header/>
-        <Outlet />
+        <Header />
+        <main>
+            <Outlet />
+        </main>
+        
     </>
    
     :

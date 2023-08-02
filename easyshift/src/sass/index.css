@@ -1035,6 +1035,19 @@ a.brand__link {
   padding: 40px;
 }
 
+.absolute-top {
+  position: absolute;
+  top: 0;
+}
+
+.z-200 {
+  z-index: 200;
+}
+
+.back_gradient {
+  background: linear-gradient(180deg, #3F4572, #fa63b6) no-repeat fixed;
+}
+
 html {
   box-sizing: border-box;
 }
