@@ -439,6 +439,55 @@ components
     transform: rotate(360deg);
   }
 }
+.form__new-request {
+  padding-bottom: 20px;
+}
+.form__new-request__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+  gap: 55px;
+  width: 320px;
+}
+@media screen and (max-width: 414px) {
+  .form__new-request__container {
+    width: 90vw;
+  }
+}
+.form__new-request__container .inpt__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: baseline;
+  gap: 5px;
+  width: inherit;
+}
+.form__new-request__container .inpt__container input {
+  width: inherit;
+  height: 42px;
+  padding-left: 15px;
+  border-radius: 4px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.form__new-request__container .request-message {
+  width: inherit;
+}
+.form__new-request__container .request-message textarea {
+  width: inherit;
+  height: 153px;
+  padding: 15px 0 0 15px;
+  border-radius: 4px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.form__new-request__container .request-message input[type=submit] {
+  margin-top: 32px;
+}
+
 /*
 layout: header
 */

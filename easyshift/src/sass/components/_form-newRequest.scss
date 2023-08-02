@@ -1,0 +1,42 @@
+.form__new-request{
+padding-bottom: 20px;
+
+    &__container{
+        @include flex(column,baseline,center,55px);
+        width: 320px;
+
+        @media screen and (max-width:414px) {
+            width: 90vw;
+        }
+
+        .inpt__container{
+            @include flex(column,baseline,baseline,5px);
+            width: inherit;
+
+            input{
+                width: inherit;
+                height: 42px;
+                padding-left: 15px;
+                border-radius: 4px;
+                appearance: none;
+            }
+        }
+
+        .request-message{
+            width: inherit;
+
+            textarea{
+                width: inherit;
+                height: 153px;
+                padding: 15px 0 0 15px;
+                border-radius: 4px;
+                appearance: none;
+            }
+
+            input[type="submit"]{
+                margin-top: 32px;
+            }
+        }
+        
+    }
+}
