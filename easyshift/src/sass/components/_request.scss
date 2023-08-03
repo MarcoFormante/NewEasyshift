@@ -72,6 +72,15 @@
 
         &__container{
             @include flex(column,center,flex-start,1px);
+
+            &--row{
+                @include flex(row,space-between,center,0px);
+                width: 100%;
+            }
+
+            &--column{
+                @include flex(column,center,flex-start,1px);
+            }
         }
 
         &__title{
@@ -110,10 +119,13 @@
     &__comments{
 
         &__container{
-            @include flex(row,right,center,0);
+            @include flex(row,space-between,center,0);
             position: relative;
             top: -6px;
-           
+
+            .created_at{
+                font-size: 13px;
+            }
         }
 
         &__icon{

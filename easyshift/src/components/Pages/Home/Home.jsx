@@ -19,66 +19,78 @@ console.log("home");
         id: 1,
         user_id: 1,
         username: "John",
-        role:"Duty",
+        role: "Duty",
+        date:"15/05/2023",
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
         total_comments:10,
+        created_at:"15/05/06",
         locked_user_id:2
       },
       {
         id: 2,
         user_id: 2,
         username: "John",
-        role:"Photographer",
+        role: "Photographer",
+        date:"15/05/2023",
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
         total_comments:10,
+        created_at:"15/05/06",
         locked_user_id:null
       },
       {
         id: 3,
         user_id: 3,
         username: "John",
-        role:"Photographer",
+        role: "Photographer",
+        date:"15/05/2023",
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
         total_comments:10,
+        created_at:"15/05/06",
         locked_user_id:1
       },
       {
         id: 4,
         user_id: 4,
         username: "John",
-        role:"Photographer",
+        role: "Photographer",
+        date:"15/05/2023",
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
         total_comments:10,
+        created_at:"15/05/06",
         locked_user_id:null
       },
       {
         id: 5,
         user_id: 5,
         username: "John",
-        role:"Photographer",
+        role: "Photographer",
+        date:"15/05/2023",
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
         total_comments:10,
+        created_at:"15/05/06",
         locked_user_id:null
       },
       {
         id: 6,
         user_id: 6,
         username: "John",
-        role:"Photographer",
+        role: "Photographer",
+        date:"15/05/2023",
         shift_start: "10:30",
         shift_end: "18:15",
         request: "je voudrais commencer plus tot",
         total_comments:10,
+        created_at:"15/05/06",
         locked_user_id:null
       },
     ])
@@ -97,61 +109,74 @@ console.log("home");
         {
           id: 1,
           username: "John",
-          role:"Duty",
+          role: "Duty",
+          date:"10/02/2023",
           shift_start: "10:30",
           shift_end: "18:15",
           request: "je voudrais commencer plus tot",
           total_comments:10,
+          created_at:"15/05/06",
           locked_user_id:2
         },
         {
           id: 2,
           username: "John",
-          role:"Photographer",
+          role: "Photographer",
+          date:"10/02/2023",
           shift_start: "10:30",
           shift_end: "18:15",
           request: "je voudrais commencer plus tot",
           total_comments:10,
+          created_at:"15/05/06",
           locked_user_id:null
         },
         {
           id: 3,
           username: "John",
-          role:"Photographer",
+          role: "Photographer",
+          date:"10/02/2023",
           shift_start: "10:30",
           shift_end: "18:15",
           request: "je voudrais commencer plus tot",
           total_comments:10,
+          created_at:"15/05/06",
           locked_user_id:1
         },
         {
           id: 4,
           username: "John",
           role:"Photographer",
+          date:"10/02/2023",
           shift_start: "10:30",
           shift_end: "18:15",
           request: "je voudrais commencer plus tot",
           total_comments:10,
-          locked_user_id:null
+          created_at:"15/05/06",
+          locked_user_id: null,
+          created_at:"15/05/06"
         },
         {
           id: 5,
           username: "John",
           role:"Photographer",
+          date:"10/02/2023",
           shift_start: "10:30",
           shift_end: "18:15",
           request: "je voudrais commencer plus tot",
           total_comments:10,
+          created_at:"15/05/06",
           locked_user_id:null
         },
         {
           id:6,
           username: "John",
           role:"Photographer",
+          date:"10/02/2023",
           shift_start: "10:30",
           shift_end: "18:15",
           request: "je voudrais commencer plus tot",
           total_comments:10,
+          created_at:"15/05/06",
           locked_user_id:null
         },
       ])
@@ -169,7 +194,6 @@ console.log("home");
       />
 
       <RequestsContainer
-        
         showCommentsTarget={showCommentsTarget}
         requests={requests}
         setShowCommentsTarget={setShowCommentsTarget}

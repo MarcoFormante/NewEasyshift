@@ -48,7 +48,7 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
     <div  className='container__flex--center--column'>
     <div className={`request-card ${isLocked === true ? "request-card__locked" : ""}`} style={showComments ? {margin:0,} : {}}>
         <UserInfo username={request.username + `${request.user_id === userInfo.userID ? " (toi)" : ""}`} role={request.role} />
-        <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} request={request.request} />
+        <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} date={request.date} request={request.request} />
         <CommentInput userInfo={userInfo} requestID={parseInt(request.id)} handleAddComment={(value)=>handleAddComment(value)} />
         <CommentsIcon showComments={showComments} request={request} setShowCommentsTarget={ (value)=>setShowCommentsTarget(value)} totalComments={parseInt(request.total_comments) + addCommentNum} requestID={parseInt(request.id)} />
       </div>

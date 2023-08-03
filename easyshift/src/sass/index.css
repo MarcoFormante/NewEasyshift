@@ -214,6 +214,21 @@ components
   align-items: flex-start;
   gap: 1px;
 }
+.request-card__shift-request__container--row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0px;
+  width: 100%;
+}
+.request-card__shift-request__container--column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1px;
+}
 .request-card__shift-request__title {
   color: #bfbfbf;
 }
@@ -247,11 +262,14 @@ components
 .request-card__comments__container {
   display: flex;
   flex-direction: row;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
   gap: 0;
   position: relative;
   top: -6px;
+}
+.request-card__comments__container .created_at {
+  font-size: 13px;
 }
 .request-card__comments__icon {
   width: 29px;

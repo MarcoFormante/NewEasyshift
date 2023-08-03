@@ -4,7 +4,7 @@ import LoadingSection from '../Loading/LoadingSection'
 
 
 const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
-  
+  console.log(showCommentsTarget);
   return (
     <div>
       <div className={`requests__container  ${showCommentsTarget ? "requests__container__showComments" : ""}`}>
