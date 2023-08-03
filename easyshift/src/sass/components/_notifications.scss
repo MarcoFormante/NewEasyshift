@@ -1,6 +1,7 @@
 .sidebar__title{
     @include flex_center(row);
     margin-top: 10px;
+    font-size:map-get($font_size, "medium" );
 }
 
 .notifications{
