@@ -1,7 +1,30 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux'
+import {setUser} from '../../../Redux/userSlice'
 
-const Form = ({ handleSubmit, username, password, setUsername, setPassword }) => {
+const Form = ({ username, password, setUsername, setPassword }) => {
+  const dispatch = useDispatch()
+  const [loginisValid, setLoginIsValid] = useState(null)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log("s");
+    console.log(loginisValid);
+    dispatch(setUser({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))
+    sessionStorage.setItem("userInfo", JSON.stringify({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))
+    sessionStorage.setItem("token", "sadkjh")
+    setLoginIsValid(sessionStorage.getItem("token"))
+  }
+ 
+
+  useEffect(() => {
+    if (loginisValid) {
+      window.location.pathname = "/home"
+    } else {
+      console.log("not valid");
+    }
+  },[loginisValid])
   
   return (
     <div className='container__flex--center--column gap-20'>
@@ -25,8 +48,3 @@ const Form = ({ handleSubmit, username, password, setUsername, setPassword }) =>
 
 export default Form
 
-
-// userId: 1,
-// username: "name Test",
-// role: "Photographer",
-// requests : 4

@@ -11,7 +11,7 @@ const Home = () => {
   const [showCommentsTarget,setShowCommentsTarget] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value || JSON.parse(sessionStorage.getItem("userInfo")))
   
-
+console.log("home");
   
   useEffect(() => {
     setRequests([
