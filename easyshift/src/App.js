@@ -14,7 +14,7 @@ function App() {
           <Route exact path={'/'} element={<Login/>} />
           <Route path={'/newAccount'} element={<NewAccount />} />
          
-        <Route element={<ProtectedRoute auth={true} redirectPath={"/"} />}>
+        <Route element={<ProtectedRoute auth={sessionStorage.getItem("token")} redirectPath={"/"} />}>
             <Route path={'/home'} element={<Home/>} />
             <Route path={'/newRequest'} element={<NewRequest />} />
             <Route path={'/myRequests'} element={<MyRequests />} />

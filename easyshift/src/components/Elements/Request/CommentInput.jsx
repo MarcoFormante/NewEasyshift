@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-const CommentInput = ({ requestID, handleAddComment, addNewComment }) => {
+const CommentInput = ({ userInfo,requestID, handleAddComment, addNewComment }) => {
   const [comment, setComment] = useState("")
   
   
   const handleSendComment = () => {
     if (comment) {
       handleAddComment({
-        user_id: 1,
+        user_id: userInfo.userID,
         request_id: requestID,
         comment:comment
       })

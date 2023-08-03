@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Title from '../../Layout/Title/Title'
-import LoadingSection from '../../Elements/Loading/LoadingSection'
-import Request from '../../Elements/Request/Request'
 import RequestsContainer from '../../Elements/Request/RequestsContainer'
 
 const MyRequests = () => {
@@ -14,6 +12,7 @@ const MyRequests = () => {
     setRequests([
       {
         id: 1,
+        user_id:1,
         username: "John",
         role:"Duty",
         shift_start: "10:30",

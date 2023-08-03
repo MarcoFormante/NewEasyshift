@@ -14,7 +14,6 @@ return  auth
         <main>
             <Outlet />
         </main>
-        
     </>
    
     :

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Request from '../../Elements/Request/Request'
 import Title from '../../Layout/Title/Title'
-import LoadingSection from '../../Elements/Loading/LoadingSection'
 import RequestsContainer from '../../Elements/Request/RequestsContainer'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 
 
 const Home = () => {
@@ -10,12 +9,15 @@ const Home = () => {
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [totalRequests, setTotalRequests] = useState(0)
   const [showCommentsTarget,setShowCommentsTarget] = useState(null)
- 
+  const userInfo = useSelector((state) => state.userInfo.value || JSON.parse(sessionStorage.getItem("userInfo")))
+  
+
   
   useEffect(() => {
     setRequests([
       {
         id: 1,
+        user_id: 1,
         username: "John",
         role:"Duty",
         shift_start: "10:30",
@@ -26,6 +28,7 @@ const Home = () => {
       },
       {
         id: 2,
+        user_id: 2,
         username: "John",
         role:"Photographer",
         shift_start: "10:30",
@@ -36,6 +39,7 @@ const Home = () => {
       },
       {
         id: 3,
+        user_id: 3,
         username: "John",
         role:"Photographer",
         shift_start: "10:30",
@@ -46,6 +50,7 @@ const Home = () => {
       },
       {
         id: 4,
+        user_id: 4,
         username: "John",
         role:"Photographer",
         shift_start: "10:30",
@@ -56,6 +61,7 @@ const Home = () => {
       },
       {
         id: 5,
+        user_id: 5,
         username: "John",
         role:"Photographer",
         shift_start: "10:30",
@@ -65,7 +71,8 @@ const Home = () => {
         locked_user_id:null
       },
       {
-        id:6,
+        id: 6,
+        user_id: 6,
         username: "John",
         role:"Photographer",
         shift_start: "10:30",
@@ -162,6 +169,7 @@ const Home = () => {
       />
 
       <RequestsContainer
+        
         showCommentsTarget={showCommentsTarget}
         requests={requests}
         setShowCommentsTarget={setShowCommentsTarget}
