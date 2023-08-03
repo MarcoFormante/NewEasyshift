@@ -13,6 +13,7 @@
         width: 100vw;
         @include flex_center(row);
         flex-wrap: wrap;
+        padding: 5px 0 40px 0;
     }
 }
 

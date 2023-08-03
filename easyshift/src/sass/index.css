@@ -143,6 +143,7 @@ components
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  padding: 5px 0 40px 0;
 }
 
 .request-card {
