@@ -19,12 +19,16 @@ function App() {
         <Routes>
         <Route exact path={'/'} element={<Login />} />
         <Route path={'/newAccount'} element={<NewAccount />} />
-        
+        <Route path={'/*'} element={"Not Found"} />
           <Route element={<ProtectedRoute auth={sessionStorage.getItem("token")} redirectPath={"/"}/>}>
             <Route path={'/home'} element={<Home/>} />
             <Route path={'/newRequest'} element={<NewRequest />} />
             <Route path={'/myRequests'} element={<MyRequests />} />
-            <Route path={'/viewRequest/:id'} element={<ViewRequest/>}/>
+            <Route path={'/viewRequest/:id'} element={<ViewRequest />} />
+            <Route path={'/contact'} element={"contact"} />
+            <Route path={'/deleteAccount'} element={"delete"} />
+            <Route path={'/modifyAccount'} element={"modify"} />
+            <Route path={'/*'} element={"Not Found"} />
           </Route>
         </Routes>
     </div>
