@@ -1,7 +1,12 @@
 <?php 
-require_once 'DBConnection.php';
 
-Class User{
+namespace App\Models\UserModel;
+use App\Models\DBConnection\DBConnection;
+use PDO;
+use Exception;
+
+Class UserModel
+{
     use DBConnection;
 
     //Crete New Account
@@ -22,6 +27,11 @@ Class User{
         }else{
             throw new Exception("Error: Database Connection Problem");
         }
+    }
+
+//Login
+    public function login(string $username , string $password):void{
+
     }
   
 }

@@ -1,6 +1,11 @@
 <?php 
+namespace App\Models\DBConnection;
+use PDO;
+use PDOException;
+use Exception;
 
-Trait DBConnection{
+
+trait DBConnection{
     private PDO $pdo;
 
     public function __construct(){

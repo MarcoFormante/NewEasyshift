@@ -1,8 +1,9 @@
 <?php 
-require_once 'DBConnection.php';
+namespace App\Models\RequestModel;
+use App\Models\DBConnection\DBConnection;
+use PDO;
 
-
-Class Request{
+Class RequestModel{
 use DBConnection;
 
     public function getAllRequests(int $limit){
