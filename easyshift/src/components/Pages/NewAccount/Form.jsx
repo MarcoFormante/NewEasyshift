@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const Form = ({ handleSubmit, username, password, setUsername, setPassword }) => {
+const Form = ({ handleSubmit, username, password, setUsername, setPassword ,setRole}) => {
   
   return (
     <div className='container__flex--center--column gap-20'>
@@ -12,14 +12,14 @@ const Form = ({ handleSubmit, username, password, setUsername, setPassword }) =>
             </div>
             <div className='row'>
                <label htmlFor="password">Password <span className='required'>*</span> </label>
-               <input type="text" id='password' value={password} maxLength={60} onChange={(e)=> setPassword(e.target.value)} />
+               <input type="password" id='password' value={password} maxLength={60} onChange={(e)=> setPassword(e.target.value)} />
             </div>
             <div className='row'>
               <label htmlFor="role">Role <span className='required'>*</span> </label>
-              <select name="role" id="role">
+              <select name="role" id="role" onChange={(e)=>setRole(e.target.value)}>
                   <option value=""></option>
-                  <option value="Photographer">Photographer</option>
-                  <option value="Duty">Duty</option>
+                  <option value="0" >Photographer</option>
+                  <option value="1">Duty</option>
               </select>
             </div>
             <input className='cta-btn' type="submit" value="REGISTER" />

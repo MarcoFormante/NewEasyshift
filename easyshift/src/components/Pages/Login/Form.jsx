@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
-import {setUser} from '../../../Redux/userSlice'
+import { setUser } from '../../../Redux/userSlice'
+import axios from '../../../AxiosApi/axios'
 
-const Form = ({ username, password, setUsername, setPassword }) => {
+const     Form = () => {
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
   const dispatch = useDispatch()
   const [loginisValid, setLoginIsValid] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("s");
-    console.log(loginisValid);
-    dispatch(setUser({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))
-    sessionStorage.setItem("userInfo", JSON.stringify({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))
-    sessionStorage.setItem("token", "sadkjh")
-    setLoginIsValid(sessionStorage.getItem("token"))
+    if (username && password) {
+      // const formData = new FormData()
+      // formData.append("username", username)
+      // formData.append("password",password)
+      // axios.post(`${process.env.REACT_APP_API_URL}controllers/requestController.php`, formData)
+      // .then(response => console.log(response.data))
+    }
+
+    // dispatch(setUser({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))
+    // sessionStorage.setItem("userInfo", JSON.stringify({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))
+    // sessionStorage.setItem("token", "sadkjh")
+    // setLoginIsValid(sessionStorage.getItem("token"))
   }
  
 
