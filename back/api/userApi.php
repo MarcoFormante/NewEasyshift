@@ -1,6 +1,6 @@
 <?php 
 header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Headers:*');
+header('Access-Control-Allow-Headers:Content-Type');
 header('Access-Control-Allow-Methods: GET, POST');
 
 require_once '../controllers/UserController.php';
@@ -11,8 +11,8 @@ if (isset($_POST['action'])) {
     $action = $_POST['action'];
 
     switch ($action) {
+        
         //create Account
-
         case 'createAccount':
                 $username = $_POST['username'];
                 $password = $_POST['password'];
@@ -30,7 +30,6 @@ if (isset($_POST['action'])) {
         break;
 
             //Login
-
             case 'login':
                     $username = $_POST['username'];
                     $password = $_POST['password'];

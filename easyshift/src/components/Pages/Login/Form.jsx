@@ -4,7 +4,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { setUser } from '../../../Redux/userSlice'
 import axios from '../../../AxiosApi/axios'
 
-const     Form = () => {
+const Form = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
@@ -22,13 +22,17 @@ const     Form = () => {
           "Content-Type":"x-www-form-encoded"
         }
       })
-      .then(response => console.log(response.data))
+        .then(response => {
+        if (response.data.status === 1) {
+          const user = { ...response.data.user };
+          dispatch(setUser({ userID: user.id, username: user.username, role: user.role_id }))
+          sessionStorage.setItem("userInfo", JSON.stringify({ userID: user.id, username: user.username, role: user.role_id }))
+          sessionStorage.setItem("token", response.data.token)
+          setLoginIsValid(sessionStorage.getItem("token"))
+        }
+      })
     }
-
-    // dispatch(setUser({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))
-    // sessionStorage.setItem("userInfo", JSON.stringify({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))
-    // sessionStorage.setItem("token", "sadkjh")
-    // setLoginIsValid(sessionStorage.getItem("token"))
+    
   }
  
 
