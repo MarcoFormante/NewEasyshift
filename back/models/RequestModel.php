@@ -13,7 +13,6 @@ use DBConnection;
             RIGHT JOIN users 
             ON users.id = requests.user_id 
             LIMIT :limit,10" ; 
-
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":limit",$limit,PDO::PARAM_INT);
             
