@@ -5,13 +5,17 @@ use App\Models\DBConnection\DBConnection;
 use PDO;
 use Exception;
 
+namespace App\Models\UserModel;
+require_once 'DBConnection.php';
+use App\Models\DBConnection\DBConnection;
+use PDO;
+use Exception;
 Class UserModel
 {
     use DBConnection;
 
     //Crete New Account
     public function createAccount(string $username , string $password, int $role) :void {
-
         if ($this->pdo) {
             $hashedPassword = password_hash($password,PASSWORD_BCRYPT);
             $query = "INSERT INTO users(username,password,role_id) VALUES(:username,:hashedPassword,:role)";

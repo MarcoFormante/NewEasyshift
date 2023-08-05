@@ -1,5 +1,6 @@
 <?php 
 namespace App\Models\RequestModel;
+require_once 'DBConnection.php';
 use App\Models\DBConnection\DBConnection;
 use PDO;
 
