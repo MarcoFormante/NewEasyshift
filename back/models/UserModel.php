@@ -1,9 +1,5 @@
 <?php 
 
-namespace App\Models\UserModel;
-use App\Models\DBConnection\DBConnection;
-use PDO;
-use Exception;
 
 namespace App\Models\UserModel;
 require_once 'DBConnection.php';
@@ -33,11 +29,34 @@ Class UserModel
         }
     }
 
-//Login
+    //Login
     public function login(string $username , string $password):void{
+        if ($this->pdo) {
+            $query = "SELECT * from users WHERE username = :username";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":username",$username,PDO::PARAM_STR);
+            if ($stmt->execute()) {
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($stmt->rowCount() > 0) {
+                    $userPassword = $user->password;
+                    if (password_verify($password,$userPassword)) {
+                        if ($user->is_validate === 1) {
+                           echo json_encode(["status"=>1,"user"=> $user]);
+                        }
+                    }else{
+                        throw new Exception("Error: Username or Password isn't valid");
+                    }
+                }else{
+                    throw new Exception("Error: Username or Password isn't valid");
+                }
+            }else{
+                throw new Exception("Error: Unable to log in , try again");
+            }
+        }else{
+            throw new Exception("Error: Unable to log in, Connection problem");
+        }
 
     }
   
 }
 
-// $username,$hashedPassword,$role

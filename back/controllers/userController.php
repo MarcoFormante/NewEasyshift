@@ -13,6 +13,7 @@ class UserController{
     }
 
     public function login(string $username,string $password){
-
+        $UserModel = new UserModel();
+        $UserModel->login($username,$password);
     }
 }

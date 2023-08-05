@@ -14,29 +14,33 @@ if (isset($_POST['action'])) {
         //create Account
 
         case 'createAccount':
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $role = $_POST['role'];
-            $UserController = new UserController();
-            try {
-                $UserController->createAccount($username,$password,$role);
-            } catch (Exception $e) {
-                if (preg_match("/Duplicate entry '$username'/",$e->getMessage())) {
-                    echo json_encode(["status"=> 0 ,"message" => "Error: This name has already been taken"]);
-                }else{
-                    echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]);
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $role = $_POST['role'];
+                $UserController = new UserController();
+                try {
+                    $UserController->createAccount($username,$password,$role);
+                } catch (Exception $e) {
+                    if (preg_match("/Duplicate entry '$username'/",$e->getMessage())) {
+                        echo json_encode(["status"=> 0 ,"message" => "Error: This name has already been taken"]);
+                    }else{
+                        echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]);
+                    }
                 }
-            }
-            break;
+        break;
 
             //Login
 
             case 'login':
-                $username = $_POST['username'];
-                $password = $_POST['password'];
-                $UserController = new UserController();
-                $UserController->login($username,$password);
-                break;
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+                    $UserController = new UserController();
+                    try {
+                        $UserController->login($username,$password);
+                    } catch (Exception $e) {
+                        echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
+                    }
+            break;
         
         default:
             echo json_encode(["status"=> 0 ,"message" => "Error: The Action is Required"]);
@@ -44,15 +48,3 @@ if (isset($_POST['action'])) {
     }
 }
 
- if (isset($_POST["createAccount"]) && isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["role"])) {
-    
-   
-   
-    
-   
- }
-
- 
- if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password'])) {
-    
- }
