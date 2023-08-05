@@ -13,11 +13,16 @@ const     Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (username && password) {
-      // const formData = new FormData()
-      // formData.append("username", username)
-      // formData.append("password",password)
-      // axios.post(`${process.env.REACT_APP_API_URL}controllers/requestController.php`, formData)
-      // .then(response => console.log(response.data))
+      const formData = new FormData()
+      formData.append("username", username)
+      formData.append("password", password)
+      formData.append("action", "login");
+      axios.post(`${process.env.REACT_APP_API_URL}userApi.php`, formData, {
+        headers: {
+          "Content-Type":"x-www-form-encoded"
+        }
+      })
+      .then(response => console.log(response.data))
     }
 
     // dispatch(setUser({ userID: 1, username: "name test", role: "Photographer", requests: 5 }))

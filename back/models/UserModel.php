@@ -6,6 +6,8 @@ require_once 'DBConnection.php';
 use App\Models\DBConnection\DBConnection;
 use PDO;
 use Exception;
+use stdClass;
+
 Class UserModel
 {
     use DBConnection;
@@ -32,16 +34,28 @@ Class UserModel
     //Login
     public function login(string $username , string $password):void{
         if ($this->pdo) {
+            $validateAccountCode = 0;
             $query = "SELECT * from users WHERE username = :username";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":username",$username,PDO::PARAM_STR);
             if ($stmt->execute()) {
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 if ($stmt->rowCount() > 0) {
-                    $userPassword = $user->password;
+                    $userPassword = $user['password'];
                     if (password_verify($password,$userPassword)) {
-                        if ($user->is_validate === 1) {
-                           echo json_encode(["status"=>1,"user"=> $user]);
+                        if ($user["is_validate"] === $validateAccountCode) {
+                            $userInfo = [
+                                "id"=>$user['id'],
+                                "username"=>$user['username'],
+                                "role_id"=> $user['role_id'],
+                                "is_validate" => $user['is_validate']
+                            ];
+                            require_once '../helpers/JWT/Jwt.php';
+                            $token = JWTEncode($userInfo);
+                        echo json_encode(["status"=>1,"user"=> $userInfo,"token"=> $token]);
+                         
+                        }else{
+                            throw new Exception("Error: Your account has not been validated yet");
                         }
                     }else{
                         throw new Exception("Error: Username or Password isn't valid");
@@ -55,8 +69,6 @@ Class UserModel
         }else{
             throw new Exception("Error: Unable to log in, Connection problem");
         }
-
     }
-  
 }
 

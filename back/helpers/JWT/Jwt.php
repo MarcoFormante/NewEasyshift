@@ -1,14 +1,11 @@
 <?php 
+require_once '../vendor/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-function JWTEncode(string $username,int $role):string{
+function JWTEncode(array $userInfo):string{
     $key = getenv("JWTKEY");
-    $payload = [
-        "username" => $username,
-        "role" => $role,
-        "code" => "easyshift2023" 
-    ];
+    $payload = $userInfo;
 
     $encodedJWT = JWT::encode($payload,$key,'HS256');
 
