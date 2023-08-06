@@ -4,6 +4,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { setUser } from '../../../Redux/userSlice'
 import axios from '../../../AxiosApi/axios'
 
+
 const Form = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -19,7 +20,7 @@ const Form = () => {
       formData.append("action", "login");
       axios.post(`${process.env.REACT_APP_API_URL}userApi.php`, formData, {
         headers: {
-          "Content-Type":"x-www-form-encoded"
+          "Content-Type": "x-www-form-urlencoded",
         }
       })
         .then(response => {

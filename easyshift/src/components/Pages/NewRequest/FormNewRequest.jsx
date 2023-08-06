@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Title from '../../Layout/Title/Title'
+import axios from '../../../AxiosApi/axios'
 
 const FormNewRequest = () => {
     const [date, setDate] = useState("")
@@ -9,6 +9,11 @@ const FormNewRequest = () => {
     
     const onSubmit = (e) => {
         e.preventDefault()
+        // const formData = new FormData()
+        // formData.append("action", "createRequest")
+        // formData.append("user_id")
+        // axios.post()
+        
     }
 
 

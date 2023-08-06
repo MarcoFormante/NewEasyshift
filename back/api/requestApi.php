@@ -1,13 +1,16 @@
 <?php
 header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Headers:"Content-Type"');
+header('Access-Control-Allow-Headers:Content-Type,Authorization');
 
 use App\Models\RequestController\RequestController;
+require_once '../controllers/requestController.php';
+
+
 
 if (isset($_POST['action'])) {
    $action =  $_POST['action'];
    switch ($action) {
-    
+
     //Get All Requests (All Requests or User Requests)
     case "getAllRequests":
             $limit = $_POST['limit'];

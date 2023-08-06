@@ -12,7 +12,7 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
-  
+  console.log(request);
   useEffect(() => {
     setLockUserComment(parseInt(request?.locked_user_id))
   }, [])
@@ -47,18 +47,18 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
   return (
     <div  className='container__flex--center--column'>
     <div className={`request-card ${isLocked === true ? "request-card__locked" : ""}`} style={showComments ? {margin:0,} : {}}>
-        <UserInfo username={request.username + `${request.user_id === userInfo.userID ? " (toi)" : ""}`} role={request.role} />
-        <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} date={request.date} request={request.request} />
-        <CommentInput userInfo={userInfo} requestID={parseInt(request.id)} handleAddComment={(value)=>handleAddComment(value)} />
-        <CommentsIcon showComments={showComments} request={request} setShowCommentsTarget={ (value)=>setShowCommentsTarget(value)} totalComments={parseInt(request.total_comments) + addCommentNum} requestID={parseInt(request.id)} />
+        <UserInfo username={request?.username + `${request?.user_id === userInfo?.userID ? " (toi)" : ""}`} role={request?.role_id} />
+        <ShiftRequest shiftStart={request?.shift_start} shiftEnd={request?.shift_end} date={request?.date} request={request?.request} />
+        <CommentInput userInfo={userInfo} requestID={parseInt(request?.id)} handleAddComment={(value)=>handleAddComment(value)} />
+        <CommentsIcon showComments={showComments} request={request} setShowCommentsTarget={ (value)=>setShowCommentsTarget(value)} totalComments={parseInt(request?.total_comments) + addCommentNum} requestID={parseInt(request?.id)} />
       </div>
 
       {showComments &&
         <Comments
           handleLockedRequest={handleLockedRequest}
           newComment={newComment}
-          requestID={request.id}
-          totalComments={parseInt(request.total_comments) + addCommentNum}
+          requestID={request?.id}
+          totalComments={parseInt(request?.total_comments) + addCommentNum}
           handleSubtractComment={handleSubtractComment}
           lockedUserComment={lockedUserComment}
           setLockUserComment={setLockUserComment}

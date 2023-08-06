@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Request from './Request'
 import LoadingSection from '../Loading/LoadingSection'
+import axios from '../../../AxiosApi/axios'
 
 
 const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
+ console.log(requests.length);
+  useEffect(() => {
+    if (showCommentsTarget) {
+      //handle comments
+    }
+  },[showCommentsTarget])
 
   return (
     <div>
-      <div className={`requests__container  ${showCommentsTarget ? "requests__container__showComments" : ""}`}>
+      <div className={`requests__container  ${showCommentsTarget || requests.length < 7 ? "requests__container__showComments" : ""}`}>
         {showCommentsTarget &&
           <>
           <div className='back-btn btn' onClick={()=>setShowCommentsTarget(null)}></div>
@@ -15,10 +22,11 @@ const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadin
           </>
         }
 
-        {requests.map(request =>
-          <div key={request.id}>
-            {!showCommentsTarget &&
-              <Request  request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
+        {requests.map((request,index) =>
+          
+          <div >
+            {(!showCommentsTarget && request[index]?.username) &&
+              <Request request={request[index]} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
             }
           </div>
         )}
