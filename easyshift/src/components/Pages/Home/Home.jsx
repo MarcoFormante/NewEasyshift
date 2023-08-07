@@ -4,6 +4,7 @@ import RequestsContainer from '../../Elements/Request/RequestsContainer'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
+import { useNavigate } from 'react-router-dom'
 
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
   const [totalRequests, setTotalRequests] = useState(0)
   const [showCommentsTarget, setShowCommentsTarget] = useState(null)
   const [canShowMore, setCanShowMore] = useState(true);
+  const navigate = useNavigate()
   const userInfo = useSelector((state) => state.userInfo.value || JSON.parse(sessionStorage.getItem("userInfo")))
   
   
@@ -31,7 +33,7 @@ const Home = () => {
       }
     })
       .then(response => {
-        console.log(response.data);
+        
         if (response.data.status === 1 ) {
           const requests = { ...response.data.request }
             setRequests(prev => [...prev, { ...requests }])
@@ -40,9 +42,11 @@ const Home = () => {
           setCanShowMore(false)
           //handle can not show More requests with alert
         }
-    })
-      }
-    })
+      })
+      } else {
+        navigate("/")
+    }
+  })
    
    
   }, [pageLimit])

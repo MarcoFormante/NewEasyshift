@@ -5,10 +5,10 @@ import axios from '../../../AxiosApi/axios'
 
 
 const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
- console.log(requests.length);
+
   useEffect(() => {
     if (showCommentsTarget) {
-      //handle comments
+      //handle comments with axios
     }
   },[showCommentsTarget])
 
@@ -24,7 +24,7 @@ const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadin
 
         {requests.map((request,index) =>
           
-          <div >
+          <div key={request[index].id}>
             {(!showCommentsTarget && request[index]?.username) &&
               <Request request={request[index]} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
             }

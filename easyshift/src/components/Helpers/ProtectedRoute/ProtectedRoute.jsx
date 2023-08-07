@@ -8,10 +8,7 @@ const ProtectedRoute = ({ auth, redirectPath }) => {
     const location = useLocation()
     const navigate = useNavigate()
 
-
-    useEffect(() => {
-       console.log("aaaaaa"); 
-    }, [auth])
+  
     
     useEffect(() => {
         if (auth) {

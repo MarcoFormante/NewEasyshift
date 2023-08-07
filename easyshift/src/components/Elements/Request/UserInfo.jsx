@@ -3,7 +3,7 @@ import ph_duty from '../../../icons/PH_Duty.svg'
 import ph_simple from '../../../icons/PH_simple.svg'
 
 const UserInfo = ({ username, role }) => {
-  console.log(role);
+  
     
   return (
       <div className='request-card__user-info'>

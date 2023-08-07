@@ -12,7 +12,7 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
-  console.log(request);
+ 
   useEffect(() => {
     setLockUserComment(parseInt(request?.locked_user_id))
   }, [])
