@@ -148,8 +148,8 @@ components
 
 .request-card {
   margin: 20px;
-  min-width: 280px;
-  height: 340px;
+  width: 280px;
+  height: 360px;
   border: 1px solid white;
   position: relative;
   border-radius: 4px;
@@ -260,6 +260,11 @@ components
 }
 .request-card__inpt-comment button:not(:active) {
   background-color: rgb(240, 7, 135);
+}
+.request-card__comments {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
 }
 .request-card__comments__container {
   display: flex;

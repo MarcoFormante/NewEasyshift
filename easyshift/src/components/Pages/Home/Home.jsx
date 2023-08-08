@@ -33,15 +33,12 @@ const Home = () => {
       }
     })
       .then(response => {
-        
         if (response.data.status === 1 ) {
-        
-        console.log(response.data.request);
-           
-          setRequests([...response?.data?.request])
-        
+          console.log(response.data.request);   
          
-            setCanShowMore(true)
+          setRequests([...requests,...response?.data?.request])
+      
+          setCanShowMore(true)
         } else {
           setCanShowMore(false)
           //handle can not show More requests with alert

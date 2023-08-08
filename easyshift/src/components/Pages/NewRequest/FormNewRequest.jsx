@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from '../../../AxiosApi/axios'
 import {useSelector} from 'react-redux'
+import CheckUser from '../../Helpers/CheckUser/CheckUser'
 
 const FormNewRequest = () => {
     const [date, setDate] = useState("")
@@ -8,27 +9,70 @@ const FormNewRequest = () => {
     const [shiftEnd, setShiftEnd] = useState("")
     const [requestMessage, setRequestMessage] = useState("")
     const userInfo = useSelector((state) => state.userInfo.value)
+    
+
+    function errorsHandler(errorsArray,inputsArray, type) {
+        inputsArray.forEach((inpt, index) => {
+            if (!inpt) {
+                errorsArray.push(type[index])
+            } else {
+                if (errorsArray.length > 0 && errorsArray.indexOf(type[index])) {
+                    errorsArray.filter(err => err !== type[index])
+                }
+            }
+           
+        })
+        return errorsArray.length > 0 ? false : true
+    }
    
+    const checkFormData = () => {
+        let errorsArray = []
+        const dateRegex = new RegExp(/\d{2,4}\-\d{1,2}\-\d{1,2}/)
+        const dateIsValid = date.match(dateRegex)
+        const shiftRegex = new RegExp(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
+        const shiftStartIsValid = shiftStart.match(shiftRegex) 
+        const shiftEndIsValid = shiftEnd.match(shiftRegex)
+        const requestMessageIsValid = requestMessage.length > 3 && requestMessage.length < 50;
+        const userIdIsValid = userInfo.userID
+        let formIsValid =
+            errorsHandler(
+                errorsArray,
+                [dateIsValid, shiftStartIsValid, shiftEndIsValid,requestMessageIsValid,userIdIsValid],
+                ["Date", "Shift-start","Shift-end","Request","userId"]
+            )
+        console.log(formIsValid);
+        return formIsValid
+    }
     
     const onSubmit = (e) => {
         e.preventDefault()
-        const formData = new FormData()
-        formData.append("action", "newRequest")
-        formData.append("userId", userInfo.userID)
-        formData.append("date", date)
-        formData.append("shiftStart", shiftStart)
-        formData.append("shiftEnd", shiftEnd)
-        formData.append("request",requestMessage)
-        axios.post(process.env.REACT_APP_API_URL + "/requestApi.php", formData, {
-            headers: {
-                "Content-Type": "x-www-form-urlencoded"
-            }
-        })
-            .then(response => {
-            console.log(response.data);
-            }).catch(e => {
-            console.log(e);
-        })
+       
+       if (checkFormData()) {
+           CheckUser(userInfo)
+               .then(response => {
+               if (response.data.status === 1) {
+                const formData = new FormData()
+                formData.append("action", "newRequest")
+                formData.append("userId", userInfo.userID)
+                formData.append("date", date)
+                formData.append("shiftStart", shiftStart)
+                formData.append("shiftEnd", shiftEnd)
+                formData.append("request", requestMessage)
+                axios.post(process.env.REACT_APP_API_URL + "/requestApi.php", formData, {
+                    headers: {
+                        "Content-Type": "x-www-form-urlencoded"
+                    }
+                })
+                    .then(response => {
+                    console.log(response.data);
+                    }).catch(e => {
+                    console.log(e);
+                })
+               }
+           })
+       }
+       
+      
         
     }
 

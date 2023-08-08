@@ -19,8 +19,8 @@
 
 .request-card{
     margin: 20px;
-    min-width: 280px;
-    height: 340px;
+    width: 280px;
+    height: 360px;
     border: 1px solid white;
     position: relative;
     border-radius: 4px;
@@ -118,7 +118,9 @@
 
 //Comments-section(icon & total) Container
     &__comments{
-
+        position: absolute;
+        bottom: 0;
+        width: 90%;
         &__container{
             @include flex(row,space-between,center,0);
             position: relative;
