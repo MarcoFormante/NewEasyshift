@@ -2,6 +2,7 @@
 namespace App\Models\RequestModel;
 require_once 'DBConnection.php';
 use App\Models\DBConnection\DBConnection;
+use Exception;
 use PDO;
 
 Class RequestModel{
@@ -33,6 +34,27 @@ use DBConnection;
             }
         }else{
             //Handle Error PDO
+        }
+    }
+
+    public function createRequest(int $userId, string $date,string $shiftStart,string $shiftEnd,string $request){
+        if ($this->pdo) {
+            $query = "INSERT INTO requests(user_id,shift_start,shift_end,request,date)
+            VALUES(:userId,:shiftStart,:shiftEnd,:request,:date)";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":shiftStart",$shiftStart,PDO::PARAM_STR);
+            $stmt->bindValue(":shiftEnd",$shiftEnd,PDO::PARAM_STR);
+            $stmt->bindValue(":request",$request,PDO::PARAM_STR);
+            $stmt->bindValue(":date",$date,PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
+                echo json_encode(["status"=>1 ,"message"=>"New Request created!"]);
+            }else{
+                throw new Exception("Error: New Request can't create ,try again (statement execute error)");
+            }
+        }else{
+            throw new Exception("Error: New Request can't create ,try again");
         }
     }
 }

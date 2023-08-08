@@ -26,9 +26,19 @@ if (isset($_POST['action'])) {
                 echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]);
             }
     break;
-    
+
+    case "newRequest" :
+       $RequestController =  $RequestController = new RequestController();
+       try {
+        $RequestController->createRequest();
+       } catch (Exception $e) {
+        echo json_encode(["status"=>0,"message"=>$e->getMessage()]);
+       }
+      
+    break;
+
     default:
-            echo json_encode(["status"=> 0 ,"message" => "Error: The Action is Required"]);
+            echo json_encode(["status"=> 0 ,"message" => "Error: Action is Required"]);
         break;
    }
 }
