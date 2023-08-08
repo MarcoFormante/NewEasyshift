@@ -14,7 +14,7 @@ const viewRequest = (id) => {
   return (
     <div className='request-card__comments'>
       <div className='request-card__comments__container'>
-        <span className='created_at'>created on { request?.created_on}</span>
+        <span className='created_at'>created on { new Date(request?.created_on).toLocaleDateString("fr")}</span>
         <span className='request-card__comments__icon btn' onClick={()=> (!showComments && totalComments > 0) && setShowCommentsTarget(request)}></span>
         <span className='request-card__comments__total'>{totalComments}</span>
     </div>

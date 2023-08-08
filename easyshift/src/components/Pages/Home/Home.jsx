@@ -35,8 +35,12 @@ const Home = () => {
       .then(response => {
         
         if (response.data.status === 1 ) {
-          const requests = { ...response.data.request }
-            setRequests(prev => [...prev, { ...requests }])
+        
+        console.log(response.data.request);
+           
+          setRequests([...response?.data?.request])
+        
+         
             setCanShowMore(true)
         } else {
           setCanShowMore(false)
@@ -47,7 +51,6 @@ const Home = () => {
         navigate("/")
     }
   })
-   
    
   }, [pageLimit])
 
