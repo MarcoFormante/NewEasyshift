@@ -11,6 +11,7 @@ Class RequestController{
     }
 
     public function createRequest(){
+       
         if(isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['shiftStart']) && isset($_POST['shiftEnd']) && isset($_POST['request']) ){
             $userId = $_POST['userId'];
             $date = $_POST['date'];

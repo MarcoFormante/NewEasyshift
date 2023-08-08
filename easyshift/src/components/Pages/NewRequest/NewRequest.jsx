@@ -3,7 +3,7 @@ import Title from '../../Layout/Title/Title'
 import FormNewRequest from './FormNewRequest'
 
 const NewRequest = () => {
-console.log("sd");
+
   return (
     <div>
       <Title classname={"page-title"}

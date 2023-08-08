@@ -28,6 +28,7 @@ if (isset($_POST['action'])) {
     break;
 
     case "newRequest" :
+       
        $RequestController =  $RequestController = new RequestController();
        try {
         $RequestController->createRequest();

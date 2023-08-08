@@ -1,18 +1,34 @@
 import React, { useState } from 'react'
 import axios from '../../../AxiosApi/axios'
+import {useSelector} from 'react-redux'
 
 const FormNewRequest = () => {
     const [date, setDate] = useState("")
     const [shiftStart, setShiftStart] = useState("")
     const [shiftEnd, setShiftEnd] = useState("")
     const [requestMessage, setRequestMessage] = useState("")
+    const userInfo = useSelector((state) => state.userInfo.value)
+   
     
     const onSubmit = (e) => {
         e.preventDefault()
-        // const formData = new FormData()
-        // formData.append("action", "createRequest")
-        // formData.append("user_id")
-        // axios.post()
+        const formData = new FormData()
+        formData.append("action", "newRequest")
+        formData.append("userId", userInfo.userID)
+        formData.append("date", date)
+        formData.append("shiftStart", shiftStart)
+        formData.append("shiftEnd", shiftEnd)
+        formData.append("request",requestMessage)
+        axios.post(process.env.REACT_APP_API_URL + "/requestApi.php", formData, {
+            headers: {
+                "Content-Type": "x-www-form-urlencoded"
+            }
+        })
+            .then(response => {
+            console.log(response.data);
+            }).catch(e => {
+            console.log(e);
+        })
         
     }
 
