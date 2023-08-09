@@ -64,7 +64,13 @@ const FormNewRequest = () => {
                     }
                 })
                     .then(response => {
-                    console.log(response.data);
+                        console.log(response.data);
+                        if (response.data.status === 1) {
+                            setDate("")
+                            setShiftStart("")
+                            setShiftEnd("")
+                            setRequestMessage("")
+                        }
                     }).catch(e => {
                     console.log(e);
                 })
