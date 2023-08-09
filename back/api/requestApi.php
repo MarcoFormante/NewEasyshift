@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Headers:Content-Type,Authorization');
+header('Access-Control-Allow-Headers:Content-Type');
 
 use App\Models\RequestController\RequestController;
 require_once '../controllers/requestController.php';
@@ -30,6 +30,8 @@ if (isset($_POST['action'])) {
        }
       
     break;
+
+    
 
     default:
             echo json_encode(["status"=> 0 ,"message" => "Error: Action is Required"]);
