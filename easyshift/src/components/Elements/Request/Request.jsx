@@ -20,6 +20,25 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
       setLockUserComment(parseInt(request?.locked_user_id))
     } 
   }, [])
+
+  useEffect(() => {
+    const formData = new FormData()
+    formData.append("action", "getLockedUserId")
+    formData.append("requestId",request.id)
+    if (showComments) {
+      axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+        headers: {
+          "Content-Type":"x-www-form-urlencoded"
+        }
+      }).then(response => {
+        console.log(response.data);
+        if (response.data.status === 1) {
+          setLockUserComment(parseInt(response.data.lockedUserId))
+        }
+      })
+    }
+   
+  },[showComments])
   
   const handleAddComment = (value) => {
     if (value.comment) {

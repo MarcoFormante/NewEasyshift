@@ -22,14 +22,23 @@ if (isset($_POST['action'])) {
 
 //Create new Request
     case "newRequest" :
-       $RequestController = new RequestController();
-       try {
-        $RequestController->createRequest();
-       } catch (Exception $e) {
-        echo json_encode(["status"=>0,"message"=>$e->getMessage()]);
-       }
-      
+        $RequestController = new RequestController();
+        try {
+            $RequestController->createRequest();
+        } catch (Exception $e) {
+            echo json_encode(["status"=>0,"message"=>$e->getMessage()]);
+        }
     break;
+
+
+    case "getLockedUserId" :
+            $RequestController = new RequestController();
+            try {
+            $RequestController->getLockedUserid();
+            } catch (Exception $e) {
+            echo json_encode(["status"=>0,"message"=>$e->getMessage()]);
+            }
+     break;
 
     
 

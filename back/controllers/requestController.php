@@ -39,11 +39,19 @@ Class RequestController{
         }
     }
 
-    
+
 
 //GET USER REQUESTS ($limit,$user_id)
     public function getMyRequests(int $limit, int $userId):void{
         $RequestModel = new RequestModel();
         $RequestModel->getMyRequests($limit,$userId);
+    }
+
+//GET locked user id in request entity
+    public function getLockedUserid(){
+        if (isset($_POST['requestId'])) {
+            $RequestModel = new RequestModel();
+            $RequestModel->getLockedUserid($_POST['requestId']);
+        }
     }
 }

@@ -98,4 +98,25 @@ use DBConnection;
             throw new Exception("Error: Unable to access the database.");
        }
     }
+
+
+    public function getLockedUserid(int $requestId){
+        if ($this->pdo) {
+            $query = "SELECT locked_user_id FROM  requests WHERE id = :requestId";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(':requestId',$requestId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                $id = $stmt->fetch(PDO::FETCH_ASSOC);
+                echo json_encode(['status'=>1,'lockedUserId'=>$id['locked_user_id']]);
+            }else{
+                 //handle not execute
+                 throw new Exception("Error: It is not possible to get locked_user_id. Error during request execution.");
+            }
+
+        }else{
+           //handle database error
+           throw new Exception("Error: Unable to access the database.");  
+        }
+    
+    }
 }

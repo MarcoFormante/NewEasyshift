@@ -11,7 +11,7 @@ const ShiftRequest = ({shiftStart,shiftEnd,request,date}) => {
         </div>
         <div className='request-card__shift-request__container--column' >
               <span className='request-card__shift-request__title'>Date</span>
-          <span>{date}</span>
+          <span>{new Date(date).toLocaleDateString("fr")}</span>
         </div>
       
       </div>
