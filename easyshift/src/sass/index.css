@@ -539,6 +539,8 @@ components
   flex-direction: column;
   gap: 10px;
   background-color: rgba(52, 60, 82, 0.3843137255);
+  word-break: break-word;
+  width: 280px;
 }
 .request-card__comment__last {
   display: flex;

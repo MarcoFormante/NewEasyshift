@@ -12,9 +12,10 @@ use DBConnection;
     public function getAllRequests(int $limit){
         if ($this->pdo) {
             $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
-			(SELECT COUNT(*) FROM comments WHERE comments.request_id = id) as total_comments
+			(SELECT COUNT(*) FROM comments WHERE comments.request_id = requests.id) as total_comments
             FROM requests
             INNER JOIN users ON users.id = requests.user_id
+            ORDER BY requests.id DESC
             LIMIT :limit,6" ; 
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":limit",$limit,PDO::PARAM_INT);
@@ -65,10 +66,13 @@ use DBConnection;
     public function getMyRequests(int $limit, int $userId):void{
         if ($this->pdo) {
             $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
-			(SELECT COUNT(*) FROM comments WHERE comments.request_id = id) as total_comments
+			(SELECT COUNT(*) FROM comments WHERE comments.request_id = requests.id) as total_comments
             FROM requests
+           
             INNER JOIN users ON users.id = :userId
-            LIMIT :limit,6" ; 
+            ORDER BY requests.id DESC
+            LIMIT :limit,6
+          " ; 
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":limit",$limit,PDO::PARAM_INT);
             $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);

@@ -11,6 +11,8 @@
     flex-direction: column;
     gap: 10px;
     background-color: rgba(52, 60, 82, 0.3843137255);
+    word-break: break-word;
+    width: 280px;
 
     &__last{
         @include flex(row,space-between,center,0);
