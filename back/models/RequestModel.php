@@ -8,6 +8,7 @@ use PDO;
 Class RequestModel{
 use DBConnection;
 
+//GET ALL REQUESTS ($limit)
     public function getAllRequests(int $limit){
         if ($this->pdo) {
             $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
@@ -17,7 +18,6 @@ use DBConnection;
             LIMIT :limit,6" ; 
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":limit",$limit,PDO::PARAM_INT);
-            
             if ($stmt->execute()) {
                 if ($stmt->rowCount() > 0) {
                     $requests = [];
@@ -26,17 +26,20 @@ use DBConnection;
                    }
                    echo json_encode(["status"=>1 ,"request"=>$requests]);
                 }else{
-                    echo json_encode(["status"=>0 ,"request"=>"no data"]);
+                    //handle requests = 0 
+                   throw new Exception("Error : You have no requests at the moment");
                 }
             }else{
                 //handle not execute
-                echo "not execute";
+                throw new Exception("Error: It is not possible to get requests. Error during request execution.");
             }
         }else{
-            //Handle Error PDO
+            //handle database error
+            throw new Exception("Error: Unable to access the database.");
         }
     }
 
+//CREATES NEW REQUEST ($userId,$date,$shiftStart,$shiftEnd,$request)
     public function createRequest(int $userId, string $date,string $shiftStart,string $shiftEnd,string $request){
         if ($this->pdo) {
             $query = "INSERT INTO requests(user_id,shift_start,shift_end,request,date)
@@ -56,5 +59,39 @@ use DBConnection;
         }else{
             throw new Exception("Error: New Request can't create ,try again");
         }
+    }
+
+//GET USER REQUESTS ($limit,$userId)   
+    public function getMyRequests(int $limit, int $userId):void{
+        if ($this->pdo) {
+            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
+			(SELECT COUNT(*) FROM comments WHERE comments.request_id = id) as total_comments
+            FROM requests
+            INNER JOIN users ON users.id = :userId
+            LIMIT :limit,6" ; 
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":limit",$limit,PDO::PARAM_INT);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    $requests = [];
+                   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $requests[] = $row;
+                   }
+                   echo json_encode(["status"=>1 ,"request"=>$requests]);
+                }else{
+                    //handle requests = 0 
+                   throw new Exception("Error : There are no requests at the moment");
+                }
+            }else{
+                //handle not execute
+                throw new Exception("Error: It is not possible to get requests. Error during request execution.");
+            }
+            
+        }else{
+            //handle database error
+            throw new Exception("Error: Unable to access the database.");
+       }
     }
 }

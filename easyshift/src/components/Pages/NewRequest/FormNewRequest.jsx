@@ -70,10 +70,7 @@ const FormNewRequest = () => {
                 })
                }
            })
-       }
-       
-      
-        
+       } 
     }
 
 
