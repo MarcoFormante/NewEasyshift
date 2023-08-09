@@ -9,7 +9,11 @@ class CommentModel{
     
         public function getComments(int $requestId){
             if ($this->pdo) {
-                $query = "SELECT * FROM comments WHERE request_id = :requestId";
+                $query = "SELECT comments.id,comments.user_id,comments.request_id,comments.comment,users.username,users.id FROM comments
+                INNER JOIN users ON users.id = comments.user_id
+                 WHERE request_id = :requestId
+                
+                ";
                 $stmt = $this->pdo->prepare($query);
                 $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
                 if ($stmt->execute()) {

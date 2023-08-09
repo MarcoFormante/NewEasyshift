@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import UserInfo from './UserInfo'
 import Locked from '../../../icons/locked.svg'
 import NoLocked from '../../../icons/noLocked.svg'
+import axios from '../../../AxiosApi/axios'
 
 const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,totalComments,setLockUserComment }) => {
     const [comments, setComments] = useState([])
@@ -27,32 +28,21 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
     }
     
     useEffect(() => {
-        setComments([
-            {
-                id: 1,
-                user_id: 1,
-                username: "Name",
-                request_id: 1,
-                role:"Photographer",
-                comment:"test comment"
-            },
-            {
-                id: 2,
-                user_id: 2,
-                username: "Name",
-                role:"Duty",
-                request_id: 2,
-                comment:"test comment"
-            },
-            {
-                id: 3,
-                user_id: 3,
-                username: "Name",
-                role:"Photographer",
-                request_id: 3,
-                comment:"test comment"
-            },
-        ]) 
+        const formData = new FormData()
+        formData.append("action","getComments")
+        formData.append("requestId",request?.id)
+        axios.post(process.env.REACT_APP_API_URL + "commentApi.php", formData, {
+            headers: {
+                "Content-Type":"x-www-form-urlencoded"
+            }
+        }).then(response => {
+            console.log(response.data);
+            if (response.data.status === 1) {
+                if (response?.data?.rowCount > 0) {
+                    setComments([...response.data.comments])
+                }
+            }
+        })
     }, [])
     
     useEffect(() => {
@@ -63,7 +53,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
 
   return (
         <div className='request-card__comments__section'>
-            {comments && comments.map(comment =>
+            {comments && comments.map((comment,index) =>
                 <div key={comment.id} className='request-card__comment'>
                     <div className='request-card__comment__user-info'>
                         <UserInfo username={comment.username} role={comment.role} />
