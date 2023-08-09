@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 
-const CommentInput = ({ userInfo,requestID, handleAddComment, addNewComment }) => {
+const CommentInput = ({ userInfo,requestID, handleAddComment }) => {
   const [comment, setComment] = useState("")
   
   
   const handleSendComment = () => {
     if (comment) {
       handleAddComment({
-        user_id: userInfo.userID,
-        request_id: requestID,
+        userId: userInfo.userID,
+        requestId: requestID,
         comment:comment
       })
       setComment("")
+    } else {
+      //handle no comment  with alert
     }
   }
 

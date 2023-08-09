@@ -15,8 +15,16 @@ if (isset($_POST['action'])) {
             } catch (Exception $e) {
                echo json_encode(['status'=>0,'message'=>$e->getMessage()]);
             }
-           
             break;
+
+            case 'getComments':
+                try {
+                    $CommentController = new CommentController();
+                    $CommentController->getComments();
+                } catch (Exception $e) {
+                   echo json_encode(['status'=>0,'message'=>$e->getMessage()]);
+                }
+                break;
         
         default:
             echo json_encode(['status'=> 0, "message"=> "Error: Action is required"]);

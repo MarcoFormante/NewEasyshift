@@ -5,6 +5,8 @@ import CommentInput from './CommentInput'
 import CommentsIcon from './CommentsIcon'
 import Comments from './Comments'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
+import axios from '../../../AxiosApi/axios'
+import CheckUser from '../../Helpers/CheckUser/CheckUser'
 
 const Request = ({ request,setShowCommentsTarget, showComments}) => {
   const [isLocked, setIsLocked] = useState(false)
@@ -19,14 +21,42 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
     } 
   }, [])
   
-  const handleAddComment = (comment) => {
-    setNewComment({ id: 55,
-      user_id: 1,
-      username: "Name",
-      request_id: 1,
-      role:"Photographer",
-      comment:comment.comment})
-    setAddCommentNum(addCommentNum + 1)
+  const handleAddComment = (value) => {
+    if (value.comment) {
+      CheckUser(userInfo)
+        .then(response => {
+          if (response.data.status === 1) {
+            const formData = new FormData()
+            formData.append("action","sendComment")
+            formData.append("userId",value.userId)
+            formData.append("requestId",value.requestId)
+            formData.append("comment",value.comment)
+            axios.post(process.env.REACT_APP_API_URL + "/commentApi.php", formData, {
+              headers: {
+              "Content-Type":"x-www-form-urlencoded"
+            }
+            }).then(response => {
+              console.log(response.data);
+            if (response.data.status === 1) {
+              if (showComments) {
+                setNewComment({
+                  id: response.data.id,
+                  user_id: value.userId,
+                  username: userInfo.username,
+                  request_id: value.requestId,
+                  role:userInfo.role,
+                  comment:value.comment})
+              }
+              setAddCommentNum(addCommentNum + 1)
+            } else {
+              //Handle Data status 0
+            }
+          })
+        } else {
+          //Handle not Auth
+        }
+      })
+    }
   }
 
   const handleSubtractComment = () => {

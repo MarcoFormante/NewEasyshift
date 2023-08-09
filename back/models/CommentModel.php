@@ -3,12 +3,25 @@ namespace App\Models\CommentModel;
 use Exception;
 use PDO;
 use App\Models\DBConnection\DBConnection;
-
+require_once 'DBConnection.php';
 class CommentModel{
     use DBConnection;
     
-        public function getComments(){
-            
+        public function getComments(int $requestId){
+            if ($this->pdo) {
+                $query = "SELECT * FROM comments WHERE request_id = :requestId";
+                $stmt = $this->pdo->prepare($query);
+                $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
+                if ($stmt->execute()) {
+                    $comments = [];
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $comments[] = $row;
+                    }
+                    echo json_encode(['status'=>1 ,"rowCount" =>$stmt->rowCount(),"comments" => $comments]);
+                }else{
+                    throw new Exception("Error: it is no possible to get comments");
+                }
+            }
         }
     
     // SEND COMMENT 
@@ -28,7 +41,7 @@ class CommentModel{
                 throw new Exception("Error: It is no possible to send comments. Unable to access the database");
             }
         }
-        
+
     
         public function deleteComment(){
     
