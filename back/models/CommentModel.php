@@ -6,12 +6,13 @@ use App\Models\DBConnection\DBConnection;
 require_once 'DBConnection.php';
 class CommentModel{
     use DBConnection;
-    
+
+  //  GET COMMENTS
         public function getComments(int $requestId){
             if ($this->pdo) {
-                $query = "SELECT comments.id,comments.user_id,comments.request_id,comments.comment,users.username,users.id,users.role_id FROM comments
+                $query = "SELECT comments.id,comments.request_id,comments.comment,users.username,users.id as user_id,users.role_id FROM comments
                 INNER JOIN users ON users.id = comments.user_id
-                 WHERE request_id = :requestId
+                 WHERE comments.request_id = :requestId
                 
                 ";
                 $stmt = $this->pdo->prepare($query);
@@ -27,6 +28,7 @@ class CommentModel{
                 }
             }
         }
+
     
     // SEND COMMENT 
         public function sendComment(int $userId,int $requestId,string $comment){
@@ -45,10 +47,22 @@ class CommentModel{
                 throw new Exception("Error: It is no possible to send comments. Unable to access the database");
             }
         }
+        
 
-    
-        public function deleteComment(){
-    
+// DELETE COMMENT
+        public function deleteComment(int $requestId,int $commentId,string $username,int $userId){
+            if ($this->pdo) {
+                $query="DELETE FROM comments WHERE id = :commentId ";
+                $stmt = $this->pdo->prepare($query);
+                $stmt->bindValue(':commentId',$commentId,PDO::PARAM_INT);
+                if ($stmt->execute()) {
+                    echo json_encode(['status'=> 1,'message'=>"The comment has been deleted"]);
+                }else{
+                    throw new Exception("Error: it is no possible to execute your request");
+                }
+            }else{
+                throw new Exception("Error: It is no possible to delete the comment. Unable to access the database");
+            }
         }
     
     }

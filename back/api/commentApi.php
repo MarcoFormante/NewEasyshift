@@ -25,6 +25,15 @@ if (isset($_POST['action'])) {
                    echo json_encode(['status'=>0,'message'=>$e->getMessage()]);
                 }
                 break;
+
+                case 'deleteComment':
+                    try {
+                        $CommentController = new CommentController();
+                        $CommentController->deleteComment();
+                    } catch (Exception $e) {
+                       echo json_encode(['status'=>0,'message'=>$e->getMessage()]);
+                    }
+                    break;
         
         default:
             echo json_encode(['status'=> 0, "message"=> "Error: Action is required"]);

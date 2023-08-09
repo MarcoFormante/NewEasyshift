@@ -32,7 +32,16 @@ class CommentController{
     
 
     public function deleteComment(){
-
+        if (isset($_POST['commentId']) && isset($_POST['username']) && isset($_POST['requestId']) && isset($_POST['userId'])) {
+            $requestId = $_POST['requestId'];
+            $commentId = $_POST['commentId'];
+            $username = $_POST['username'];
+            $userId = $_POST['userId'];
+            $CommentModel = new CommentModel();
+            $CommentModel->deleteComment($requestId,$commentId,$username,$userId);
+        }else{
+            throw new Exception("Error: It is no possible to delete this comments, try again");
+        }
     }
 
 }
