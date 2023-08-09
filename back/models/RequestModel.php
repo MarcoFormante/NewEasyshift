@@ -68,9 +68,8 @@ use DBConnection;
             $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
 			(SELECT COUNT(*) FROM comments WHERE comments.request_id = requests.id) as total_comments
             FROM requests
-           
             INNER JOIN users ON users.id = :userId
-            ORDER BY requests.id DESC
+            WHERE requests.user_id = :userId
             LIMIT :limit,6
           " ; 
             $stmt = $this->pdo->prepare($query);
