@@ -9,7 +9,7 @@ trait DBConnection{
     private PDO $pdo;
 
     public function __construct(){
-        require_once '../config/DB.php';
+        require '../config/DB.php';
             try {
                 $this->pdo = new PDO("mysql:host=$host;dbname=$dbName",$username,$password);
                  

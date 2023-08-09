@@ -29,7 +29,6 @@ const Home = () => {
     axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
       headers: {
         "Content-Type": "x-www-form-urlencoded",
-        "Authorization":`Bearer ${sessionStorage.getItem("token")}`
       }
     })
       .then(response => {
