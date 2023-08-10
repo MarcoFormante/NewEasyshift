@@ -12,9 +12,7 @@ class CommentModel{
             if ($this->pdo) {
                 $query = "SELECT comments.id,comments.request_id,comments.comment,users.username,users.id as user_id,users.role_id FROM comments
                 INNER JOIN users ON users.id = comments.user_id
-                 WHERE comments.request_id = :requestId
-                
-                ";
+                 WHERE comments.request_id = :requestId";
                 $stmt = $this->pdo->prepare($query);
                 $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
                 if ($stmt->execute()) {

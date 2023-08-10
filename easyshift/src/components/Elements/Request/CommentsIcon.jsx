@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom'
 
 
 
-const CommentsIcon = ({ totalComments, requestID, setShowCommentsTarget, request, showComments }) => {
+const CommentsIcon = ({  setShowCommentsTarget, request, showComments }) => {
 
 
   return (
     <div className='request-card__comments'>
       <div className='request-card__comments__container'>
         <span className='created_at'>created on { new Date(request?.created_on).toLocaleDateString("fr")}</span>
-        <span className='request-card__comments__icon btn' onClick={()=> (!showComments && totalComments > 0) && setShowCommentsTarget(request)}></span>
-        <span className='request-card__comments__total'>{totalComments}</span>
+        {!showComments && <span className='request-card__comments__icon btn' onClick={()=> setShowCommentsTarget(request)}></span>}
+
     </div>
     </div>
   )
