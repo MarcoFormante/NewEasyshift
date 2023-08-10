@@ -8,10 +8,9 @@ import { useSelector } from 'react-redux'
 const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,totalComments,setLockUserComment }) => {
     const [comments, setComments] = useState([])
     const userInfo = useSelector((state) => state.userInfo.value)
-    console.log(comments);
-    // if (isset($_POST['commentId']) && isset($_POST['username']) && isset($_POST['requestId']) && isset($_POST['userId'])) {
+
+
     const onDeleteComment = (comment) => {
-        console.log(comment);
         if (comment.user_id !== lockedUserComment) {
             if (comment.user_id === userInfo.userID) {
                 const formData = new FormData()
@@ -20,7 +19,9 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                 formData.append("username", comment.username)
                 formData.append("requestId", comment.request_id)
                 formData.append("userId",comment.user_id)
-                axios.post(process.env.REACT_APP_API_URL + "commentApi.php", formData, {
+                axios.post(process.env.REACT_APP_API_URL + "commentApi.php",
+                    formData,
+                    {
                         headers: {
                             "Content-Type":"x-www-form-urlencoded"
                         }
@@ -32,9 +33,9 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                             if (totalComments > 0) {
                                 handleSubtractComment()
                             }
-                        }
+                    }
                 })
-                }
+            }
         }
         
     }
@@ -92,7 +93,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                     </div>
 
                     <div className='request-card__comment__last'>
-                        <span className='delete btn' onClick={()=>onDeleteComment(comment)}></span>
+                        <span className='delete btn' onClick={()=>onDeleteComment(comment)} style={comment.user_id !== userInfo.userID ? {cursor:"auto",visibility:"hidden"}: {}}></span>
                         <span className='lock btn' onClick={() => handleLockedRequest(comment.user_id)}
                             style={(lockedUserComment === comment.user_id)
                                 ?
