@@ -3,6 +3,8 @@ namespace App\Models\CommentModel;
 use Exception;
 use PDO;
 use App\Models\DBConnection\DBConnection;
+use App\Controllers\NotificationController\NotificationController;
+require_once '../controllers/notificationController.php';
 require_once 'DBConnection.php';
 class CommentModel{
     use DBConnection;
@@ -39,12 +41,11 @@ class CommentModel{
                 $stmt->bindValue(':comment',$comment,PDO::PARAM_STR);
                 if ($stmt->execute()) {
                     echo json_encode(['status'=>1,'message'=>"The comment has been sent"]);
+
+                  //SEND NOTIFICATION
                     if ($userId !== $requestUserId) {
-                        $query = "INSERT INTO notifications(user_id,request_id,message,from_user_id) VALUES((SELECT user_id from requests WHERE id = :requestId),:requestId,'has commented on your post',:userId)";
-                        $stmt = $this->pdo->prepare($query);
-                        $stmt->bindValue(':userId',$userId,PDO::PARAM_INT);
-                        $stmt->bindValue(':requestId',$requestId,PDO::PARAM_INT);
-                        $stmt->execute();
+                        $notificationController =  new NotificationController();
+                        $notificationController->sendNotification($userId,$requestId);
                     }
                    
                 }else{
