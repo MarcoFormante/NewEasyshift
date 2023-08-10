@@ -30,12 +30,15 @@ const ViewRequest = () => {
             }
           })
           .then(response => {
-            if (response.data.status === 1 ) {
-              console.log(response.data)
-              setRequest([...response.data.request])
+            if (response.data.status === 1) {
+              if (response.data.rowCount > 0) {
+                setRequest([...response.data.request])
+              } else {
+                alert("Erro: This Post has been Deleted")
+              }
               
-            } else {
-              //handle can not show More requests with alert
+            } else{
+              alert(response.data.message)
             }
           })
           

@@ -46,8 +46,8 @@ if (isset($_POST['action'])) {
                 $RequestController->viewPost(); 
             } catch (Exception $e) {
                 echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]);
-            }
- break;
+        }
+    break;
 
     
 

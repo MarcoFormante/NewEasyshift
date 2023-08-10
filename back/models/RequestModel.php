@@ -132,9 +132,16 @@ use DBConnection;
             if ($stmt->execute()) {
                 if ($stmt->rowCount() > 0) {
                     $request = $stmt->fetch(PDO::FETCH_ASSOC);
-                    echo json_encode(['status'=>1,"request"=>[$request]]);
+                    echo json_encode(['status'=>1,"request"=>[$request],"rowCount"=> $stmt->rowCount()]);
+                }else{
+                    echo json_encode(['status'=>1,"rowCount"=> $stmt->rowCount()]);
                 }
+            }else{
+                throw new Exception("Error: it is no possible to execute the request (viewPost/$requestId) ");
             }
+        }else{
+             //handle database error
+           throw new Exception("Error: Connection Problem");  
         }
     }
 }
