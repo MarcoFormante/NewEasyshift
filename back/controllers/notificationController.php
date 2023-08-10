@@ -36,6 +36,17 @@ class NotificationController {
         $NotificationModel->sendNotification($userId,$requestId);
     }
 
+    public function sendNotificationAfterPostDeletetion():void{
+        if (isset($_POST['fromUserId']) && isset($_POST['requestId']) && isset($_POST['message']) && isset($_POST['userId'])) {
+            $fromUserId = $_POST['fromUserId'];
+            $requestId = $_POST['requestId'];
+            $message = $_POST['message'];
+            $userId = $_POST['userId'];
+            $NotificationModel = new NotificationModel();
+            $NotificationModel->sendNotificationAfterPostDeletetion($fromUserId,$requestId,$message,$userId);
+        }
+    }
+
 
     public function markNotificationAsViewed():void{
         if (isset($_POST['notificationId'])) {

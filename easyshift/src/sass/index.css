@@ -163,6 +163,49 @@ components
   justify-content: baseline;
   align-items: space-between;
   gap: 23px;
+  position: relative;
+  z-index: 2;
+}
+.request-card__deleteIcon {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  z-index: -1;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.request-card__deleteIcon div {
+  border: 3px solid rgb(240, 7, 135);
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  top: -2%;
+  -webkit-clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 50%, 75% 50%, 53% 50%, 29% 50%, 0 50%, 0% 35%, 20% 10%);
+          clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 50%, 75% 50%, 53% 50%, 29% 50%, 0 50%, 0% 35%, 20% 10%);
+}
+.request-card__deleteIcon::after {
+  content: "";
+  width: 3px;
+  height: 20px;
+  background-color: #FFFFFF;
+  position: absolute;
+  left: 50%;
+  top: 29%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.request-card__deleteIcon::before {
+  content: "";
+  width: 3px;
+  height: 20px;
+  background-color: #FFFFFF;
+  position: absolute;
+  left: 50%;
+  top: 29%;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 .request-card__user-info {
   display: flex;

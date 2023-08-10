@@ -36,7 +36,16 @@ if (isset($_POST['action'])) {
                     echo json_encode(['status'=>0 ,"message"=> $e->getMessage()]);
                 }
                 break;
-        
+
+                
+                case 'sendNotificationAfterPostDeletetion':
+                    try {
+                        $notificationController = new NotificationController();
+                        $notificationController->sendNotificationAfterPostDeletetion();
+                    } catch (Exception $e) {
+                        echo json_encode(['status'=>0 ,"message"=> $e->getMessage()]);
+                    }
+                    break;
         default:
             echo json_encode(['status'=>0 ,"message"=> "An Action is required"]);
             break;

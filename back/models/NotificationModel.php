@@ -51,10 +51,21 @@ class NotificationModel {
 
     public function sendNotification(int $userId,int $requestId):void{
         $query = "INSERT INTO notifications(user_id,request_id,message,from_user_id) 
-        VALUES((SELECT user_id from requests WHERE id = :requestId),:requestId,'has commented on your post',:userId)";
+        VALUES((SELECT user_id from requests WHERE id = :requestId),:requestId,'has commented on your post',:from_userId)";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':from_userId',$userId,PDO::PARAM_INT);
+        $stmt->bindValue(':requestId',$requestId,PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function sendNotificationAfterPostDeletetion(int $fromUserId,int $requestId, string $message,int $userId):void{
+        $query = "INSERT INTO notifications(user_id,request_id,message,from_user_id) 
+        VALUES(:userId,-1,:message,:from_userId)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(':userId',$userId,PDO::PARAM_INT);
+        $stmt->bindValue(':from_userId',$fromUserId,PDO::PARAM_INT);
         $stmt->bindValue(':requestId',$requestId,PDO::PARAM_INT);
+        $stmt->bindValue(':message',$message,PDO::PARAM_STR);
         $stmt->execute();
     }
 
