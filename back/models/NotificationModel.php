@@ -31,4 +31,20 @@ class NotificationModel {
             throw new Exception("Error Processing Request, Unable to access the database");
         }
     }
+
+
+    public function deleteNotification(int $notificationId){
+        if ($this->pdo) {
+            $query = "DELETE FROM notifications WHERE id = :notificationId";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":notificationId",$notificationId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                echo json_encode(['status'=> 1,"message"=> "The notification has been deleted"]);
+            }else{
+                throw new Exception("Error Processing Request, Unable to delete this notification");
+            }
+        }else{
+            throw new Exception("Error Processing Request, Unable to access the database");
+        }
+    }
 }

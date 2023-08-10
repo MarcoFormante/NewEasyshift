@@ -18,4 +18,15 @@ class NotificationController {
             throw new Exception("Error: it is no possible to get Notifications (userId problem)");
         }
     }
+
+
+    public function deleteNotification(){
+        if (isset($_POST['notificationId'])) {
+            $NotificationModel = new NotificationModel();
+            $NotificationModel->deleteNotification($_POST['notificationId']);
+        }else{
+            //handle no userId
+            throw new Exception("Error: it is no possible to get Notifications (userId problem)");
+        }
+    }
 }

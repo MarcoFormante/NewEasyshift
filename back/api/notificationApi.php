@@ -19,12 +19,17 @@ if (isset($_POST['action'])) {
             }
         break; 
 
-        case 'deleteNotifications':
-            
+        case 'deleteNotification':
+            try {
+                $notificationController = new NotificationController();
+                $notificationController->deleteNotification();
+            } catch (Exception $e) {
+                echo json_encode(['status'=>0 ,"message"=> $e->getMessage()]);
+            }
             break;
         
         default:
-            # code...
+            echo json_encode(['status'=>0 ,"message"=> "An Action is required"]);
             break;
     }
 }
