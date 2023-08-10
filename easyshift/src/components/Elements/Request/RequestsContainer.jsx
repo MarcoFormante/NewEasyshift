@@ -26,6 +26,7 @@ const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadin
         {requests.map((request,index) =>
           
           <div key={request?.id}>
+            
             {(!showCommentsTarget && request?.username) &&
               <Request request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
             }

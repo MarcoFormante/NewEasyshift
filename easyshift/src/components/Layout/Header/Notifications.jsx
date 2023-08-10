@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import { useSelector } from 'react-redux'
@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux'
 const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
     const [notifications, setNotifications] = useState([])
     const navigate = useNavigate()
-    const userInfo = useSelector((state)=>state.userInfo.value)
+    const userInfo = useSelector((state) => state.userInfo.value)
+    const location = useLocation()
 
     const deleteNotification = (id) => {
         CheckUser(userInfo)
@@ -44,7 +45,7 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
                 }
             })
         }
-        navigate("/viewRequest/" + requestId)
+        navigate("/viewRequest/" + requestId,{state:requestId,replace:{from:location}})
         handleWindowToggle("")
     }
 

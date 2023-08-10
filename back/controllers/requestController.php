@@ -54,4 +54,12 @@ Class RequestController{
             $RequestModel->getLockedUserid($_POST['requestId']);
         }
     }
+
+
+    public function viewPost():void{
+        if (isset($_POST['requestId'])) {
+            $RequestModel = new RequestModel();
+            $RequestModel->viewPost($_POST['requestId']);
+        }
+    }
 }

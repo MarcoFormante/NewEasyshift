@@ -118,4 +118,23 @@ use DBConnection;
         }
     
     }
+
+    public function viewPost(int $requestId){
+        if ($this->pdo) {
+            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
+			0 as total_comments
+            FROM requests
+            INNER JOIN users ON users.id = requests.user_id
+            WHERE requests.id = :requestId";
+
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    $request = $stmt->fetch(PDO::FETCH_ASSOC);
+                    echo json_encode(['status'=>1,"request"=>[$request]]);
+                }
+            }
+        }
+    }
 }

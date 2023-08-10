@@ -40,6 +40,15 @@ if (isset($_POST['action'])) {
             }
      break;
 
+     case "viewPost" :
+        $RequestController = new RequestController();
+            try {
+                $RequestController->viewPost(); 
+            } catch (Exception $e) {
+                echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]);
+            }
+ break;
+
     
 
     default:
