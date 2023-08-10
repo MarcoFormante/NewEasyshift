@@ -66,7 +66,7 @@ const Header = () => {
           />
         </div>
       </div>
-      <HeaderSidebar windowToggle={windowToggle } handleWindowToggle={(value)=>handleWindowToggle(value) } windowType={windowType } />
+      <HeaderSidebar windowToggle={windowToggle} handleWindowToggle={(value)=>handleWindowToggle(value) } windowType={windowType } />
     </header>
   )
 }

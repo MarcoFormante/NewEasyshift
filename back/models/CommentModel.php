@@ -21,6 +21,7 @@ class CommentModel{
                         $comments[] = $row;
                     }
                     echo json_encode(['status'=>1 ,"rowCount" =>$stmt->rowCount(),"comments" => $comments]);
+                   
                 }else{
                     throw new Exception("Error: it is no possible to get comments");
                 }
@@ -29,7 +30,7 @@ class CommentModel{
 
     
     // SEND COMMENT 
-        public function sendComment(int $userId,int $requestId,string $comment){
+        public function sendComment(int $userId,int $requestId,string $comment,int $requestUserId){
             if ($this->pdo) {
                 $query= "INSERT INTO comments(user_id,request_id,comment) VALUES(:userId,:requestId,:comment)";
                 $stmt = $this->pdo->prepare($query);
@@ -38,6 +39,14 @@ class CommentModel{
                 $stmt->bindValue(':comment',$comment,PDO::PARAM_STR);
                 if ($stmt->execute()) {
                     echo json_encode(['status'=>1,'message'=>"The comment has been sent"]);
+                    if ($userId !== $requestUserId) {
+                        $query = "INSERT INTO notifications(user_id,request_id,message,from_user_id) VALUES((SELECT user_id from requests WHERE id = :requestId),:requestId,'has commented on your post',:userId)";
+                        $stmt = $this->pdo->prepare($query);
+                        $stmt->bindValue(':userId',$userId,PDO::PARAM_INT);
+                        $stmt->bindValue(':requestId',$requestId,PDO::PARAM_INT);
+                        $stmt->execute();
+                    }
+                   
                 }else{
                     throw new Exception("Error: it is no possible to execute your request");
                 }

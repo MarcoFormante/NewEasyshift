@@ -49,7 +49,8 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
             formData.append("action","sendComment")
             formData.append("userId",value.userId)
             formData.append("requestId",value.requestId)
-            formData.append("comment",value.comment)
+            formData.append("comment", value.comment)
+            formData.append("requestUserID",request.user_id)
             axios.post(process.env.REACT_APP_API_URL + "/commentApi.php", formData, {
               headers: {
               "Content-Type":"x-www-form-urlencoded"

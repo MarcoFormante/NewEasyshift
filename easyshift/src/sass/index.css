@@ -99,6 +99,9 @@ components
   border-right: none;
   background: linear-gradient(10deg, #a498c3, #56487A);
 }
+.notifications__notif__notViewed {
+  background: linear-gradient(10deg, #a498c3, #8d044f);
+}
 .notifications__notif__message {
   position: absolute;
   text-align: center;

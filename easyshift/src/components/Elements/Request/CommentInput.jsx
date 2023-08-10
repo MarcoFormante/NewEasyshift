@@ -9,7 +9,7 @@ const CommentInput = ({ userInfo,requestID, handleAddComment }) => {
       handleAddComment({
         userId: userInfo.userID,
         requestId: requestID,
-        comment:comment
+        comment,
       })
       setComment("")
     } else {
