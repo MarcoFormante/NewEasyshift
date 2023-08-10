@@ -7,6 +7,7 @@ import Comments from './Comments'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
+import { useLocation } from 'react-router-dom'
 
 const Request = ({ request,setShowCommentsTarget, showComments}) => {
   const [isLocked, setIsLocked] = useState(false)
@@ -14,6 +15,7 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
+  const location = useLocation()
  
   useEffect(() => {
     if (request?.locked_user_id !== null) {
@@ -22,21 +24,24 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
   }, [])
 
   useEffect(() => {
-    const formData = new FormData()
-    formData.append("action", "getLockedUserId")
-    formData.append("requestId",request.id)
     if (showComments) {
-      axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
-        headers: {
-          "Content-Type":"x-www-form-urlencoded"
-        }
-      }).then(response => {
-        console.log(response.data);
-        if (response.data.status === 1) {
-          setLockUserComment(parseInt(response.data.lockedUserId))
-        }
-      })
+      const formData = new FormData()
+      formData.append("action", "getLockedUserId")
+      formData.append("requestId",request.id)
+      if (showComments) {
+        axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+          headers: {
+            "Content-Type":"x-www-form-urlencoded"
+          }
+        }).then(response => {
+          console.log(response.data);
+          if (response.data.status === 1) {
+            setLockUserComment(parseInt(response.data.lockedUserId))
+          }
+        })
+      }
     }
+   
    
   },[showComments])
   
@@ -56,11 +61,11 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
               "Content-Type":"x-www-form-urlencoded"
             }
             }).then(response => {
-              console.log(response.data);
-            if (response.data.status === 1) {
-              if (showComments) {
+              console.log("target",response.data);
+              if (response.data.status === 1) {
+              if (showComments || window.location.pathname.match(/viewRequest/g)) {
                 setNewComment({
-                  id: response.data.id,
+                  id: response.data.commentId,
                   user_id: value.userId,
                   username: userInfo.username,
                   request_id: value.requestId,

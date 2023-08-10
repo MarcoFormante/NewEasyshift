@@ -40,7 +40,7 @@ class CommentModel{
                 $stmt->bindValue(':requestId',$requestId,PDO::PARAM_INT);
                 $stmt->bindValue(':comment',$comment,PDO::PARAM_STR);
                 if ($stmt->execute()) {
-                    echo json_encode(['status'=>1,'message'=>"The comment has been sent"]);
+                    echo json_encode(['status'=>1,'message'=>"The comment has been sent",'commentId'=>$this->pdo->lastInsertId()]);
 
                   //SEND NOTIFICATION
                     if ($userId !== $requestUserId) {
