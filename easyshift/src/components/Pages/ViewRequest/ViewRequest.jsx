@@ -34,7 +34,7 @@ const ViewRequest = () => {
               if (response.data.rowCount > 0) {
                 setRequest([...response.data.request])
               } else {
-                alert("Erro: This Post has been Deleted")
+                alert("Error: This Post has been Deleted")
               }
               
             } else{
