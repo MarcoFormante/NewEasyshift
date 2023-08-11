@@ -34,7 +34,8 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
         setNotifications(notifications.filter(notif => notif.id !== id))
     }
 
-    const viewRequest = (requestId, viewed,notificationId) => {
+    const viewRequest = (requestId, viewed, notificationId) => {
+        
         if (viewed === 0) {
             axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
                 action: "markNotificationAsViewed",
@@ -45,7 +46,12 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
                 }
             })
         }
-        navigate("/viewRequest/" + requestId,{state:requestId,replace:{from:location}})
+        if (requestId !== -1) {
+            navigate("/viewRequest/" + requestId,{state:requestId,replace:{from:location}})
+        } else {
+            alert("This Post has been Deleted")
+        }
+     
         handleWindowToggle("")
     }
 

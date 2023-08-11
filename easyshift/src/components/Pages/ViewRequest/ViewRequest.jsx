@@ -35,6 +35,7 @@ const ViewRequest = () => {
                 setRequest([...response.data.request])
               } else {
                 alert("Error: This Post has been Deleted")
+                navigate("/home")
               }
               
             } else{
