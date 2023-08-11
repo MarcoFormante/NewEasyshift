@@ -4,7 +4,7 @@ import LoadingSection from '../Loading/LoadingSection'
 import axios from '../../../AxiosApi/axios'
 
 
-const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
+const RequestsContainer = ({ pageLimit,requestsLimit,showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
 
   console.log(requests.length);
   useEffect(() => {
@@ -28,7 +28,7 @@ const RequestsContainer = ({ showCommentsTarget, setShowCommentsTarget, isLoadin
           <div key={request?.id}>
             
             {(!showCommentsTarget && request?.username) &&
-              <Request request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
+              <Request pageLimit={pageLimit} requestsLimit={requestsLimit} request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
             }
           </div>
         )}

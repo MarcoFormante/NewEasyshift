@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import {useLocation, useNavigate, useParams} from 'react-router-dom'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import axios from '../../../AxiosApi/axios'
@@ -13,8 +13,8 @@ const ViewRequest = () => {
   const [request, setRequest] = useState([])
   const navigate = useNavigate()
   const location = useLocation()
-  const [requestId,setRequestId] = useState(location.pathname.slice(-2))
   let { id } = useParams()
+  console.log(location.state);
   
   useEffect(() => {
     
@@ -51,17 +51,21 @@ const ViewRequest = () => {
 
   return (
     <div className=''>
+      {location.state !== null && <div className='back-btn btn' onClick={() => navigate("/home",{state:{requestsLimit:location.state.requestsLimit,pageLimit:location.state.pageLimit}})}></div>}
       <Title classname={"page-title"}
         title={`View Post `}
         style={{ fontSize: 24 }}
       />
 
+     
+        
       { request.length > 0 && <RequestsContainer
         showCommentsTarget={null}
         requests={request}
         setShowCommentsTarget={()=>{}}
         isLoadingData={false}
       />}
+       
     </div>
   )
 }

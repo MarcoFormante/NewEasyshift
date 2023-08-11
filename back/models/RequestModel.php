@@ -9,7 +9,8 @@ Class RequestModel{
 use DBConnection;
 
 //GET ALL REQUESTS ($limit)
-    public function getAllRequests(int $limit){
+    public function getAllRequests(int $limit,$limit2){
+        
         if ($this->pdo) {
             $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
 			(SELECT COUNT(*) FROM comments WHERE comments.request_id = requests.id) as total_comments
@@ -17,15 +18,28 @@ use DBConnection;
             INNER JOIN users ON users.id = requests.user_id
             ORDER BY requests.id DESC
             LIMIT :limit,6" ; 
+
+        if ($limit2 !== null) {
+            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
+			(SELECT COUNT(*) FROM comments WHERE comments.request_id = requests.id) as total_comments
+            FROM requests
+            INNER JOIN users ON users.id = requests.user_id
+            ORDER BY requests.id DESC
+            LIMIT :limit,:limit2" ; 
+        }
+        
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":limit",$limit,PDO::PARAM_INT);
+            if ($limit2 !== null) {
+                $stmt->bindValue(":limit2",$limit2,PDO::PARAM_INT);
+            }
             if ($stmt->execute()) {
                 if ($stmt->rowCount() > 0) {
                     $requests = [];
                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         $requests[] = $row;
                    }
-                   echo json_encode(["status"=>1 ,"request"=>$requests]);
+                   echo json_encode(["status"=>1 ,"request"=>$requests,"requestLimit"=>$limit2]);
                 }else{
                     //handle requests = 0 
                    throw new Exception("Error : You have no requests at the moment");

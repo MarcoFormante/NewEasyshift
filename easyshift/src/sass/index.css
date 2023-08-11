@@ -564,8 +564,9 @@ components
   height: 45px;
   background-image: url("../../src/icons/back.svg");
   position: fixed;
-  top: 10px;
+  top: 60px;
   left: 5px;
+  z-index: 20;
 }
 
 .request-card__comments__section {

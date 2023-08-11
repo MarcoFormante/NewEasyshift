@@ -7,12 +7,13 @@ Class RequestController{
  
     //GET ALL REQUESTS OR USER REQUESTS ($target,$limit,$user_id = null)
     public function getAllRequests():void{
-        if (isset($_POST['target']) && isset($_POST['limit'])) {
+        if (isset($_POST['target']) && isset($_POST['limit']) && isset($_POST['limit2'])) {
                 $limit = $_POST['limit'];
+                $limit2 = $_POST['limit2'];
                 $target = $_POST['target'];
                 if ($target === "all") {
                     $RequestModel = new RequestModel();
-                    $RequestModel->getAllRequests($limit);
+                    $RequestModel->getAllRequests($limit,$limit2);
                 }elseif($target === "user"){
                     $RequestModel = new RequestModel();
                     $this->getMyRequests($limit,$_POST['user_id']);
