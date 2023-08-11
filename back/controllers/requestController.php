@@ -62,4 +62,13 @@ Class RequestController{
             $RequestModel->viewPost($_POST['requestId']);
         }
     }
+
+    public function deleteRequest(){
+        if (isset($_POST['requestId'])) {
+            $RequestModel = new RequestModel();
+            $RequestModel->deleteRequest($_POST['requestId']);
+        }else{
+            throw new Exception("Error Processing Request, request id is missing");
+        }
+    }
 }

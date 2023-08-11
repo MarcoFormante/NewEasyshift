@@ -49,6 +49,16 @@ if (isset($_POST['action'])) {
         }
     break;
 
+
+    case "deleteRequest" :
+        $RequestController = new RequestController();
+            try {
+                $RequestController->deleteRequest(); 
+            } catch (Exception $e) {
+                echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]);
+        }
+    break;
+
     
 
     default:

@@ -70,8 +70,7 @@ use DBConnection;
             FROM requests
             INNER JOIN users ON users.id = :userId
             WHERE requests.user_id = :userId
-            LIMIT :limit,6
-          " ; 
+            LIMIT :limit,6" ; 
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":limit",$limit,PDO::PARAM_INT);
             $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
@@ -137,11 +136,34 @@ use DBConnection;
                     echo json_encode(['status'=>1,"rowCount"=> $stmt->rowCount()]);
                 }
             }else{
-                throw new Exception("Error: it is no possible to execute the request (viewPost/$requestId) ");
+                throw new Exception("Error: it is no possible to execute this command (viewPost->$requestId) ");
             }
         }else{
              //handle database error
            throw new Exception("Error: Connection Problem");  
+        }
+    }
+
+
+    public function deleteRequest(int $requestId):void{
+        if ($this->pdo) {
+            $querySelectRequest = "SELECT locked_user_id FROM requests WHERE id = :requestId"; 
+            $stmt = $this->pdo->prepare($querySelectRequest);
+            $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
+            $lockedUserId = null;
+            if ($stmt->execute()) {
+                $lockedUserId = $stmt->fetchColumn();
+            }
+            $stmt = null;
+
+            $query = "DELETE FROM requests WHERE id = :requestId";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                echo json_encode(['status'=>1,"message"=>"This Post has Been deleted","lockedUserId"=>$lockedUserId]);  
+            }else{
+                throw new Exception("Error: it is no possible to execute this command (delete request/$requestId) ");
+            }
         }
     }
 }

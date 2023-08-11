@@ -92,6 +92,46 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
     setIsLocked(!isLocked)
   }
 
+  const deleteRequest = () => {
+    const userWantsDelete = window.confirm("Do you want to delete this Post")
+    if (userWantsDelete) {
+      CheckUser(userInfo)
+        .then(response => {
+          console.log(response.data);
+        if (response.data.status === 1) {
+          axios.post(process.env.REACT_APP_API_URL + "requestApi.php", {
+            action: "deleteRequest",
+            requestId : request.id
+          }, {
+            headers: {
+              "Content-Type":"multipart/form-data"
+            }
+          }) 
+            .then(response => {
+              console.log(response.data);
+              if (response.data.status === 1) {
+                  const { lockedUserId } = response.data
+                  if (lockedUserId !== null || lockedUserId !== false || lockedUserId !== undefined ) {
+                    axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
+                        action: "sendNotificationAfterPostDeletetion",
+                        fromUserId: userInfo.userID,
+                        message : `has deleted his Post where you were chosen to change shift`,
+                        userId: lockedUserId
+                    }, {
+                      headers: {
+                        "Content-Type":"multipart/form-data"
+                        }
+                    }).then(response => 
+                        console.log(response.data))
+                  }
+            }
+          })
+        }
+      })
+    }
+   
+  }
+
  
   useEffect(() => {
     if (lockedUserComment) {
@@ -105,7 +145,7 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
     <div className='container__flex--center--column'>
       
       <div className={`request-card ${isLocked === true ? "request-card__locked" : ""}`} style={showComments || window.location.pathname.match(/viewRequest/g) ? { margin: 0 } : {}}>
-        <div className='request-card__deleteIcon'>
+        <div className='request-card__deleteIcon' onClick={deleteRequest}>
           <div></div>
         </div>
         <UserInfo username={request.username + `${request.user_id === userInfo?.userID ? " (toi)" : ""}`} role={request.role_id} />

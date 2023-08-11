@@ -58,13 +58,12 @@ class NotificationModel {
         $stmt->execute();
     }
 
-    public function sendNotificationAfterPostDeletetion(int $fromUserId,int $requestId, string $message,int $userId):void{
+    public function sendNotificationAfterPostDeletetion(int $fromUserId, string $message,int $userId):void{
         $query = "INSERT INTO notifications(user_id,request_id,message,from_user_id) 
         VALUES(:userId,-1,:message,:from_userId)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(':userId',$userId,PDO::PARAM_INT);
         $stmt->bindValue(':from_userId',$fromUserId,PDO::PARAM_INT);
-        $stmt->bindValue(':requestId',$requestId,PDO::PARAM_INT);
         $stmt->bindValue(':message',$message,PDO::PARAM_STR);
         $stmt->execute();
     }
