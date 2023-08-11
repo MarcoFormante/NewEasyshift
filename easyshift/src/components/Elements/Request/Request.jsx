@@ -7,7 +7,6 @@ import Comments from './Comments'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
-import { useLocation } from 'react-router-dom'
 
 const Request = ({ request,setShowCommentsTarget, showComments}) => {
   const [isLocked, setIsLocked] = useState(false)
@@ -15,7 +14,7 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
-  const location = useLocation()
+
  
   useEffect(() => {
     if (request?.locked_user_id !== null) {
@@ -108,10 +107,10 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
             }
           }) 
             .then(response => {
-              console.log(response.data);
+              console.log(response.data)
               if (response.data.status === 1) {
-                  const { lockedUserId } = response.data
-                  if (lockedUserId !== null || lockedUserId !== false || lockedUserId !== undefined ) {
+                  const lockedUserId = response.data.lockedUserId
+                  if (lockedUserId !== false && lockedUserId !== null ) {
                     axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
                         action: "sendNotificationAfterPostDeletetion",
                         fromUserId: userInfo.userID,
@@ -124,12 +123,11 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
                     }).then(response => 
                         console.log(response.data))
                   }
-            }
+              }
           })
         }
       })
     }
-   
   }
 
  
@@ -145,9 +143,9 @@ const Request = ({ request,setShowCommentsTarget, showComments}) => {
     <div className='container__flex--center--column'>
       
       <div className={`request-card ${isLocked === true ? "request-card__locked" : ""}`} style={showComments || window.location.pathname.match(/viewRequest/g) ? { margin: 0 } : {}}>
-        <div className='request-card__deleteIcon' onClick={deleteRequest}>
+        {request.user_id === userInfo?.userID && <div className='request-card__deleteIcon' onClick={deleteRequest}>
           <div></div>
-        </div>
+        </div>}
         <UserInfo username={request.username + `${request.user_id === userInfo?.userID ? " (toi)" : ""}`} role={request.role_id} />
         <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} date={request?.date} request={request.request} />
         <CommentInput userInfo={userInfo} requestID={parseInt(request.id)} handleAddComment={(value)=>handleAddComment(value)} />
