@@ -144,12 +144,33 @@ const location  = useLocation()
     <div className='container__flex--center--column'>
       
       <div className={`request-card ${isLocked === true ? "request-card__locked" : ""}`} style={showComments || window.location.pathname.match(/viewRequest/g) ? { margin: 0 } : {}}>
+        {/* request Delete Button  */}
         {request.user_id === userInfo?.userID && <div className='request-card__deleteIcon' onClick={deleteRequest}>
           <div></div>
         </div>}
-        <UserInfo username={request.username + `${request.user_id === userInfo?.userID ? " (toi)" : ""}`} role={request.role_id} />
-        <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} date={request?.date} request={request.request} />
-        <CommentInput userInfo={userInfo} requestID={parseInt(request.id)} handleAddComment={(value)=>handleAddComment(value)} />
+
+        {/* About User */}
+        <UserInfo
+          username={request.username + `${request.user_id === userInfo?.userID ? " (toi)" : ""}`}
+          role={request.role_id}
+        />
+
+        {/* About Shift and Request message */}
+        <ShiftRequest
+          shiftStart={request.shift_start}
+          shiftEnd={request.shift_end}
+          date={request.date}
+          request={request.request}
+        />
+
+        {/* text Input to send a comment */}
+        <CommentInput
+          userInfo={userInfo}
+          requestID={parseInt(request.id)}
+          handleAddComment={(value) => handleAddComment(value)}
+        />
+
+        {/* Date of Request Creation & Comments Icon to navigate to View Post page */}
         <CommentsIcon requestIndex={requestIndex}
           setRequestScrollTarget={location?.state?.requestIndex === requestIndex ? requestScrollTarget(location?.state?.requestIndex) : () => { }}
           pageLimit={pageLimit}
