@@ -7,14 +7,15 @@ import Comments from './Comments'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
+import { useLocation } from 'react-router-dom'
 
-const Request = ({pageLimit,requestsLimit, request,setShowCommentsTarget, showComments}) => {
+const Request = ({requestScrollTarget,requestIndex,pageLimit,requestsLimit, setProva,request,setShowCommentsTarget, showComments}) => {
   const [isLocked, setIsLocked] = useState(false)
   const [addCommentNum, setAddCommentNum] = useState(0)
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
-
+const location  = useLocation()
  
   useEffect(() => {
     if (request?.locked_user_id !== null) {
@@ -149,7 +150,13 @@ const Request = ({pageLimit,requestsLimit, request,setShowCommentsTarget, showCo
         <UserInfo username={request.username + `${request.user_id === userInfo?.userID ? " (toi)" : ""}`} role={request.role_id} />
         <ShiftRequest shiftStart={request.shift_start} shiftEnd={request.shift_end} date={request?.date} request={request.request} />
         <CommentInput userInfo={userInfo} requestID={parseInt(request.id)} handleAddComment={(value)=>handleAddComment(value)} />
-        <CommentsIcon pageLimit={pageLimit} requestsLimit={requestsLimit} showComments={showComments} request={request} setShowCommentsTarget={ (value)=>setShowCommentsTarget(value)} totalComments={parseInt(request.total_comments) + addCommentNum} requestID={parseInt(request.id)} />
+        <CommentsIcon requestIndex={requestIndex}
+          setRequestScrollTarget={location?.state?.requestIndex === requestIndex ? requestScrollTarget(location?.state?.requestIndex) : () => { }}
+          pageLimit={pageLimit}
+          requestsLimit={requestsLimit}
+          showComments={showComments}
+          request={request}
+         />
       </div>
 
       {(showComments || window.location.pathname.match(/viewRequest/g))  &&

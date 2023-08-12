@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Title from '../../Layout/Title/Title'
 import RequestsContainer from '../../Elements/Request/RequestsContainer'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
@@ -17,32 +17,37 @@ const Home = () => {
   const navigate = useNavigate()
   const userInfo = useSelector((state) => state.userInfo.value || JSON.parse(sessionStorage.getItem("userInfo")))
   const location = useLocation()
+  const requestTarget = useRef(null);
+
   
- console.log(location);
+  const requestScrollTarget = (index) => {
+    requestTarget.current = index
+  }
 
-
+  
+ console.log(requestTarget.current);
   useEffect(() => {
       CheckUser(userInfo)
       .then(response => {
       if (response.data.status === 1 ) {
-    const formData = new FormData()
-    formData.append("action", "getAllRequests")
-    formData.append("target", "all")
+        const formData = new FormData()
+        formData.append("action", "getAllRequests")
+        formData.append("target", "all")
         formData.append("limit", pageLimit * 6)
         if (location.state !== null) {
-          formData.append("limit",pageLimit *6)
-          formData.append("limit2", location.state.requestsLimit || 6)
+            formData.append("limit",pageLimit *6)
+            formData.append("limit2", location.state.requestsLimit || 6)
         } else {
-          formData.append("limit2",6)
+            formData.append("limit2",6)
         }
-    
     axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
       headers: {
         "Content-Type": "x-www-form-urlencoded",
       }
     })
       .then(response => {
-        console.log(response.data);
+        const { message } = response.data 
+        console.log(message?.match(/ You have no requests/gi));
         if (response.data.status === 1 ) {
           console.log(response.data.request);   
           setRequests([...requests, ...response?.data?.request])
@@ -65,25 +70,26 @@ const Home = () => {
     setTotalRequests(requests.length)
   }, [requests])
 
- 
+
+ //scroll to target Request after click on return button from viewPost page
   useEffect(() => {
-    if (pageLimit === 0) {
-      if (document.querySelectorAll(".request-card")[requests.length - 1]) {
+    if (pageLimit === 0 && (requestTarget.current !== null && requestTarget.current !== undefined )) {
+    
         console.log("sii");
         setTimeout(() => {
           window.scrollTo({
-            top: document.querySelectorAll(".request-card")[requests.length - 1].getBoundingClientRect().top -50,
-          
+            top: document.querySelectorAll(".request-card")[requestTarget.current]?.getBoundingClientRect().top - 50,
+            behavior:"smooth"
           })
-          // document.querySelectorAll(".request-card")[requests.length - 1].scrollIntoView(true, {
-           
-          // })
         }, 100);
-    }
-    
  }
+},[requestTarget.current])
+  // console.log(scrollIntoRequestTargetElement);
+
+  const prova = useCallback(() => {
+    console.log("prova");
+  },[])
   
-},[requests,pageLimit])
 
   return (
     <div className={`${showCommentsTarget ? "absolute-top z-200 back_gradient" : ""}`}>
@@ -93,7 +99,9 @@ const Home = () => {
       />
 
       <RequestsContainer
+        requestScrollTarget={requestScrollTarget}
         pageLimit={pageLimit}
+        pageLimi={pageLimit === 1 && prova(0)}
         requestsLimit = {totalRequests}
         showCommentsTarget={showCommentsTarget}
         requests={requests}

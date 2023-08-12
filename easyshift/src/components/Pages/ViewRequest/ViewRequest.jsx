@@ -51,14 +51,13 @@ const ViewRequest = () => {
 
   return (
     <div className=''>
-      {location.state !== null && <div className='back-btn btn' onClick={() => navigate("/home",{state:{requestsLimit:location.state.requestsLimit,pageLimit:location.state.pageLimit}})}></div>}
+
+      {location.state !== null && <div className='back-btn btn' onClick={() => navigate("/home",{state:{requestsLimit:location.state.requestsLimit,pageLimit:location.state.pageLimit,requestIndex: location.state.requestIndex}})}></div>}
       <Title classname={"page-title"}
         title={`View Post `}
         style={{ fontSize: 24 }}
       />
 
-     
-        
       { request.length > 0 && <RequestsContainer
         showCommentsTarget={null}
         requests={request}
