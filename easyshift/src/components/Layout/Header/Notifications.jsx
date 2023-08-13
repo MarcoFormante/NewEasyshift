@@ -47,11 +47,18 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
             })
         }
         if (requestId !== -1) {
-            navigate("/viewRequest/" + requestId,{state:requestId,replace:{from:location}})
+            navigate("/viewRequest/" + requestId, {
+                state:
+                {
+                    requestId,
+                    pathname:location.pathname.match(/viewRequest/g) ? "/home" : location.pathname
+                }
+                ,
+            })
         } else {
             alert("This Post has been Deleted")
         }
-     
+
         handleWindowToggle("")
     }
 

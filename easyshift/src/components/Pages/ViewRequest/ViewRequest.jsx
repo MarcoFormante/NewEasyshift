@@ -11,10 +11,10 @@ import RequestsContainer from '../../Elements/Request/RequestsContainer'
 const ViewRequest = () => {
   const userInfo = useSelector((state)=> state.userInfo.value)
   const [request, setRequest] = useState([])
+  const [errorDeletedRequest,setErrorDeletedRequest]=useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   let { id } = useParams()
-  console.log(location.state);
   
   useEffect(() => {  
       CheckUser(userInfo)
@@ -33,8 +33,7 @@ const ViewRequest = () => {
               if (response.data.rowCount > 0) {
                 setRequest([...response.data.request])
               } else {
-                alert("Error: This Post has been Deleted")
-                navigate("/home")
+               setErrorDeletedRequest(true)
               }
               
             } else{
@@ -47,7 +46,7 @@ const ViewRequest = () => {
     }
   })    
 }, [id])
-
+console.log(location);
   return (
     <div className=''>
 
@@ -71,14 +70,16 @@ const ViewRequest = () => {
         title={`View Post `}
         style={{ fontSize: 24 }}
       />
-
       { request.length > 0 && <RequestsContainer
         showCommentsTarget={null}
         requests={request}
         setShowCommentsTarget={()=>{}}
         isLoadingData={false}
       />}
-       
+      {errorDeletedRequest
+            && 
+        <div className='container__flex--center--row ext-error'>This Post has been Deleted</div>
+        }
     </div>
   )
 }

@@ -1211,6 +1211,13 @@ a.brand__link {
   text-decoration: underline;
 }
 
+.ext-error {
+  font-weight: bold;
+  padding: 10px;
+  color: red;
+  background-color: aliceblue;
+}
+
 html {
   box-sizing: border-box;
 }
