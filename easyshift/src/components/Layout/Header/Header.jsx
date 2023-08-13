@@ -58,8 +58,14 @@ const Header = () => {
           <Nav menuToggle={menuToggle} setMenuToggle={(value)=>setMenuToggle(value)} />
         </div>
         <div className='header__right-elements container__flex--center--row'>
-          <HeaderRightElement src={"/icons/notifications.svg"} windowToggle={windowToggle} onClick={()=>handleWindowToggle("Notifications")} text={"Notifications"}/>
-          <HeaderRightElement src={"/icons/profile.svg"}  windowToggle={windowToggle} onClick={()=>handleWindowToggle("Profile")} text={"Profile"}/>
+          <HeaderRightElement src={"/icons/notifications.svg"}
+            windowToggle={windowToggle}
+            onClick={() => handleWindowToggle("Notifications")}
+            text={"Notifications"} />
+          <HeaderRightElement src={"/icons/profile.svg"}
+            windowToggle={windowToggle}
+            onClick={() => handleWindowToggle("Profile")}
+            text={"Profile"} />
           <MenuButton
             menuToggle={menuToggle}
             setMenuToggle={(value) => setMenuToggle(value)}

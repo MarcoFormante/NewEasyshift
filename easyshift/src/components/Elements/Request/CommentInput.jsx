@@ -19,7 +19,15 @@ const CommentInput = ({ userInfo,requestID, handleAddComment }) => {
 
   return (
     <div className='request-card__inpt-comment'>
-      <textarea name="comment" id="comment" cols="25" rows="3" maxLength="50" value={comment} onChange={(e)=>setComment(e.target.value)} placeholder='Write something'/>
+      <textarea name="comment"
+        id="comment"
+        cols="25"
+        rows="3"
+        maxLength="50"
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        placeholder='Write something'
+      />
       <button className='cta-btn' onClick={handleSendComment}>Send</button>
     </div>
   )

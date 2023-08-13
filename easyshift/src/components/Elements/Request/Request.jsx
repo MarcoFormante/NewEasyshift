@@ -9,14 +9,13 @@ import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 
 
-const Request = ({requestIndex,pageLimit,requestsLimit, setProva,request,setShowCommentsTarget, showComments}) => {
+const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments}) => {
   const [isLocked, setIsLocked] = useState(false)
-  const [addCommentNum, setAddCommentNum] = useState(0)
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
   
- 
+
   useEffect(() => {
     if (request?.locked_user_id !== null) {
       setLockUserComment(parseInt(request?.locked_user_id))
@@ -72,7 +71,6 @@ const Request = ({requestIndex,pageLimit,requestsLimit, setProva,request,setShow
                   role:userInfo.role,
                   comment:value.comment})
               }
-              setAddCommentNum(addCommentNum + 1)
             } else {
               //Handle Data status 0
             }
@@ -84,9 +82,7 @@ const Request = ({requestIndex,pageLimit,requestsLimit, setProva,request,setShow
     }
   }
 
-  const handleSubtractComment = () => {
-      setAddCommentNum(addCommentNum - 1 )
-  }
+
 
   const handleLockedRequest = () => {
     setIsLocked(!isLocked)
@@ -137,7 +133,9 @@ const Request = ({requestIndex,pageLimit,requestsLimit, setProva,request,setShow
     } else {
       setIsLocked(false)
     }
-  },[lockedUserComment])
+  }, [lockedUserComment])
+  
+
     
   return (
     <div className='container__flex--center--column'>
@@ -186,8 +184,6 @@ const Request = ({requestIndex,pageLimit,requestsLimit, setProva,request,setShow
           handleLockedRequest={handleLockedRequest}
           newComment={newComment}
           requestID={request.id}
-          totalComments={parseInt(request?.total_comments) + addCommentNum}
-          handleSubtractComment={handleSubtractComment}
           lockedUserComment={lockedUserComment}
           setLockUserComment={setLockUserComment}
           request={request}

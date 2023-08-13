@@ -22,7 +22,11 @@ const UserInfo = ({ username, role,requestIndex }) => {
           <span className='request-card__user-info__name'>{username}</span>
         </div>
         <div className='request-card__user-info__right-container'>
-            <span className='request-card__user-info__role ' title={Number(role) === 1 ? "Duty" : "Photographer"} style={Number(role) === 1 ?{backgroundImage:"url("+ ph_duty +")"}:{backgroundImage:"url("+ ph_simple +")"}}></span>
+        <span className='request-card__user-info__role '
+          title={Number(role) === 1 ? "Duty" : "Photographer"}
+          style={Number(role) === 1 ? { backgroundImage: "url(" + ph_duty + ")" } : { backgroundImage: "url(" + ph_simple + ")" }}
+        >
+        </span>
         </div>
     </div>
 

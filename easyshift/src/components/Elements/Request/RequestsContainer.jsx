@@ -17,23 +17,18 @@ const RequestsContainer = ({ pageLimit, requestsLimit, showCommentsTarget, setSh
 
   return (
     <div>
-      <div className={`requests__container  ${showCommentsTarget || requests.length < 7 ? "requests__container__showComments" : ""}`}>
-        {showCommentsTarget &&
-          <>
-          <div className='back-btn btn' onClick={()=>setShowCommentsTarget(null)}></div>
-            <Request showComments={true} request={showCommentsTarget}/> 
-          </>
-        }
+      <div className={`requests__container  ${requests.length < 7 ? "requests__container__showComments" : ""}`}>
 
         {requests.map((request,index) =>
-          
-          <div key={request?.id}>
-            
-            {(!showCommentsTarget && request?.username) &&
-              <Request requestIndex={index} pageLimit={pageLimit} requestsLimit={requestsLimit} request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
-            }
+          <div key={request.id}>
+            <Request requestIndex={index}
+              pageLimit={pageLimit}
+              requestsLimit={requestsLimit}
+              request={request}
+            />
           </div>
         )}
+        
           <LoadingSection isLoadingData={isLoadingData} />
       </div>
     </div>

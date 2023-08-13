@@ -74,27 +74,44 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
             }
         })
     }, [])
-    
+
+
     useEffect(() => {
         if (newComment.username) {
             setComments(prev => [...prev,{...newComment}])
         }
-    },[newComment])
+    }, [newComment])
+    
 
   return (
         <div className='request-card__comments__section'>
             {comments && comments.map((comment,index) =>
                 <div key={comment.id + Math.random()} className='request-card__comment'>
                     <div className='request-card__comment__user-info'>
-                        <UserInfo username={comment.user_id === userInfo.userID ? comment.username + " (toi)" : comment.username} role={comment.role_id} />
+                        <UserInfo
+                            username={comment.user_id === userInfo.userID
+                                ? comment.username + " (toi)"
+                                : comment.username
+                            }
+                            role={comment.role_id}
+                        />
                     </div>
                     <div className='request-card__comment__text container__flex--center--row'>
                         {comment.comment}
                     </div>
 
                     <div className='request-card__comment__last'>
-                        <span className='delete btn' onClick={()=>onDeleteComment(comment)} style={comment.user_id !== userInfo.userID ? {cursor:"auto",visibility:"hidden"}: {}}></span>
-                        <span className='lock btn' onClick={() => handleLockedRequest(comment.user_id)}
+                        <span className='delete btn'
+                            onClick={() => onDeleteComment(comment)}
+                            style={comment.user_id !== userInfo.userID
+                                ? { cursor: "auto", visibility: "hidden" }
+                                : {}
+                            }
+                        >
+                        </span>
+                        <span
+                            className='lock btn'
+                            onClick={() => handleLockedRequest(comment.user_id)}
                             style={(lockedUserComment === comment.user_id)
                                 ?
                                 { backgroundImage: `url(${Locked})`, }

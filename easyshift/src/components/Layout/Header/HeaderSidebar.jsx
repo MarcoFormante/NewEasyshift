@@ -14,7 +14,8 @@ const HeaderSidebar = ({windowToggle,handleWindowToggle,windowType}) => {
               (
                 <>
               
-                {windowType === "Notifications"
+        {
+            windowType === "Notifications"
               ?
                 <Notifications windowToggle={windowToggle} windowType={windowType}  handleWindowToggle={(value)=> handleWindowToggle(value)} />
               :
