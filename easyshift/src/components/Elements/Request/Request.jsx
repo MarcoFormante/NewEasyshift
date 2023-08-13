@@ -9,13 +9,13 @@ import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import { useLocation } from 'react-router-dom'
 
-const Request = ({requestScrollTarget,requestIndex,pageLimit,requestsLimit, setProva,request,setShowCommentsTarget, showComments}) => {
+const Request = ({requestIndex,pageLimit,requestsLimit, setProva,request,setShowCommentsTarget, showComments}) => {
   const [isLocked, setIsLocked] = useState(false)
   const [addCommentNum, setAddCommentNum] = useState(0)
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
-const location  = useLocation()
+  
  
   useEffect(() => {
     if (request?.locked_user_id !== null) {
@@ -130,7 +130,6 @@ const location  = useLocation()
       })
     }
   }
-
  
   useEffect(() => {
     if (lockedUserComment) {
@@ -143,7 +142,9 @@ const location  = useLocation()
   return (
     <div className='container__flex--center--column'>
       
-      <div className={`request-card ${isLocked === true ? "request-card__locked" : ""}`} style={showComments || window.location.pathname.match(/viewRequest/g) ? { margin: 0 } : {}}>
+      <div className={`request-card ${isLocked === true ? "request-card__locked" : ""}`}
+        style={showComments || window.location.pathname.match(/viewRequest/g) ? { margin: 0 } : {}}
+      >
         {/* request Delete Button  */}
         {request.user_id === userInfo?.userID && <div className='request-card__deleteIcon' onClick={deleteRequest}>
           <div></div>
@@ -151,6 +152,7 @@ const location  = useLocation()
 
         {/* About User */}
         <UserInfo
+          requestIndex={requestIndex}
           username={request.username + `${request.user_id === userInfo?.userID ? " (toi)" : ""}`}
           role={request.role_id}
         />
@@ -172,7 +174,6 @@ const location  = useLocation()
 
         {/* Date of Request Creation & Comments Icon to navigate to View Post page */}
         <CommentsIcon requestIndex={requestIndex}
-          setRequestScrollTarget={location?.state?.requestIndex === requestIndex ? requestScrollTarget(location?.state?.requestIndex) : () => { }}
           pageLimit={pageLimit}
           requestsLimit={requestsLimit}
           showComments={showComments}

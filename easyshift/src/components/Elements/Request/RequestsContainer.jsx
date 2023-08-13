@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useContext } from 'react'
 import Request from './Request'
 import LoadingSection from '../Loading/LoadingSection'
 import axios from '../../../AxiosApi/axios'
 
 
-const RequestsContainer = ({requestScrollTarget, pageLimit,requestsLimit,showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
+const RequestsContainer = ({ pageLimit, requestsLimit, showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
+  
+ 
 
   console.log(requests.length);
   useEffect(() => {
@@ -28,7 +30,7 @@ const RequestsContainer = ({requestScrollTarget, pageLimit,requestsLimit,showCom
           <div key={request?.id}>
             
             {(!showCommentsTarget && request?.username) &&
-              <Request requestIndex={index} requestScrollTarget={requestScrollTarget} pageLimit={pageLimit} requestsLimit={requestsLimit} request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
+              <Request requestIndex={index} pageLimit={pageLimit} requestsLimit={requestsLimit} request={request} setShowCommentsTarget={(value)=>setShowCommentsTarget(value)} />
             }
           </div>
         )}

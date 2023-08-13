@@ -1,10 +1,20 @@
-import React from 'react'
+import React,{useContext, useEffect} from 'react'
 import ph_duty from '../../../icons/PH_Duty.svg'
 import ph_simple from '../../../icons/PH_simple.svg'
+import { scrollTargetContext } from '../../Pages/Home/Home'
+import { useLocation } from 'react-router-dom'
 
-const UserInfo = ({ username, role }) => {
-  
-    
+
+const UserInfo = ({ username, role,requestIndex }) => {
+  const location = useLocation()
+  const context = useContext(scrollTargetContext)
+ 
+  useEffect(() => {
+    if (location?.state?.requestIndex && requestIndex === location?.state?.requestIndex) {
+      context.setScrollTarget(requestIndex)
+    }
+  },[requestIndex,location?.state?.requestIndex])
+
   return (
       <div className='request-card__user-info'>
         <div className='request-card__user-info__left-container'>
