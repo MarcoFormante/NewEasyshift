@@ -7,7 +7,7 @@ import Comments from './Comments'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
-import { useLocation } from 'react-router-dom'
+
 
 const Request = ({requestIndex,pageLimit,requestsLimit, setProva,request,setShowCommentsTarget, showComments}) => {
   const [isLocked, setIsLocked] = useState(false)

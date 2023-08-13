@@ -1,7 +1,7 @@
 import React,{useContext, useEffect} from 'react'
 import ph_duty from '../../../icons/PH_Duty.svg'
 import ph_simple from '../../../icons/PH_simple.svg'
-import { scrollTargetContext } from '../../Pages/Home/Home'
+import { scrollTargetContext } from '../../Pages/RequestHandler/RequestsHandler'
 import { useLocation } from 'react-router-dom'
 
 

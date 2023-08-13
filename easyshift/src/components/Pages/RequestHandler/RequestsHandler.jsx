@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { createContext } from 'react'
 export const scrollTargetContext = createContext()
 
-const Home = () => {
+const RequestsHandler = ({requestTarget}) => {
   const [requests, setRequests] = useState([])
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [pageLimit, setPageLimit] = useState(0)
@@ -20,7 +20,14 @@ const Home = () => {
   const userInfo = useSelector((state) => state.userInfo.value || JSON.parse(sessionStorage.getItem("userInfo")))
   const location = useLocation()
   
-
+  useEffect(() => {
+    setRequests([])
+    setPageLimit(0)
+    setTotalRequests(0)
+    setCanShowMore(true)
+    setScrollTarget(null)
+    setScrollTarget(null)
+},[requestTarget])
   
 
   //Check token and get all requests
@@ -30,8 +37,11 @@ const Home = () => {
       if (response.data.status === 1 ) {
         const formData = new FormData()
         formData.append("action", "getAllRequests")
-        formData.append("target", "all")
+        formData.append("target", requestTarget)
         formData.append("limit", pageLimit * 6)
+        if (requestTarget === "user") {
+          formData.append("user_id",userInfo.userID)
+        }
         if (location.state !== null) {
             formData.append("limit",pageLimit *6)
             formData.append("limit2", location.state.requestsLimit || 6)
@@ -45,7 +55,7 @@ const Home = () => {
     })
       .then(response => {
         const { message } = response.data 
-        console.log(message?.match(/ You have no requests/gi));
+        console.log(message?.match(/ no more requests/gi));
         if (response.data.status === 1 ) {
           console.log(response.data.request);   
           setRequests([...requests, ...response?.data?.request])
@@ -61,7 +71,7 @@ const Home = () => {
         navigate("/")
     }
   })
-  }, [pageLimit])
+  }, [pageLimit,requestTarget])
 
 //Set total requests by request Length value
   useEffect(() => {
@@ -111,4 +121,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default RequestsHandler

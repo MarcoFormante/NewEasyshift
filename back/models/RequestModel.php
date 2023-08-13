@@ -42,7 +42,7 @@ use DBConnection;
                    echo json_encode(["status"=>1 ,"request"=>$requests,"requestLimit"=>$limit2]);
                 }else{
                     //handle requests = 0 
-                   throw new Exception("Error : You have no requests at the moment");
+                   throw new Exception("Error : no more requests");
                 }
             }else{
                 //handle not execute
@@ -98,7 +98,7 @@ use DBConnection;
                    echo json_encode(["status"=>1 ,"request"=>$requests]);
                 }else{
                     //handle requests = 0 
-                   throw new Exception("Error : There are no requests at the moment");
+                    throw new Exception("Error : no more requests");
                 }
             }else{
                 //handle not execute

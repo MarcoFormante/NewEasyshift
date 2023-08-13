@@ -45,7 +45,12 @@ Class RequestController{
 //GET USER REQUESTS ($limit,$user_id)
     public function getMyRequests(int $limit, int $userId):void{
         $RequestModel = new RequestModel();
-        $RequestModel->getMyRequests($limit,$userId);
+        try {
+            $RequestModel->getMyRequests($limit,$userId);
+        } catch (Exception $e) {
+            echo json_encode(["status"=>0 ,"message"=>$e->getMessage()]);
+        }
+     
     }
 
 //GET locked user id in request entity
