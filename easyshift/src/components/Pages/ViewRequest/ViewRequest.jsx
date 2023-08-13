@@ -16,9 +16,8 @@ const ViewRequest = () => {
   let { id } = useParams()
   console.log(location.state);
   
-  useEffect(() => {
-    
-        CheckUser(userInfo)
+  useEffect(() => {  
+      CheckUser(userInfo)
       .then(response => {
         if (response.data.status === 1) {
           const formData = new FormData()
@@ -52,7 +51,22 @@ const ViewRequest = () => {
   return (
     <div className=''>
 
-      {location.state !== null && <div className='back-btn btn' onClick={() => navigate("/home",{state:{requestsLimit:location.state.requestsLimit,pageLimit:location.state.pageLimit,requestIndex: location.state.requestIndex}})}></div>}
+      {
+        location.state !== null
+        &&
+        <div className='back-btn btn'
+        onClick={() => navigate(location.state.pathname,
+          {
+            state:
+            {
+              requestsLimit: location.state.requestsLimit,
+              pageLimit: location.state.pageLimit,
+              requestIndex: location.state.requestIndex
+            }
+          })}
+      >
+      </div>
+      }
       <Title classname={"page-title"}
         title={`View Post `}
         style={{ fontSize: 24 }}
