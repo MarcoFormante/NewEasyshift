@@ -3,10 +3,8 @@ import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { Link } from 'react-router-dom'
 
 const Profile = () => {
-  const [profile, setProfile] = useState([])
   const userInfo = useSelector((state)=> state.userInfo.value)
-    
-  console.log(userInfo);
+   
   return (
     <div className='profile'>
       <div className='sidebar__title'>Profile</div>
@@ -19,7 +17,6 @@ const Profile = () => {
         <div>
           <span>{userInfo.username}</span>
           <span>{ userInfo.role}</span>
-          <span>{userInfo.requests}</span>
         </div>
       </div>
       <Link to={"/deleteAccount"} className='link btn' >Delete Account</Link>
