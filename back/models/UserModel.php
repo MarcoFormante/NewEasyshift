@@ -70,5 +70,40 @@ Class UserModel
             throw new Exception("Error: Unable to log in, Connection problem");
         }
     }
+
+
+    public function deleteAccount(string $username,string $password,int $userId){
+        
+        if ($this->pdo) {
+            $query = "SELECT username,password from users WHERE id = :userId";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+                    
+                    if (password_verify($password,$userInfo['password']) && $username === $userInfo['username']) {
+                        $stmt = null;
+                       $query = "DELETE FROM users 
+                       WHERE id = :userId";
+                        $stmt = $this->pdo->prepare($query);
+                        $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+                        if ($stmt->execute()) {
+                            echo json_encode(['status'=>1]);
+                        }else{
+                            throw new Exception("Error: it is impossible to delete your account (Request can't execute)");
+                        }
+                    }else{
+                        throw new Exception("Username or Password is not correct");
+                    }
+                }else{
+                    throw new Exception("Username or Password is not correct");
+                }
+                
+                
+                
+            }
+        }
+    }
 }
 

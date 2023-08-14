@@ -7,6 +7,7 @@ import MyRequests from './components/Pages/MyRequests/MyRequests';
 import RequestsHandler from './components/Pages/RequestHandler/RequestsHandler';
 import ViewRequest from './components/Pages/ViewRequest/ViewRequest';
 import { useEffect } from 'react';
+import DeleteAccount from './components/Pages/DeleteAccount/DeleteAccount';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
             <Route path={'/myRequests'} element={<MyRequests />} />
             <Route path={'/viewRequest/:id'} element={<ViewRequest />} />
             <Route path={'/contact'} element={"contact"} />
-            <Route path={'/deleteAccount'} element={"delete"} />
+            <Route path={'/deleteAccount'} element={<DeleteAccount/>} />
             <Route path={'/modifyAccount'} element={"modify"} />
             <Route path={'/*'} element={"Not Found"} />
           </Route>

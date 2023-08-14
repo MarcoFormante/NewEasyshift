@@ -3,9 +3,9 @@ header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Headers:Content-Type');
 header('Access-Control-Allow-Methods: GET, POST');
 
-require_once '../controllers/UserController.php';
-use App\Controllers\UserController\UserController;
 
+require_once '../controllers/userController.php';
+use \App\Controllers\UserController\UserController;
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -17,10 +17,10 @@ if (isset($_POST['action'])) {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $role = $_POST['role'];
-                $UserController = new UserController();
+                $UserController =  new UserController;
                 try {
                     $UserController->createAccount($username,$password,$role);
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     if (preg_match("/Duplicate entry '$username'/",$e->getMessage())) {
                         echo json_encode(["status"=> 0 ,"message" => "Error: This name has already been taken"]);
                     }else{
@@ -33,13 +33,26 @@ if (isset($_POST['action'])) {
             case 'login':
                     $username = $_POST['username'];
                     $password = $_POST['password'];
-                    $UserController = new UserController();
+                    $UserController =   new UserController;
                     try {
                         $UserController->login($username,$password);
-                    } catch (Exception $e) {
+                    } catch (\Exception $e) {
                         echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                     }
             break;
+
+
+            case 'deleteAccount':
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $userId = $_POST['userId'];
+                $UserController = new UserController;
+                try {
+                    $UserController->deleteAccount($username,$password,$userId);
+                } catch (\Exception $e) {
+                    echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
+                }
+        break;
         
         default:
             echo json_encode(["status"=> 0 ,"message" => "Error: Action is Required"]);

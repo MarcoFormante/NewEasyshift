@@ -16,4 +16,10 @@ class UserController{
         $UserModel = new UserModel();
         $UserModel->login($username,$password);
     }
+
+
+    public function deleteAccount(string $username,string $password,int $userId){
+        $UserModel = new UserModel();
+        $UserModel->deleteAccount($username,$password,$userId);
+    }
 }
