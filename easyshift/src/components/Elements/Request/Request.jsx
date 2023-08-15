@@ -9,6 +9,7 @@ import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import { setRequests } from '../../../Redux/userSlice'
 import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 
 
 const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments, deleteRequestFromArray }) => {
@@ -18,6 +19,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
   const dispatch = useDispatch()
+  const location = useLocation()
   
 
   useEffect(() => {
@@ -89,7 +91,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
   const handleLockedRequest = () => {
     setIsLocked(!isLocked)
   }
-  
+
 
   const deleteRequest = () => {
     const userWantsDelete = window.confirm("Do you want to delete this Post")
@@ -186,7 +188,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
          />
       </div>
 
-      {(showComments || window.location.pathname.match(/viewRequest/g))  &&
+      {(location.pathname.match(/viewRequest/g))  &&
         <Comments
           handleLockedRequest={handleLockedRequest}
           newComment={newComment}

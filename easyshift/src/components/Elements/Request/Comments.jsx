@@ -7,9 +7,33 @@ import { useSelector } from 'react-redux'
 
 const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,totalComments,setLockUserComment }) => {
     const [comments, setComments] = useState([])
+    const [noComments,setNoComments]=useState(false)
     const userInfo = useSelector((state) => state.userInfo.value)
 
+//Get request Comments
+    useEffect(() => {
+        const formData = new FormData()
+        formData.append("action","getComments")
+        formData.append("requestId",request?.id)
+        axios.post(process.env.REACT_APP_API_URL + "commentApi.php", formData, {
+            headers: {
+                "Content-Type":"x-www-form-urlencoded"
+            }
+        }).then(response => {
+            console.log(response.data);
+            if (response.data.status === 1) {
+                
+                if (response?.data?.rowCount > 0) {
+                    setComments([...response.data.comments])
+                    setNoComments(false)
+                } else {
+                    setNoComments(true)
+                }
+            }
+        })
+    }, [])
 
+//Delete Comment
     const onDeleteComment = (comment) => {
         if (comment.user_id !== lockedUserComment) {
             if (comment.user_id === userInfo.userID) {
@@ -56,24 +80,6 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
         }
     }
     
-    useEffect(() => {
-        const formData = new FormData()
-        formData.append("action","getComments")
-        formData.append("requestId",request?.id)
-        axios.post(process.env.REACT_APP_API_URL + "commentApi.php", formData, {
-            headers: {
-                "Content-Type":"x-www-form-urlencoded"
-            }
-        }).then(response => {
-            console.log(response.data);
-            if (response.data.status === 1) {
-                if (response?.data?.rowCount > 0) {
-                    setComments([...response.data.comments])
-                }
-            }
-        })
-    }, [])
-
 
     useEffect(() => {
         if (newComment.username) {
@@ -83,12 +89,14 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
     
 
   return (
-        <div className='request-card__comments__section'>
-            {comments && comments.map((comment,index) =>
+      <div className='request-card__comments__section'>
+       
+            {comments && comments.map((comment) =>
                 <div key={comment.id + Math.random()} className='request-card__comment'>
                     <div className='request-card__comment__user-info'>
                         <UserInfo
-                            username={comment.user_id === userInfo.userID
+                            username={
+                                comment.user_id === userInfo.userID
                                 ? comment.username + " (toi)"
                                 : comment.username
                             }
@@ -120,7 +128,14 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                     </div>
                 </div>
             )
-            }
+        }
+          {noComments && comments.length < 1
+              ? <div className='container__flex--center--row mar-top-m'>
+                    <span>No comments yet..</span>
+                </div>
+              : ""
+          }
+          
         </div>
     
   )

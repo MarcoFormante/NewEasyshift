@@ -77,7 +77,8 @@ const ViewRequest = () => {
         title={`View Post `}
         style={{ fontSize: 24 }}
       />
-      {request.length > 0 && <RequestsContainer
+      {request.length > 0 &&
+        <RequestsContainer
         deleteRequestFromArray={()=>deleteRequestFromArray()}
         requests={request}
         isLoadingData={false}
