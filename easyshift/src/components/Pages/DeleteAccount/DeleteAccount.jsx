@@ -47,7 +47,7 @@ const DeleteAccount = () => {
     return (
     <div> 
         <Title title={"Delete Account"} quote={false} />
-        <span className='container__flex--center--row pad-s txt-center'>To delete your account, please provide your current password and associated email</span>    
+        <span className='container__flex--center--row pad-s txt-center'>To delete your account, please provide your current Password and associated Username</span>    
     <div className='container__flex--center--column gap-20'>
        <form className='form form__center--column' onSubmit={handleSubmit}>
             <div className='row'>

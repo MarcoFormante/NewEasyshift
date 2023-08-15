@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import axios from '../../../AxiosApi/axios'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
+import { setRequests } from '../../../Redux/userSlice'
 
 const FormNewRequest = () => {
     const [date, setDate] = useState("")
@@ -9,6 +10,7 @@ const FormNewRequest = () => {
     const [shiftEnd, setShiftEnd] = useState("")
     const [requestMessage, setRequestMessage] = useState("")
     const userInfo = useSelector((state) => state.userInfo.value)
+    const dispatch = useDispatch()
     
 
     function errorsHandler(errorsArray,inputsArray, type) {
@@ -70,6 +72,7 @@ const FormNewRequest = () => {
                             setShiftStart("")
                             setShiftEnd("")
                             setRequestMessage("")
+                            dispatch(setRequests(userInfo.requests + 1))
                         }
                     }).catch(e => {
                     console.log(e);

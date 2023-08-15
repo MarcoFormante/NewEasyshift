@@ -21,7 +21,7 @@ const HeaderSidebar = ({windowToggle,handleWindowToggle,windowType}) => {
               :
             windowType === "Profile"
               ?
-                <Profile />
+                      <Profile handleWindowToggle={(value)=> handleWindowToggle(value)} />
               :
                 ""
               }

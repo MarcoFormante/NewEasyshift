@@ -7,6 +7,8 @@ import Comments from './Comments'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
+import { setRequests } from '../../../Redux/userSlice'
+import { useDispatch } from 'react-redux'
 
 
 const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments}) => {
@@ -14,6 +16,7 @@ const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments}
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
   const userInfo = useSelector((state) => state.userInfo.value)
+  const dispatch = useDispatch()
   
 
   useEffect(() => {
@@ -70,7 +73,7 @@ const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments}
                   request_id: value.requestId,
                   role:userInfo.role,
                   comment:value.comment})
-              }
+                }
             } else {
               //Handle Data status 0
             }
@@ -106,14 +109,17 @@ const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments}
             .then(response => {
               console.log(response.data)
               if (response.data.status === 1) {
+                if (userInfo.requests && userInfo.requests > 0) {
+                  dispatch(setRequests(userInfo.requests - 1))
+                }
                   const lockedUserId = response.data.lockedUserId
                   if (lockedUserId !== false && lockedUserId !== null ) {
-                    axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
+                        axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
                         action: "sendNotificationAfterPostDeletetion",
                         fromUserId: userInfo.userID,
                         message : `has deleted his Post where you were chosen to change shift`,
                         userId: lockedUserId
-                    }, {
+                    },{
                       headers: {
                         "Content-Type":"multipart/form-data"
                         }

@@ -11,11 +11,8 @@ export const userSlice = createSlice({
     setUser: (state,action) => {
       state.value = {...action.payload}
     },
-    setUsername: (state,action) => {
-      state.value.username = action.payload
-    },
-    setUserRole: (state, action) => {
-      state.value.role = action.payload
+    setRequests: (state, action) => {
+      state.value = {...state.value,requests:action.payload}
     },
     deleteAccount: (state, action) => {
       state.value = null
@@ -24,6 +21,6 @@ export const userSlice = createSlice({
 })
 
 
-export const { setUser, setUsername, setUserRole, deleteAccount } = userSlice.actions
+export const { setUser, deleteAccount, setRequests } = userSlice.actions
 
 export default userSlice.reducer
