@@ -1215,7 +1215,7 @@ a.brand__link {
   text-decoration: underline;
 }
 
-.ext-error {
+.text-error {
   font-weight: bold;
   padding: 10px;
   color: red;

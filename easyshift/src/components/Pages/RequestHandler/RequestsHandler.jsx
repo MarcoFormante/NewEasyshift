@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Title from '../../Layout/Title/Title'
 import RequestsContainer from '../../Elements/Request/RequestsContainer'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { createContext } from 'react'
 export const scrollTargetContext = createContext()
 
@@ -15,7 +15,8 @@ const RequestsHandler = ({requestTarget}) => {
   const [totalRequests, setTotalRequests] = useState(0)
   const [showCommentsTarget, setShowCommentsTarget] = useState(null)
   const [canShowMore, setCanShowMore] = useState(true);
-  const [scrollTarget,setScrollTarget] = useState(null)
+  const [scrollTarget, setScrollTarget] = useState(null)
+  const [noRequestsError,setNoRequestsError]=useState(false)
   const navigate = useNavigate()
   const userInfo = useSelector((state) => state.userInfo.value || JSON.parse(sessionStorage.getItem("userInfo")))
   const location = useLocation()
@@ -82,8 +83,6 @@ const RequestsHandler = ({requestTarget}) => {
  //scroll to target Request after click on return button from viewPost page
   useEffect(() => {
     if (pageLimit === 0 && scrollTarget !== null && scrollTarget !== undefined) {
-    
-        console.log("sii");
         setTimeout(() => {
           window.scrollTo({
             top: document.querySelectorAll(".request-card")[scrollTarget]?.getBoundingClientRect().top - 50,
@@ -100,8 +99,24 @@ const RequestsHandler = ({requestTarget}) => {
         title={`${showCommentsTarget ? "View comments" : "All requests"}`}
         style={{ fontSize: 24 }}
       />
+      {requests.length < 1 
+        ?
+        <div className='container__flex--center--column gap-20 txt-bold'>
+          <span>
+            {
+              location.pathname.match(/myRequests/gi)
+            ?
+              "You don't have any requests yet"
+            :
+              "At the moment, there are no requests"
+            }
+          </span>
+          <Link className='underline' style={{ color: 'white' }} to={"/newRequest"}> Add a Requests</Link>
+        </div>
+        : ""}
+       
 
-<scrollTargetContext.Provider value={{scrollTarget,setScrollTarget}}>
+      <scrollTargetContext.Provider value={{scrollTarget,setScrollTarget}}>
       <RequestsContainer
         pageLimit={pageLimit}
         requestsLimit = {totalRequests}
@@ -115,7 +130,7 @@ const RequestsHandler = ({requestTarget}) => {
       {(!isLoadingData && !showCommentsTarget)
                     &&
         <div className='btn container__flex--center--row pad-m show-more-btn mar-auto' style={!canShowMore ? { display: "none" } : { display: "flex" }}>
-        <span className='cta-btn container__flex--center--row '  onClick={()=> setPageLimit((location?.state?.pageLimit * 6|| pageLimit +  1))}>Show more</span>
+        <span className='cta-btn container__flex--center--row ' onClick={()=> setPageLimit((location?.state?.pageLimit * 6|| pageLimit +  1))}>Show more</span>
       </div>}
     </div>
   )
