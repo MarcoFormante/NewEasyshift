@@ -40,6 +40,8 @@ const DeleteAccount = () => {
                             navigate("/")
                     }
                 })
+                } else {
+                    navigate("/")
             }
         })
     }
