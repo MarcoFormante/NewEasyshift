@@ -11,7 +11,8 @@ import { setRequests } from '../../../Redux/userSlice'
 import { useDispatch } from 'react-redux'
 
 
-const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments,deleteRequestFromArray}) => {
+const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments, deleteRequestFromArray }) => {
+  
   const [isLocked, setIsLocked] = useState(false)
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
@@ -88,6 +89,7 @@ const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments,
   const handleLockedRequest = () => {
     setIsLocked(!isLocked)
   }
+  
 
   const deleteRequest = () => {
     const userWantsDelete = window.confirm("Do you want to delete this Post")

@@ -7,6 +7,13 @@ const CommentsIcon = ({requestIndex, pageLimit, requestsLimit, request, showComm
   const navigate = useNavigate()
   const location = useLocation()
 
+  const viewRequest = () => {
+    if (!location.pathname.match(/viewRequest/)) {
+      navigate(`/viewRequest/${request.id}`, { state: { requestsLimit, pageLimit, requestIndex, pathname: location.pathname } })
+    }
+   
+  }
+
   return (
     <div className='request-card__comments'>
       <div className='request-card__comments__container'>
@@ -14,7 +21,7 @@ const CommentsIcon = ({requestIndex, pageLimit, requestsLimit, request, showComm
         {!showComments &&
           <span
             className='request-card__comments__icon btn'
-            onClick={() => navigate(`/viewRequest/${request.id}`, { state: { requestsLimit, pageLimit, requestIndex, pathname: location.pathname } })}>
+            onClick={() => viewRequest() }>
           </span>
         }
     </div>
