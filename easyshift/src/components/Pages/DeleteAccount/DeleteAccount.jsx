@@ -31,12 +31,12 @@ const DeleteAccount = () => {
                 })
                         .then(response => {
                         console.log(response);
-                            if (response.data.status === 1) {
-                                dispatch(deleteAccount)
-                                sessionStorage.removeItem("userInfo")
-                                sessionStorage.removeItem("token")
-                                alert("Your Account has been deleted")
-                        
+                        if (response.data.status === 1) {
+                            dispatch(deleteAccount)
+                            sessionStorage.removeItem("userInfo")
+                            sessionStorage.removeItem("token")
+                            alert("Your Account has been deleted")
+                    
                     }
                 })
             }
