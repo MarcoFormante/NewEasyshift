@@ -13,7 +13,6 @@ const RequestsHandler = ({requestTarget}) => {
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [pageLimit, setPageLimit] = useState(0)
   const [totalRequests, setTotalRequests] = useState(0)
-  const [showCommentsTarget, setShowCommentsTarget] = useState(null)
   const [canShowMore, setCanShowMore] = useState(true);
   const [scrollTarget, setScrollTarget] = useState(null)
   const navigate = useNavigate()
@@ -97,7 +96,7 @@ const RequestsHandler = ({requestTarget}) => {
 
   
   return (
-    <div className={`${showCommentsTarget ? "absolute-top z-200 back_gradient" : ""}`}>
+    <div className={""}>
 
       {
         location.pathname.match(/home/)
@@ -141,14 +140,12 @@ const RequestsHandler = ({requestTarget}) => {
         deleteRequestFromArray={value =>deleteRequestFromArray(value)}
         pageLimit={pageLimit}
         requestsLimit = {totalRequests}
-        showCommentsTarget={showCommentsTarget}
         requests={requests}
-        setShowCommentsTarget={setShowCommentsTarget}
         isLoadingData={isLoadingData}
         />
       </scrollTargetContext.Provider>
       
-      {(!isLoadingData && !showCommentsTarget)
+      {(!isLoadingData && requests.length > 5)
                     &&
         <div className='btn container__flex--center--row pad-m show-more-btn mar-auto' style={!canShowMore ? { display: "none" } : { display: "flex" }}>
         <span className='cta-btn container__flex--center--row ' onClick={()=> setPageLimit((location?.state?.pageLimit * 6|| pageLimit +  1))}>Show more</span>
