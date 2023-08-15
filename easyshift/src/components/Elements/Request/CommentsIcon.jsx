@@ -11,7 +11,12 @@ const CommentsIcon = ({requestIndex, pageLimit, requestsLimit, request, showComm
     <div className='request-card__comments'>
       <div className='request-card__comments__container'>
         <span className='created_at'>created on { new Date(request?.created_on).toLocaleDateString("fr")}</span>
-        {!showComments && <span className='request-card__comments__icon btn' onClick={()=> navigate(`/viewRequest/${request.id}`,{state:{requestsLimit,pageLimit,requestIndex,pathname:location.pathname}})}></span>}
+        {!showComments &&
+          <span
+            className='request-card__comments__icon btn'
+            onClick={() => navigate(`/viewRequest/${request.id}`, { state: { requestsLimit, pageLimit, requestIndex, pathname: location.pathname } })}>
+          </span>
+        }
     </div>
     </div>
   )

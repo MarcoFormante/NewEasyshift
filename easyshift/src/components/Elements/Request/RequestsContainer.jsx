@@ -1,14 +1,10 @@
-import React, { useEffect,useContext } from 'react'
+import React, { useEffect} from 'react'
 import Request from './Request'
 import LoadingSection from '../Loading/LoadingSection'
-import axios from '../../../AxiosApi/axios'
 
 
 const RequestsContainer = ({ pageLimit, requestsLimit, showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
   
- 
-
-  console.log(requests.length);
   useEffect(() => {
     if (showCommentsTarget) {
       //handle comments with axios

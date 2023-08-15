@@ -53,7 +53,6 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
             } else {
                 //HANDLE IS YOUR REQUEST BRO!
             }
-           
         }
     }
     

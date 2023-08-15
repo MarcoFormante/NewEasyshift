@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import Title from '../../Layout/Title/Title'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
@@ -11,7 +11,8 @@ const DeleteAccount = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const dispatch = useDispatch()
-    const userInfo = useSelector( state => state.userInfo.value)
+    const userInfo = useSelector(state => state.userInfo.value)
+    const navigate = useNavigate()
   
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -36,7 +37,7 @@ const DeleteAccount = () => {
                             sessionStorage.removeItem("userInfo")
                             sessionStorage.removeItem("token")
                             alert("Your Account has been deleted")
-                    
+                            navigate("/")
                     }
                 })
             }
