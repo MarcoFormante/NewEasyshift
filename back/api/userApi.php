@@ -52,7 +52,17 @@ if (isset($_POST['action'])) {
                 } catch (\Exception $e) {
                     echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                 }
-        break;
+            break;
+
+            case 'getUserTotalRequests':
+                $userId = $_POST['userId'];
+                $UserController = new UserController;
+                try {
+                    $UserController->getUserTotalRequests($userId);
+                } catch (\Exception $e) {
+                    echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
+                }
+            break;
         
         default:
             echo json_encode(["status"=> 0 ,"message" => "Error: Action is Required"]);

@@ -98,12 +98,26 @@ Class UserModel
                     }
                 }else{
                     throw new Exception("Username or Password is not correct");
-                }
-                
-                
-                
+                } 
             }
         }
     }
-}
 
+
+    public function getUserTotalRequests(int $userId):void{
+        if ($this->pdo) {
+            $query = "SELECT COUNT(id) as totalRequests FROM requests WHERE user_id = :userId";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                $totalRequests = $stmt->fetchColumn();
+                echo json_encode(['status'=>1,"totalRequests"=>$totalRequests]);
+            }else{
+                throw new Exception("Error Processing Request(Query Execution)");
+            }
+        }else{
+            throw new Exception("Error Processing Request(PDO problem)");
+        }
+    }
+
+}

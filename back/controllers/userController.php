@@ -18,8 +18,13 @@ class UserController{
     }
 
 
-    public function deleteAccount(string $username,string $password,int $userId){
+    public function deleteAccount(string $username,string $password,int $userId):void{
         $UserModel = new UserModel();
         $UserModel->deleteAccount($username,$password,$userId);
+    }
+
+    public function getUserTotalRequests(int $userId):void{
+            $UserModel = new UserModel();
+            $UserModel->getUserTotalRequests($userId);
     }
 }
