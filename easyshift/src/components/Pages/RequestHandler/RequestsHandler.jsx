@@ -95,10 +95,27 @@ const RequestsHandler = ({requestTarget}) => {
   
   return (
     <div className={`${showCommentsTarget ? "absolute-top z-200 back_gradient" : ""}`}>
-      <Title classname={"page-title"}
-        title={`${showCommentsTarget ? "View comments" : "All requests"}`}
-        style={{ fontSize: 24 }}
-      />
+
+      {
+        location.pathname.match(/home/)
+        && 
+        <Title
+          classname={"page-title"}
+          title={"All Requests"}
+          style={{ fontSize: 24 }}
+        />
+      }
+
+      {
+        location.pathname.match(/myRequests/)
+        && 
+        <Title
+          classname={"page-title"}
+          title={"My Requests"}
+          style={{ fontSize: 24 }}
+        />
+      }
+
       {requests.length < 1 
         ?
         <div className='container__flex--center--column gap-20 txt-bold'>

@@ -29,7 +29,6 @@ const Profile = ({ handleWindowToggle }) => {
       })
     }
   },[])
-  
  
    
   return (
@@ -43,7 +42,7 @@ const Profile = ({ handleWindowToggle }) => {
         </div>
         <div>
           <span>{userInfo.username}</span>
-          <span>{ userInfo.role}</span>
+          <span>{ userInfo.role === 0 ? "Photographer" : "Duty"}</span>
           <span>{ userInfo.requests}</span>
         </div>
       </div>
