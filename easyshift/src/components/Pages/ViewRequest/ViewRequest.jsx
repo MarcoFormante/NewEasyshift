@@ -15,6 +15,7 @@ const ViewRequest = () => {
   const navigate = useNavigate()
   const location = useLocation()
   let { id } = useParams()
+
   
   useEffect(() => {  
       CheckUser(userInfo)
@@ -48,6 +49,11 @@ const ViewRequest = () => {
   }, [id])
   
 
+  const deleteRequestFromArray = () => {
+    setRequest([])
+    setErrorDeletedRequest(true)
+  }
+
   return (
     <div className=''>
 
@@ -71,7 +77,8 @@ const ViewRequest = () => {
         title={`View Post `}
         style={{ fontSize: 24 }}
       />
-      { request.length > 0 && <RequestsContainer
+      {request.length > 0 && <RequestsContainer
+        deleteRequestFromArray={()=>deleteRequestFromArray()}
         requests={request}
         isLoadingData={false}
       />}

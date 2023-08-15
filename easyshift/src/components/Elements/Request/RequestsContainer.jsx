@@ -3,7 +3,7 @@ import Request from './Request'
 import LoadingSection from '../Loading/LoadingSection'
 
 
-const RequestsContainer = ({ pageLimit, requestsLimit, isLoadingData, requests }) => {
+const RequestsContainer = ({ deleteRequestFromArray, pageLimit, requestsLimit, isLoadingData, requests }) => {
   
 
   return (
@@ -12,8 +12,10 @@ const RequestsContainer = ({ pageLimit, requestsLimit, isLoadingData, requests }
 
         {requests.map((request,index) =>
           <div key={request.id}>
-            
-            <Request requestIndex={index}
+
+            <Request
+              deleteRequestFromArray={value => deleteRequestFromArray(value)}
+              requestIndex={index}
               pageLimit={pageLimit}
               requestsLimit={requestsLimit}
               request={request}

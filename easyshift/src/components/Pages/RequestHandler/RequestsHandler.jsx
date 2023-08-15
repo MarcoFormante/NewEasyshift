@@ -16,7 +16,6 @@ const RequestsHandler = ({requestTarget}) => {
   const [showCommentsTarget, setShowCommentsTarget] = useState(null)
   const [canShowMore, setCanShowMore] = useState(true);
   const [scrollTarget, setScrollTarget] = useState(null)
-  const [noRequestsError,setNoRequestsError]=useState(false)
   const navigate = useNavigate()
   const userInfo = useSelector((state) => state.userInfo.value || JSON.parse(sessionStorage.getItem("userInfo")))
   const location = useLocation()
@@ -28,7 +27,11 @@ const RequestsHandler = ({requestTarget}) => {
     setCanShowMore(true)
     setScrollTarget(null)
     setScrollTarget(null)
-},[requestTarget])
+  }, [requestTarget])
+
+  const deleteRequestFromArray = (requestId)=>{
+    setRequests(requests.filter(req => req.id !== requestId))
+  }
   
 
   //Check token and get all requests
@@ -134,7 +137,8 @@ const RequestsHandler = ({requestTarget}) => {
        
 
       <scrollTargetContext.Provider value={{scrollTarget,setScrollTarget}}>
-      <RequestsContainer
+        <RequestsContainer
+        deleteRequestFromArray={value =>deleteRequestFromArray(value)}
         pageLimit={pageLimit}
         requestsLimit = {totalRequests}
         showCommentsTarget={showCommentsTarget}

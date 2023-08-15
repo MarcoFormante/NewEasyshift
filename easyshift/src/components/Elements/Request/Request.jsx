@@ -11,7 +11,7 @@ import { setRequests } from '../../../Redux/userSlice'
 import { useDispatch } from 'react-redux'
 
 
-const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments}) => {
+const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments,deleteRequestFromArray}) => {
   const [isLocked, setIsLocked] = useState(false)
   const [newComment, setNewComment] = useState({})
   const [lockedUserComment, setLockUserComment] = useState(null)
@@ -110,6 +110,7 @@ const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments}
                 if (userInfo.requests && userInfo.requests > 0) {
                   dispatch(setRequests(userInfo.requests - 1))
                 }
+                  deleteRequestFromArray(request.id)
                   const lockedUserId = response.data.lockedUserId
                   if (lockedUserId !== false && lockedUserId !== null ) {
                         axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
