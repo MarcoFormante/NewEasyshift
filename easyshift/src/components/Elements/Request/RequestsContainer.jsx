@@ -3,13 +3,8 @@ import Request from './Request'
 import LoadingSection from '../Loading/LoadingSection'
 
 
-const RequestsContainer = ({ pageLimit, requestsLimit, showCommentsTarget, setShowCommentsTarget, isLoadingData, requests }) => {
+const RequestsContainer = ({ pageLimit, requestsLimit, isLoadingData, requests }) => {
   
-  useEffect(() => {
-    if (showCommentsTarget) {
-      //handle comments with axios
-    }
-  },[showCommentsTarget])
 
   return (
     <div>
@@ -17,6 +12,7 @@ const RequestsContainer = ({ pageLimit, requestsLimit, showCommentsTarget, setSh
 
         {requests.map((request,index) =>
           <div key={request.id}>
+            
             <Request requestIndex={index}
               pageLimit={pageLimit}
               requestsLimit={requestsLimit}

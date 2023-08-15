@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import Title from '../../Layout/Title/Title'
 import Form from './Form'
 import axios from '../../../AxiosApi/axios'
+import { useNavigate } from 'react-router-dom'
+
 
 
 const NewAccount = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [role, setRole] = useState(null)
+    const navigate = useNavigate()
   
   function handleSubmit(e) {
     e.preventDefault()
@@ -19,7 +22,7 @@ const NewAccount = () => {
 
     if (formIsValid) {
      //first Letter in Capital
-      const name = username.at(0).toUpperCase() + username.slice(1)
+      const name = username[0].toUpperCase() + username.slice(1)
       const formData = new FormData()
       formData.append("username", name)
       formData.append("password", password)
@@ -30,7 +33,11 @@ const NewAccount = () => {
           "Content-Type": "x-www-form-urlencoded"
         }
       })
-      .then(response => console.log(response.data))
+        .then(response => {
+        if (response.data.status === 1) {
+          navigate("/")
+        }
+      })
     } else {
      //Handle Error Form
       console.log("notValid");

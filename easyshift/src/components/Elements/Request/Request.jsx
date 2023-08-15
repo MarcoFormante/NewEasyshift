@@ -43,8 +43,6 @@ const Request = ({requestIndex, pageLimit, requestsLimit, request, showComments}
         })
       }
     }
-   
-   
   },[showComments])
   
   const handleAddComment = (value) => {

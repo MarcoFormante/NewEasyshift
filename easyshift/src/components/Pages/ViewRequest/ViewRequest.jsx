@@ -45,8 +45,9 @@ const ViewRequest = () => {
         navigate("/")
     }
   })    
-}, [id])
-console.log(location);
+  }, [id])
+  
+
   return (
     <div className=''>
 
@@ -71,9 +72,7 @@ console.log(location);
         style={{ fontSize: 24 }}
       />
       { request.length > 0 && <RequestsContainer
-        showCommentsTarget={null}
         requests={request}
-        setShowCommentsTarget={()=>{}}
         isLoadingData={false}
       />}
       {errorDeletedRequest
