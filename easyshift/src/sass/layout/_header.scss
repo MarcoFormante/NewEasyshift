@@ -153,9 +153,24 @@
 
         &--active{
             width: 100vw;
+            overflow-x: hidden;
+            border: 1px solid;
+            border-top: none;
+            border-right: none;
+            @media screen and (min-width:(map-get($breakpoints,"medium")+ 1)) {
+                &::-webkit-scrollbar{
+                    display: block;
+                    background: rgb(209, 209, 209);
+                }
+              &::-webkit-scrollbar-thumb{
+                background-color: rgb(97, 97, 97);
+                height: 10px;
+              }
+            }
+            
             
             @media screen  and (min-width:(map-get($breakpoints,"medium")+ 1) ){
-                 width: 264px;
+                 width: 330px;
             }
 
            

@@ -779,10 +779,24 @@ layout: header
 }
 .header__right-elements__sidebar--active {
   width: 100vw;
+  overflow-x: hidden;
+  border: 1px solid;
+  border-top: none;
+  border-right: none;
+}
+@media screen and (min-width: 769px) {
+  .header__right-elements__sidebar--active::-webkit-scrollbar {
+    display: block;
+    background: rgb(209, 209, 209);
+  }
+  .header__right-elements__sidebar--active::-webkit-scrollbar-thumb {
+    background-color: rgb(97, 97, 97);
+    height: 10px;
+  }
 }
 @media screen and (min-width: 769px) {
   .header__right-elements__sidebar--active {
-    width: 264px;
+    width: 330px;
   }
 }
 .header__right-elements__sidebar--active .exit {
