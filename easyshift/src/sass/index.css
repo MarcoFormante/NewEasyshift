@@ -637,7 +637,11 @@ components
   width: fit-content;
   margin: 40px auto;
   text-decoration: underline;
-  color: #407599;
+  color: red;
+}
+.profile .link__logout {
+  color: white;
+  margin-top: 80px;
 }
 .profile .link:active {
   color: #407599;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
-import { Link } from 'react-router-dom'
-import { setRequests } from '../../../Redux/userSlice'
+import { Link, useNavigate } from 'react-router-dom'
+import { setRequests,deleteAccount } from '../../../Redux/userSlice'
 import { useDispatch } from 'react-redux'
 import axios from '../../../AxiosApi/axios'
 
@@ -9,6 +9,7 @@ const Profile = ({ handleWindowToggle }) => {
   const [userTotalRequests,setUserTotalRequests] = useState()
   const userInfo = useSelector((state) => state.userInfo.value)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   
   useEffect(() => {
     if (userInfo.requests) {
@@ -28,7 +29,13 @@ const Profile = ({ handleWindowToggle }) => {
         }
       })
     }
-  },[])
+  }, [])
+  
+  const logout = () => {
+    dispatch(deleteAccount)
+    sessionStorage.clear()
+    navigate("/")
+  }
  
    
   return (
@@ -47,6 +54,7 @@ const Profile = ({ handleWindowToggle }) => {
         </div>
       </div>
       <Link to={"/deleteAccount"} className='link btn'onClick={()=> handleWindowToggle("")} >Delete Account</Link>
+      <div to={"/deleteAccount"} className='link link__logout btn' onClick={logout}>Log out</div>
     </div>
   )
 }
