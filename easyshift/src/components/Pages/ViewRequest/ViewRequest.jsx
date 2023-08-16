@@ -15,38 +15,45 @@ const ViewRequest = () => {
   const navigate = useNavigate()
   const location = useLocation()
   let { id } = useParams()
+  const [trigger,setTrigger] = useState(0)
 
-  
-  useEffect(() => {  
+  useEffect(() => {
+    setTrigger(location?.state?.trigger)
+  },[location?.state?.trigger])
+  console.log(trigger);
+
+  useEffect(() => {
+      setRequest([])
       CheckUser(userInfo)
-      .then(response => {
-        if (response.data.status === 1) {
-          const formData = new FormData()
+        .then(response => {
+          if (response.data.status === 1) {
+            const formData = new FormData()
             formData.append("action", "viewPost")
-            formData.append("requestId",id)
+            formData.append("requestId", id)
             axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
-            headers: {
-              "Content-Type": "x-www-form-urlencoded",
-            }
-          })
-          .then(response => {
-            if (response.data.status === 1) {
-              if (response.data.rowCount > 0) {
-                setRequest([...response.data.request])
-              } else {
-               setErrorDeletedRequest(true)
+              headers: {
+                "Content-Type": "x-www-form-urlencoded",
               }
+            })
+              .then(response => {
+                if (response.data.status === 1) {
+                  if (response.data.rowCount > 0) {
+                    setRequest([...response.data.request])
+                  } else {
+                    setErrorDeletedRequest(true)
+                  }
               
-            } else{
-              alert(response.data.message)
-            }
-          })
+                } else {
+                  alert(response.data.message)
+                }
+              })
           
-      } else {
-        navigate("/")
-    }
-  })    
-  }, [id])
+          } else {
+            navigate("/")
+          }
+        })
+     
+  }, [trigger])
   
 
   const deleteRequestFromArray = () => {

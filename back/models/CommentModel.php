@@ -44,8 +44,9 @@ class CommentModel{
 
                   //SEND NOTIFICATION
                     if ($userId !== $requestUserId) {
+                        $message = "has commented your post";
                         $notificationController =  new NotificationController();
-                        $notificationController->sendNotification($userId,$requestId);
+                        $notificationController->sendNotification(null,$userId,$requestId,$message);
                     }
                    
                 }else{

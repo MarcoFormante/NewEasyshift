@@ -65,17 +65,39 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
     }
 
     const handleLockedRequest = (commentUserID) => {
-        if (request.user_id === userInfo.userID) {
-            if (commentUserID !== userInfo.userID) {
-                if (lockedUserComment === commentUserID) {
-                    setLockUserComment(null)
-                    request.locked_user_id = null
-                } else {
-                    setLockUserComment(commentUserID)
-                    request.locked_user_id = commentUserID
-                }
+        if ((request.user_id === userInfo.userID && commentUserID !== userInfo.userID)) {
+            const formData = new FormData()
+            formData.append("action", "lockUserId")
+            formData.append("requestId", request.id)
+            formData.append("fromUserId",userInfo.userID)
+            if (lockedUserComment === commentUserID) {
+                formData.append("lockedUserId",JSON.stringify(["null",commentUserID]))
+                axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+                    headers: {
+                            "Content-Type":"x-www-form-urlencoded"
+                        }
+                }).then(response => {
+                    console.log(response.data);
+                        if (response.data.status === 1) {
+                            setLockUserComment(null)
+                            request.locked_user_id = null
+                        }
+                })
+                   
             } else {
-                //HANDLE IS YOUR REQUEST BRO!
+                formData.append("lockedUserId",JSON.stringify(["notNull",commentUserID]))
+                axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+                    headers: {
+                            "Content-Type":"x-www-form-urlencoded"
+                        }
+                }).then(response => {
+                    console.log(response.data);
+                        if (response.data.status === 1) {
+                            setLockUserComment(commentUserID)
+                            request.locked_user_id = commentUserID
+                        }
+                    })
+                  
             }
         }
     }

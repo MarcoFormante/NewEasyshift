@@ -49,12 +49,21 @@ class NotificationModel {
         }
     }
 
-    public function sendNotification(int $userId,int $requestId):void{
-        $query = "INSERT INTO notifications(user_id,request_id,message,from_user_id) 
-        VALUES((SELECT user_id from requests WHERE id = :requestId),:requestId,'has commented on your post',:from_userId)";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindValue(':from_userId',$userId,PDO::PARAM_INT);
+    public function sendNotification(int $userId = null ,int $fromUserId,int $requestId,string $message):void{
+        if ($userId !== null) {
+            $query = "INSERT INTO notifications(user_id,request_id,message,from_user_id) 
+            VALUES(:userId,:requestId,:message,:from_userId)";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(':userId',$userId,PDO::PARAM_INT);
+        }else{
+            $query = "INSERT INTO notifications(user_id,request_id,message,from_user_id) 
+            VALUES((SELECT user_id from requests WHERE id = :requestId),:requestId,:message,:from_userId)";
+            $stmt = $this->pdo->prepare($query);
+        }
+        
+        $stmt->bindValue(':from_userId',$fromUserId,PDO::PARAM_INT);
         $stmt->bindValue(':requestId',$requestId,PDO::PARAM_INT);
+        $stmt->bindValue(':message',$message,PDO::PARAM_STR);
         $stmt->execute();
     }
 

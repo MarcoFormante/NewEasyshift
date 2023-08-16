@@ -31,9 +31,9 @@ class NotificationController {
     }
 
 
-    public function sendNotification(int $userId,int $requestId):void{
+    public function sendNotification(int $userId = null,int $fromUserId,int $requestId,string $message):void{
         $NotificationModel = new NotificationModel();
-        $NotificationModel->sendNotification($userId,$requestId);
+        $NotificationModel->sendNotification($userId,$fromUserId,$requestId,$message);
     }
 
     public function sendNotificationAfterPostDeletetion():void{

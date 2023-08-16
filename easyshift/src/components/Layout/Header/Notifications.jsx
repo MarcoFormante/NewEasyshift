@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
@@ -9,6 +9,7 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
     const navigate = useNavigate()
     const userInfo = useSelector((state) => state.userInfo.value)
     const location = useLocation()
+    const [toggleNotificationHandler,setToggleNotificationHandler] = useState(0)
 
     const deleteNotification = (id) => {
         CheckUser(userInfo)
@@ -36,6 +37,7 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
 
     const viewRequest = (requestId, viewed, notificationId) => {
         
+       
         if (viewed === 0) {
             axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
                 action: "markNotificationAsViewed",
@@ -47,22 +49,28 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
             })
         }
         if (requestId !== -1) {
-            navigate("/viewRequest/" + requestId, {
-                state:
-                {
-                    requestId,
-                    pathname:location.pathname.match(/viewRequest/g) ? "/home" : location.pathname
-                }
-                ,
-            })
+            
+                navigate("/viewRequest/" + 62, {
+                    state:
+                    {
+                        requestId,
+                        pathname: location.pathname.match(/viewRequest/g) ? "/home" : location.pathname,
+                        trigger:Math.random()
+                    }
+                    
+                })
+            
+            
         } else {
             alert("This Post has been Deleted")
         }
 
         handleWindowToggle("")
+
     }
 
-    
+
+
     
     useEffect(() => {
         if (windowToggle && windowType === "Notifications") {
@@ -98,7 +106,9 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
                 <div className='notifications__container'>
                 {notifications && notifications.map((notif, index) =>
                     <div key={notif.id} className={`notifications__notif container__flex--center--row gap-20 ${notif.viewed === 0 ? "notifications__notif__notViewed" : ""}`}>
-                        <div className='notifications__notif__message btn' onClick={()=>viewRequest(notif.request_id,notif.viewed,notif.id)}>{`${notif.username} ${notif.message}`}</div>
+                        <div className='notifications__notif__message btn' onClick={() => {
+                            viewRequest(notif.request_id, notif.viewed, notif.id)
+                        }}>{`${notif.username} ${notif.message}`}</div>
                         <div className='notifications__notif__delete btn' onClick={()=>deleteNotification(notif.id)}></div>
                     </div>
                     

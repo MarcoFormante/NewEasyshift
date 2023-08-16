@@ -72,12 +72,11 @@ if (isset($_POST['action'])) {
 
     
 
-    
-
     default:
             echo json_encode(["status"=> 0 ,"message" => "Error: Action is Required"]);
         break;
    }
+   
 }else{
     echo json_encode(["status"=> 0 ,"message" => "Error: Action is Required"]);
 }
