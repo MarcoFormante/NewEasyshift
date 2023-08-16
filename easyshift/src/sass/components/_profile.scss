@@ -4,12 +4,22 @@
         width: 100%;
        display: flex;
        justify-content: center;
-       margin-top: 20px;
+       margin-top: 50px;
        gap: 20px;
+       text-align: center;
         
+       &__column{
+       
+       }
+
+       &__row{
+        gap: 5px;
+        border: 1px solid;
+        min-width: 100vw;
+        padding: 10px;
+       }
        
        div{
-        gap: 20px;
         display: flex;
         flex-direction: column;
        }
@@ -25,7 +35,8 @@
 
         &__logout{
             color:white;
-            margin-top: 80px;
+            margin-top: 20px;
+            @extend .txt-bold;
         }
         
         &:active{

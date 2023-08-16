@@ -623,11 +623,17 @@ components
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
   gap: 20px;
+  text-align: center;
+}
+.profile__userInfo__row {
+  gap: 5px;
+  border: 1px solid;
+  min-width: 100vw;
+  padding: 10px;
 }
 .profile__userInfo div {
-  gap: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -641,7 +647,7 @@ components
 }
 .profile .link__logout {
   color: white;
-  margin-top: 80px;
+  margin-top: 20px;
 }
 .profile .link:active {
   color: #407599;
@@ -1239,7 +1245,7 @@ a.brand__link {
   z-index: 200;
 }
 
-.txt-bold {
+.txt-bold, .profile .link__logout {
   font-weight: bold;
 }
 

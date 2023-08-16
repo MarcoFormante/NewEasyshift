@@ -42,15 +42,19 @@ const Profile = ({ handleWindowToggle }) => {
     <div className='profile'>
       <div className='sidebar__title'>Profile</div>
       <div className='profile__userInfo'>
-        <div>
-          <span className='txt-bold'>Name:</span>
-          <span className='txt-bold'>Role:</span>
-          <span className='txt-bold'>Requests:</span>
-        </div>
-        <div>
-          <span>{userInfo.username}</span>
-          <span>{ userInfo.role === 0 ? "Photographer" : "Duty"}</span>
-          <span>{ userInfo.requests}</span>
+        <div className='profile__userInfo__column'>
+            <div className='profile__userInfo__row'>
+              <span className='txt-bold'>Name:</span>
+              <span>{userInfo.username}</span>
+            </div>
+            <div className='profile__userInfo__row'>
+              <span className='txt-bold'>Role:</span>
+              <span>{ userInfo.role === 0 ? "Photographer" : "Duty"}</span>
+            </div>
+            <div className='profile__userInfo__row'>
+              <span className='txt-bold'>Requests:</span> 
+              <span>{ userInfo.requests}</span>
+            </div>
         </div>
       </div>
       <Link to={"/deleteAccount"} className='link btn'onClick={()=> handleWindowToggle("")} >Delete Account</Link>
