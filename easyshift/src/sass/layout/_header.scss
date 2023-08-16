@@ -132,15 +132,23 @@
 
    @media screen  and (min-width:(map-get($breakpoints,"medium")+ 1) ){
     margin-right: 34px;
+    
    }
 
   
     &__container__img{
         width: 30px;
+
+        &.hasNotification{
+            animation: Prova 1s ease infinite alternate;
+        }
     }
+
+    
 
     &__container__text{
         font-size: 12px;
+       
     }
 
 
@@ -154,7 +162,6 @@
         transition: width 0.3s ease;
         z-index: 1;
 
-    
         .exit {
             opacity: 0;
         }
@@ -211,5 +218,17 @@
             }
         }
         
+    }
+}
+
+
+@keyframes Prova {
+    0%{
+        background-color: $brand_color;
+        border-radius: 50%;
+    }
+    100%{
+        background-color: darken($brand_color,20);
+        border-radius: 50%;
     }
 }

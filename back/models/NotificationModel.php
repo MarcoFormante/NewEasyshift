@@ -86,4 +86,22 @@ class NotificationModel {
             $stmt->execute();
         }
     }
+
+
+    public function checkNotifications(int $userId):void{
+        if ($this->pdo) {
+            $query = "SELECT id  FROM notifications WHERE user_id = :userId AND viewed = 0";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                $totalNotifications = $stmt->fetchColumn();
+                echo json_encode(['status'=> 1,"totalNotifications"=> $totalNotifications]);
+            }else{
+                throw new Exception("Error Processing Request");
+            }
+                
+        }else{
+            throw new Exception("Error Processing Request");
+        }
+    }
 }

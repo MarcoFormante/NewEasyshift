@@ -57,4 +57,13 @@ class NotificationController {
             $NotificationModel->markNotificationAsViewed($notificationId);
         }
     }
+
+
+    public function checkNotifications():void{
+        if (isset($_POST['userId'])) {
+            $userId = $_POST['userId'];
+            $NotificationModel = new NotificationModel();
+            $NotificationModel->checkNotifications($userId);
+        }
+    }
 }

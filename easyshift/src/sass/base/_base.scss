@@ -38,10 +38,10 @@ body{
   overflow-x: hidden;
   background: $lighten_brand_color no-repeat fixed;
   color: $white_color;
+  
 
   &.fixed{
     overflow: hidden;
-  
   }
 }
 
@@ -49,3 +49,4 @@ body{
 input{
   appearance: none;
 }
+
