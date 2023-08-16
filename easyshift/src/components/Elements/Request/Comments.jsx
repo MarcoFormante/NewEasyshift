@@ -56,7 +56,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                             setComments(comments.filter(c => c.id !== comment.id))
                             if (totalComments > 0) {
                                 handleSubtractComment()
-                            }
+                        }
                     }
                 })
             }
@@ -65,23 +65,30 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
     }
 
     const handleLockedRequest = (commentUserID) => {
-        if ((request.user_id === userInfo.userID && commentUserID !== userInfo.userID)) {
+        let userIsHandlingLockStatus = (commentUserID === userInfo.userID && lockedUserComment === userInfo.userID)
+        if ((request.user_id === userInfo.userID ||  userIsHandlingLockStatus)) {
             const formData = new FormData()
             formData.append("action", "lockUserId")
             formData.append("requestId", request.id)
-            formData.append("fromUserId",userInfo.userID)
+            formData.append("fromUserId", userInfo.userID)
+            
             if (lockedUserComment === commentUserID) {
-                formData.append("lockedUserId",JSON.stringify(["null",commentUserID]))
+                if (!userIsHandlingLockStatus) {
+                    formData.append("lockedUserId",JSON.stringify(["null",commentUserID]))
+                } else {
+                    formData.append("lockedUserId",JSON.stringify(["null",request.user_id]))
+                }
+                
                 axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
                     headers: {
                             "Content-Type":"x-www-form-urlencoded"
                         }
                 }).then(response => {
-                    console.log(response.data);
+                    console.log(response.data.lockedUserId);
                         if (response.data.status === 1) {
-                            setLockUserComment(null)
-                            request.locked_user_id = null
-                        }
+                            setLockUserComment(response.data.lockedUserId)
+                            request.locked_user_id = response.data.lockedUserIdl
+                    }
                 })
                    
             } else {
@@ -93,8 +100,8 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                 }).then(response => {
                     console.log(response.data);
                         if (response.data.status === 1) {
-                            setLockUserComment(commentUserID)
-                            request.locked_user_id = commentUserID
+                            setLockUserComment(response.data.lockedUserId)
+                            request.locked_user_id = response.data.lockedUserId
                         }
                     })
                   
@@ -140,7 +147,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                         </span>
                         <span
                             className='lock btn'
-                            onClick={() => handleLockedRequest(comment.user_id)}
+                            onClick={() =>comment.user_id  !== request.user_id && handleLockedRequest(comment.user_id)}
                             style={(lockedUserComment === comment.user_id)
                                 ?
                                 { backgroundImage: `url(${Locked})`, }

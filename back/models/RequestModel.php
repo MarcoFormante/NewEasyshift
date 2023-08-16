@@ -188,12 +188,14 @@ use DBConnection;
         
     if ($this->pdo) {
             $query = "";
+            $returnValue= null;
             if (json_decode($lockedUserId)[0] === "null") {
                 $lockedUserId = json_decode($lockedUserId)[1];
                 $query="UPDATE requests SET locked_user_id = null WHERE id = :requestId";
                 $stmt = $this->pdo->prepare($query);
                 $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
                 $notificationMessage = "no longer wants your shift";
+                $returnValue = null;
 
             }elseif(json_decode($lockedUserId)[0] === "notNull"){
                 $lockedUserId = json_decode($lockedUserId)[1];
@@ -202,10 +204,11 @@ use DBConnection;
                 $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
                 $stmt->bindValue(":lockedUserId",$lockedUserId,PDO::PARAM_INT);
                 $notificationMessage ="wants your shift";
+                $returnValue = $lockedUserId;
             }
             
                 if ($stmt->execute()) {
-                    echo json_encode(['status'=> 1]);
+                    echo json_encode(['status'=> 1,"lockedUserId"=>$returnValue]);
                     if ($_POST['fromUserId']) {
                         $fromUserId = $_POST['fromUserId'];
                        require_once '../controllers/notificationController.php';
@@ -216,7 +219,7 @@ use DBConnection;
                     throw new Exception("Error: it's not possible to lock user at the moment, Please try again later (execution problem)");
                 }
             }else{
-                $query="UPDATE requests SET locked_user_id = :lockedUserId WHERE id = :requestId";
+                throw new Exception("Error: it's not possible to lock user at the moment, Please try again later (pdo problem)");
             }
             
         
