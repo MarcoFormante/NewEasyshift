@@ -24,7 +24,7 @@
     border: 1px solid white;
     position: relative;
     border-radius: 4px;
-    background-color: #343c5262;
+    background-color: darken($brand_color,15);
     padding: 10px;
     @include flex(column,baseline,space-between,23px);
     position: relative;
@@ -122,19 +122,30 @@
         &__container{
             @include flex(column,center,flex-start,1px);
 
+            &:not(&__title){
+                
+                    color: darken($white_color,18);
+                
+            }
+
             &--row{
                 @include flex(row,space-between,center,0px);
                 width: 100%;
+                color: darken($white_color,18);
             }
 
             &--column{
                 @include flex(column,center,flex-start,1px);
+                
             }
         }
 
         &__title{
-            color: darken($white_color,25);
+            color: $white_color;
+            
         }
+
+        
     }
 
 //Input-new-comment Container

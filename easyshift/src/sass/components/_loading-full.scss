@@ -5,7 +5,9 @@
     width: 100vw;
     height: 100vh;
     z-index: 99;
-    background: $background_fixed;
+    background:$brand_color;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     @include flex-center(row);
 
     &__container{

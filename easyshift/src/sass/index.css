@@ -57,7 +57,7 @@ components
      -moz-appearance: none;
           appearance: none;
   font-weight: bold;
-  background-color: #315a75;
+  background-color: #407599;
   color: #FFFFFF;
   padding: 12px;
   width: 40vw;
@@ -68,7 +68,7 @@ components
   max-width: 180px;
 }
 .cta-btn:hover {
-  background-color: #1a303f;
+  background-color: #223e51;
 }
 
 .sidebar__title {
@@ -93,14 +93,15 @@ components
   padding: 20px 0;
   width: 100%;
   min-height: 70px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #407599;
   position: relative;
   border-left: none;
   border-right: none;
-  background: linear-gradient(10deg, rgba(243, 242, 242, 0.966), rgba(167, 165, 165, 0.966));
+  background: #223e51;
 }
 .notifications__notif__notViewed {
   background: #407599;
+  border: 1px solid #FFFFFF;
 }
 .notifications__notif__message {
   position: absolute;
@@ -156,7 +157,7 @@ components
   border: 1px solid white;
   position: relative;
   border-radius: 4px;
-  background-color: rgba(52, 60, 82, 0.3843137255);
+  background-color: #294c63;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -262,6 +263,9 @@ components
   align-items: flex-start;
   gap: 1px;
 }
+.request-card__shift-request__container:not(.request-card__shift-request__container__title) {
+  color: #d1d1d1;
+}
 .request-card__shift-request__container--row {
   display: flex;
   flex-direction: row;
@@ -269,6 +273,7 @@ components
   align-items: center;
   gap: 0px;
   width: 100%;
+  color: #d1d1d1;
 }
 .request-card__shift-request__container--column {
   display: flex;
@@ -278,7 +283,7 @@ components
   gap: 1px;
 }
 .request-card__shift-request__title {
-  color: #bfbfbf;
+  color: #FFFFFF;
 }
 .request-card__inpt-comment textarea {
   -webkit-appearance: none;
@@ -350,7 +355,9 @@ components
   width: 100vw;
   height: 100vh;
   z-index: 99;
-  background: linear-gradient(180deg, rgba(167, 165, 165, 0.966), #78a7c7) no-repeat fixed;
+  background: #407599;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -381,7 +388,7 @@ components
   width: 120px;
   height: 110px;
   border-radius: 50%;
-  background: linear-gradient(40deg, rgba(167, 165, 165, 0.966), #407599);
+  background: linear-gradient(40deg, #223e51, #407599);
   border: 1px solid white;
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
@@ -400,7 +407,7 @@ components
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(40deg, rgba(167, 165, 165, 0.966), #407599);
+  background: linear-gradient(40deg, #223e51, #407599);
   border: 1px solid rgb(255, 255, 255);
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
@@ -417,9 +424,9 @@ components
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(40deg, rgba(167, 165, 165, 0.966), #407599);
+  background: linear-gradient(40deg, #223e51, #407599);
   border: 1px solid white;
-  border-color: linear-gradient(40deg, rgba(167, 165, 165, 0.966), #407599);
+  border-color: linear-gradient(40deg, #223e51, #407599);
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
   backface-visibility: visible;
@@ -719,8 +726,8 @@ layout: header
   width: -moz-fit-content;
   width: fit-content;
   font-weight: bold;
-  color: rgba(167, 165, 165, 0.966);
-  border-bottom: 1px solid rgba(167, 165, 165, 0.966);
+  color: #223e51;
+  border-bottom: 1px solid #223e51;
 }
 @media screen and (max-width: 768px) {
   .header .nav {
@@ -749,7 +756,7 @@ layout: header
 }
 .header .nav__mobile {
   right: 0%;
-  background-color: rgba(167, 165, 165, 0.966);
+  background-color: #223e51;
 }
 .header .nav__mobile a, .header .nav__mobile .active {
   opacity: 1;
@@ -775,7 +782,7 @@ layout: header
   position: fixed;
   top: 0;
   right: 0;
-  background-color: rgba(167, 165, 165, 0.966);
+  background-color: #223e51;
   transition: width 0.3s ease;
   z-index: 1;
 }
@@ -1215,10 +1222,6 @@ a.brand__link {
   z-index: 200;
 }
 
-.back_gradient {
-  background: linear-gradient(180deg, rgba(167, 165, 165, 0.966), #78a7c7) no-repeat fixed;
-}
-
 .txt-bold {
   font-weight: bold;
 }
@@ -1269,7 +1272,7 @@ h1 {
 
 body {
   overflow-x: hidden;
-  background: #8ab3ce no-repeat fixed;
+  background: #78a7c7 no-repeat fixed;
   color: #FFFFFF;
 }
 body.fixed {

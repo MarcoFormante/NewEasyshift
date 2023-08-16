@@ -10,21 +10,21 @@
    
     &__container{
         @include flex_center(column);
-      
     }
 
     &__notif{
         padding: 20px 0;
         width: 100%;
         min-height: 70px;
-        border: 1px solid $white_color;
+        border: 1px solid $brand_color;
         position: relative;
         border-left: none;
         border-right: none;
-        background:linear-gradient(10deg,lighten($secondary_color,30),$secondary_color);
+        background: $secondary_color;
         
         &__notViewed{
             background: $brand_color ;
+            border: 1px solid $white_color;
         }
 
         
