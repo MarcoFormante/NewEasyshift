@@ -39,7 +39,7 @@ components
 }
 .form.form__center--column .row label {
   align-self: baseline;
-  color: #CBD0D4;
+  color: #FFFFFF;
 }
 .form.form__center--column .row input, .form.form__center--column .row select {
   height: 35px;
@@ -1181,7 +1181,8 @@ body {
 }
 
 .required {
-  color: #407599;
+  color: red;
+  font-size: large;
 }
 
 .btn {
