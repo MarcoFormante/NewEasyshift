@@ -21,10 +21,10 @@
         position: relative;
         border-left: none;
         border-right: none;
-        background: linear-gradient(10deg,lighten($secondary_color,30),$secondary_color);
+        background:linear-gradient(10deg,lighten($secondary_color,30),$secondary_color);
         
         &__notViewed{
-            background: linear-gradient(10deg,lighten($secondary_color,30),darken($brand_color,20));
+            background: $brand_color ;
         }
 
         

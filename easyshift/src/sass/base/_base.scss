@@ -36,7 +36,7 @@ h1{
 
 body{
   overflow-x: hidden;
-  background: linear-gradient(180deg,$secondary_color,lighten($brand_color,20)) no-repeat fixed;
+  background: lighten($brand_color,25)no-repeat fixed;
   color: $white_color;
 
   &.fixed{

@@ -49,7 +49,7 @@ const Header = () => {
         <div className='header__container__left'>
           <div className='brand-logo btn'>
             <Link to={"/home"} className='container__flex--center--column' >
-              <img src="/icons/Brand_Logo.png"
+              <img src="/icons/Brand_Logo_new.svg"
                 alt="Easyshift - an easy way to change your day"
                 title="Easyshift - an easy way to change your day"
               />

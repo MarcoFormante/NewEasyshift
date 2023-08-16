@@ -16,12 +16,12 @@ components
   height: 134px;
 }
 .page-title .brand {
-  color: rgb(240, 7, 135);
+  color: #407599;
   font-size: 32px;
 }
 .page-title .brand__quote {
   color: white;
-  border-bottom: 1px solid rgb(240, 7, 135);
+  border-bottom: 1px solid #407599;
 }
 
 .form.form__center--column {
@@ -49,7 +49,7 @@ components
   border-radius: 4px;
 }
 .form.form__center--column .row input:focus, .form.form__center--column .row select:focus {
-  outline: 1px solid rgb(240, 7, 135);
+  outline: 1px solid #407599;
 }
 
 .cta-btn {
@@ -57,7 +57,7 @@ components
      -moz-appearance: none;
           appearance: none;
   font-weight: bold;
-  background-color: #be066b;
+  background-color: #315a75;
   color: #FFFFFF;
   padding: 12px;
   width: 40vw;
@@ -68,7 +68,7 @@ components
   max-width: 180px;
 }
 .cta-btn:hover {
-  background-color: #740341;
+  background-color: #1a303f;
 }
 
 .sidebar__title {
@@ -97,10 +97,10 @@ components
   position: relative;
   border-left: none;
   border-right: none;
-  background: linear-gradient(10deg, #a498c3, #56487A);
+  background: linear-gradient(10deg, rgba(243, 242, 242, 0.966), rgba(167, 165, 165, 0.966));
 }
 .notifications__notif__notViewed {
-  background: linear-gradient(10deg, #a498c3, #8d044f);
+  background: #407599;
 }
 .notifications__notif__message {
   position: absolute;
@@ -178,7 +178,7 @@ components
   cursor: pointer;
 }
 .request-card__deleteIcon div {
-  border: 3px solid rgb(240, 7, 135);
+  border: 3px solid #407599;
   position: absolute;
   width: 50px;
   height: 50px;
@@ -305,7 +305,7 @@ components
   margin: 10px auto;
 }
 .request-card__inpt-comment button:not(:active) {
-  background-color: rgb(240, 7, 135);
+  background-color: #407599;
 }
 .request-card__comments {
   position: absolute;
@@ -350,7 +350,7 @@ components
   width: 100vw;
   height: 100vh;
   z-index: 99;
-  background: linear-gradient(180deg, #56487A, #fa63b6) no-repeat fixed;
+  background: linear-gradient(180deg, rgba(167, 165, 165, 0.966), #78a7c7) no-repeat fixed;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -381,7 +381,7 @@ components
   width: 120px;
   height: 110px;
   border-radius: 50%;
-  background: linear-gradient(40deg, #56487A, rgb(240, 7, 135));
+  background: linear-gradient(40deg, rgba(167, 165, 165, 0.966), #407599);
   border: 1px solid white;
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
@@ -400,7 +400,7 @@ components
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(40deg, #56487A, rgb(240, 7, 135));
+  background: linear-gradient(40deg, rgba(167, 165, 165, 0.966), #407599);
   border: 1px solid rgb(255, 255, 255);
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
@@ -417,9 +417,9 @@ components
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(40deg, #56487A, rgb(240, 7, 135));
+  background: linear-gradient(40deg, rgba(167, 165, 165, 0.966), #407599);
   border: 1px solid white;
-  border-color: linear-gradient(40deg, #56487A, rgb(240, 7, 135));
+  border-color: linear-gradient(40deg, rgba(167, 165, 165, 0.966), #407599);
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
   backface-visibility: visible;
@@ -630,10 +630,10 @@ components
   width: fit-content;
   margin: 40px auto;
   text-decoration: underline;
-  color: rgb(240, 7, 135);
+  color: #407599;
 }
 .profile .link:active {
-  color: rgb(240, 7, 135);
+  color: #407599;
 }
 
 /*
@@ -641,7 +641,7 @@ layout: header
 */
 .header {
   width: 100vw;
-  background-color: rgb(240, 7, 135);
+  background-color: #407599;
   height: 50px;
   position: sticky;
   top: 0;
@@ -655,6 +655,11 @@ layout: header
   justify-content: space-between;
   padding: 10px;
   gap: 50px;
+}
+.header .brand-logo img {
+  width: 40px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
 }
 .header .menu-btn {
   width: 35px;
@@ -714,8 +719,8 @@ layout: header
   width: -moz-fit-content;
   width: fit-content;
   font-weight: bold;
-  color: #56487A;
-  border-bottom: 1px solid #56487A;
+  color: rgba(167, 165, 165, 0.966);
+  border-bottom: 1px solid rgba(167, 165, 165, 0.966);
 }
 @media screen and (max-width: 768px) {
   .header .nav {
@@ -744,7 +749,7 @@ layout: header
 }
 .header .nav__mobile {
   right: 0%;
-  background-color: #56487A;
+  background-color: rgba(167, 165, 165, 0.966);
 }
 .header .nav__mobile a, .header .nav__mobile .active {
   opacity: 1;
@@ -770,7 +775,7 @@ layout: header
   position: fixed;
   top: 0;
   right: 0;
-  background-color: #56487A;
+  background-color: rgba(167, 165, 165, 0.966);
   transition: width 0.3s ease;
   z-index: 1;
 }
@@ -1146,7 +1151,7 @@ body {
 }
 
 .required {
-  color: rgb(240, 7, 135);
+  color: #407599;
 }
 
 .btn {
@@ -1172,7 +1177,7 @@ body {
 }
 
 a.brand__link {
-  color: rgb(240, 7, 135);
+  color: #407599;
   border-bottom: 1px solid #FFFFFF;
   font-weight: 600;
   width: -moz-fit-content;
@@ -1211,7 +1216,7 @@ a.brand__link {
 }
 
 .back_gradient {
-  background: linear-gradient(180deg, #56487A, #fa63b6) no-repeat fixed;
+  background: linear-gradient(180deg, rgba(167, 165, 165, 0.966), #78a7c7) no-repeat fixed;
 }
 
 .txt-bold {
@@ -1264,7 +1269,7 @@ h1 {
 
 body {
   overflow-x: hidden;
-  background: linear-gradient(180deg, #56487A, #fa63b6) no-repeat fixed;
+  background: #8ab3ce no-repeat fixed;
   color: #FFFFFF;
 }
 body.fixed {
