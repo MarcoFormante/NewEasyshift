@@ -41,7 +41,6 @@ Class RequestController{
     }
 
 
-
 //GET USER REQUESTS ($limit,$user_id)
     public function getMyRequests(int $limit, int $userId):void{
         $RequestModel = new RequestModel();
@@ -75,6 +74,18 @@ Class RequestController{
             $RequestModel->deleteRequest($_POST['requestId']);
         }else{
             throw new Exception("Error Processing Request, request id is missing");
+        }
+    }
+
+
+    public function lockUserId():void{
+        if (isset($_POST['requestId']) && $_POST['lockedUserId']) {
+            $requestId = $_POST['requestId'];
+            $lockedUserId = $_POST['lockedUserId'];
+            $RequestModel = new RequestModel();
+            $RequestModel->lockUserId($requestId,$lockedUserId);
+        }else{
+            throw new Exception("Error Processing Request, values are missing");
         }
     }
 }

@@ -40,6 +40,17 @@ if (isset($_POST['action'])) {
             }
      break;
 
+
+     case "lockUserId" :
+            $RequestController = new RequestController();
+        try {
+            $RequestController->lockUserId();
+        } catch (Exception $e) {
+            echo json_encode(["status"=>0,"message"=>$e->getMessage()]);
+        }
+ break;
+
+
      case "viewPost" :
         $RequestController = new RequestController();
             try {

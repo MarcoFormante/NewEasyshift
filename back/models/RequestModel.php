@@ -169,7 +169,6 @@ use DBConnection;
                 $lockedUserId = $stmt->fetchColumn();
             }
             $stmt = null;
-
             $query = "DELETE FROM requests WHERE id = :requestId";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
@@ -178,6 +177,23 @@ use DBConnection;
             }else{
                 throw new Exception("Error: it is no possible to execute this command (delete request/$requestId) ");
             }
+        }
+    }
+
+
+    public function lockUserId(int $requestId, int $lockedUserId){
+        if ($this->pdo) {
+            $query="UPDATE requests SET locked_user_id = :lockedUserId WHERE id = :requestId";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":lockedUserId",$lockedUserId,PDO::PARAM_INT);
+            $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+               echo json_encode(['status'=> 1]);
+            }else{
+                throw new Exception("Error: it's not possible to lock user at the moment, Please try again later (execution problem)");
+            }
+        }else{
+            throw new Exception("Error: it's not possible to lock user at the moment, Please try again later (pdo problem)");
         }
     }
 }
