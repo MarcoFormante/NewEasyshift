@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Title from '../../Layout/Title/Title'
 import Form from './Form'
 import axios from '../../../AxiosApi/axios'
 import { useNavigate } from 'react-router-dom'
-
+import { loadingContext } from '../../../App'
 
 
 const NewAccount = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [role, setRole] = useState(null)
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+  const {setIsLoading} = useContext(loadingContext)
   
   function handleSubmit(e) {
     e.preventDefault()
+    
     let usernameIsValid = username.length < 26 && username.length > 3
     const passwordRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,60}$/)
     let passwordIsValid = password.match(passwordRegex) 
@@ -21,8 +23,9 @@ const NewAccount = () => {
     let formIsValid = usernameIsValid && passwordIsValid && roleIsValid
 
     if (formIsValid) {
+      setIsLoading(true)
      //first Letter in Capital
-      const name = username[0].toUpperCase() + username.slice(1)
+      const name = username.trim()
       const formData = new FormData()
       formData.append("username", name)
       formData.append("password", password)
@@ -37,10 +40,13 @@ const NewAccount = () => {
         if (response.data.status === 1) {
           navigate("/")
         }
-      })
+      }).finally(setTimeout(() => {
+        setIsLoading(false)
+      }, 1000))
     } else {
      //Handle Error Form
       console.log("notValid");
+      setIsLoading(false)
     }
   }
     

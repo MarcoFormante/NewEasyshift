@@ -1,11 +1,11 @@
-import React, { useEffect,useState } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import {useLocation, useNavigate, useParams} from 'react-router-dom'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import axios from '../../../AxiosApi/axios'
 import { useSelector } from 'react-redux'
 import Title from '../../Layout/Title/Title'
 import RequestsContainer from '../../Elements/Request/RequestsContainer'
-
+import { loadingContext } from '../../../App'
 
 
 const ViewRequest = () => {
@@ -15,7 +15,8 @@ const ViewRequest = () => {
   const navigate = useNavigate()
   const location = useLocation()
   let { id } = useParams()
-  const [trigger,setTrigger] = useState(0)
+  const [trigger, setTrigger] = useState(0)
+  const {setIsLoading} = useContext(loadingContext)
 
   useEffect(() => {
     setTrigger(location?.state?.trigger)
@@ -27,6 +28,7 @@ const ViewRequest = () => {
       CheckUser(userInfo)
         .then(response => {
           if (response.data.status === 1) {
+            setIsLoading(true)
             const formData = new FormData()
             formData.append("action", "viewPost")
             formData.append("requestId", id)
@@ -46,7 +48,9 @@ const ViewRequest = () => {
                 } else {
                   alert(response.data.message)
                 }
-              })
+              }).finally(setTimeout(() => {
+                setIsLoading(false)
+              }, 1000))
           
           } else {
             navigate("/")

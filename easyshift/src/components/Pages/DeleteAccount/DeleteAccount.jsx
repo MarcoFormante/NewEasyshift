@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import Title from '../../Layout/Title/Title'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import { deleteAccount } from '../../../Redux/userSlice'
+import { loadingContext } from '../../../App'
 
 const DeleteAccount = () => {
-
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const dispatch = useDispatch()
     const userInfo = useSelector(state => state.userInfo.value)
     const navigate = useNavigate()
+    const {isLoading,setIsLoading} = useContext(loadingContext)
   
     const handleSubmit = (e) => {
         e.preventDefault()
         if (username && password) {
+            setIsLoading(true)
             CheckUser(userInfo)
             .then(response => {
                 if (response.data.status === 1) {
@@ -29,21 +31,24 @@ const DeleteAccount = () => {
                         headers: {
                         "Content-Type":"x-www-form-urlencoded"
                     }
-                })
-                        .then(response => {
-                        console.log(response);
-                        if (response.data.status === 1) {
-                            dispatch(deleteAccount)
-                            sessionStorage.removeItem("userInfo")
-                            sessionStorage.removeItem("token")
-                            alert("Your Account has been deleted")
-                            navigate("/")
+                }).then(response => {
+                    console.log(response);
+                    if (response.data.status === 1) {
+                        dispatch(deleteAccount)
+                        sessionStorage.removeItem("userInfo")
+                        sessionStorage.removeItem("token")
+                        alert("Your Account has been deleted")
+                        navigate("/")  
                     }
                 })
                 } else {
                     navigate("/")
             }
-        })
+            }).finally(
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 1000)
+            )
     }
     }
     
