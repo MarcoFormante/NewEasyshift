@@ -14,7 +14,7 @@ class NotificationModel {
     public function getUserNotifications(int $userId):void{
         if ($this->pdo) {
             $query = "SELECT users.username,notifications.id,user_id,request_id,message,viewed,from_user_id FROM notifications
-             INNER JOIN users ON users.id  = notifications.from_user_id
+              JOIN users ON users.id  = notifications.from_user_id
              WHERE user_id = :userId
              ORDER BY notifications.id DESC";
             $stmt = $this->pdo->prepare($query);
@@ -90,7 +90,9 @@ class NotificationModel {
 
     public function checkNotifications(int $userId):void{
         if ($this->pdo) {
-            $query = "SELECT id  FROM notifications WHERE user_id = :userId AND viewed = 0";
+            $query = "SELECT notifications.id  FROM notifications 
+            INNER JOIN users ON users.id = :userId
+            WHERE notifications.viewed = 0 AND notifications.user_id = :userId";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
             if ($stmt->execute()) {

@@ -31,9 +31,9 @@ const RequestsHandler = ({requestTarget}) => {
       dispatch(setAlert({ type, text, title, timeout }))
       setCanShowMore(false)
     }, 1000);
-    
   }
   
+  console.log(userInfo);
   //Reset Values
   useEffect(() => {
     setRequests([])
