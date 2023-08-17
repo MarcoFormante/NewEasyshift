@@ -33,7 +33,7 @@ const RequestsHandler = ({requestTarget}) => {
     }, 1000);
   }
   
-  console.log(userInfo);
+  
   //Reset Values
   useEffect(() => {
     setRequests([])
@@ -43,6 +43,7 @@ const RequestsHandler = ({requestTarget}) => {
     setScrollTarget(null)
     setScrollTarget(null)
   }, [requestTarget])
+
 
   //delete request in useState Array
   const deleteRequestFromArray = (requestId)=>{
@@ -102,7 +103,6 @@ const RequestsHandler = ({requestTarget}) => {
          setTimeout(() => {
           setIsLoading(false)
            setIsLoadingData(false)
-           
          }, 1000);
          
         })
@@ -167,7 +167,6 @@ const RequestsHandler = ({requestTarget}) => {
         : ""
       }
        
-
       <scrollTargetContext.Provider value={{scrollTarget,setScrollTarget}}>
         <RequestsContainer
         deleteRequestFromArray={value =>deleteRequestFromArray(value)}

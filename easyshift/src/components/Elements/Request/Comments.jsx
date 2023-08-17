@@ -112,7 +112,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                         if (response.data.status === 1) {
                             setLockUserComment(response.data.lockedUserId)
                             request.locked_user_id = response.data.lockedUserId
-                            dispatch(setAlert({type:"success",text:`You choose ${commentUsername}. This is now Locked`,title:"Locked Post",timeout:3000}))
+                            dispatch(setAlert({type:"success",text:`You choose ${commentUsername}. This Post is now Locked`,title:"Locked Post",timeout:3000}))
                         }
                     })
             }

@@ -26,12 +26,6 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
                         "Content-Type":"multipart/form-data"
                     }
                 })
-                    .then(response => {
-                        console.log(response);
-                        if (response.data.status === 1) {
-                            //handle alert notification deleted
-                        }
-                })
             }
         })
         setNotifications(notifications.filter(notif => notif.id !== id))
