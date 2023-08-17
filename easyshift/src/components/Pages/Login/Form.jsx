@@ -5,12 +5,14 @@ import { setUser } from '../../../Redux/userSlice'
 import axios from '../../../AxiosApi/axios'
 
 
-const Form = () => {
+const Form = ({dispatchAlert}) => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
   const [loginisValid, setLoginIsValid] = useState(null)
 
+  
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     if (username && password) {
@@ -33,6 +35,8 @@ const Form = () => {
           setLoginIsValid(sessionStorage.getItem("token"))
         }
       })
+    } else {
+      dispatchAlert("error", "Username and Password are required", "Input Error", 2000, null, false)
     }
     
   }
