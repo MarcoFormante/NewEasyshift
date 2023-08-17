@@ -9,7 +9,8 @@ import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import { setRequests } from '../../../Redux/userSlice'
 import { useDispatch } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { setAlert } from '../../../Redux/alertSlice'
 
 
 const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments, deleteRequestFromArray }) => {
@@ -20,6 +21,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
   const userInfo = useSelector((state) => state.userInfo.value)
   const dispatch = useDispatch()
   const location = useLocation()
+  const navigate = useNavigate()
   
 
   useEffect(() => {
@@ -64,23 +66,23 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
               "Content-Type":"x-www-form-urlencoded"
             }
             }).then(response => {
-              console.log("target",response.data);
               if (response.data.status === 1) {
-              if (showComments || window.location.pathname.match(/viewRequest/g)) {
-                setNewComment({
-                  id: response.data.commentId,
-                  user_id: value.userId,
-                  username: userInfo.username,
-                  request_id: value.requestId,
-                  role:userInfo.role,
-                  comment:value.comment})
+                if (showComments || window.location.pathname.match(/viewRequest/g)) {
+                  setNewComment({
+                    id: response.data.commentId,
+                    user_id: value.userId,
+                    username: userInfo.username,
+                    request_id: value.requestId,
+                    role:userInfo.role,
+                    comment:value.comment})
                 }
+                dispatch(setAlert({type:"success",text:"Your comment has been sent", title:"New Comment",timeout: 3000}))
             } else {
-              //Handle Data status 0
+              dispatch(setAlert({type:"error",text:"Error while sending comment, try later", title:"Connection Problem",timeout: 3000}))
             }
           })
         } else {
-          //Handle not Auth
+          navigate("/")
         }
       })
     }
@@ -98,7 +100,6 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
     if (userWantsDelete) {
       CheckUser(userInfo)
         .then(response => {
-          console.log(response.data);
         if (response.data.status === 1) {
           axios.post(process.env.REACT_APP_API_URL + "requestApi.php", {
             action: "deleteRequest",
@@ -109,14 +110,14 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
             }
           }) 
             .then(response => {
-              console.log(response.data)
               if (response.data.status === 1) {
+                  dispatch(setAlert({type:"success",text:"Your Post has been deleted", title:"Post Deleted",timeout: 3000}))
                 if (userInfo.requests && userInfo.requests > 0) {
                   dispatch(setRequests(userInfo.requests - 1))
                 }
                   deleteRequestFromArray(request.id)
                   const lockedUserId = response.data.lockedUserId
-                  if (lockedUserId !== false && lockedUserId !== null ) {
+                  if (lockedUserId !== false && lockedUserId !== null) {
                         axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
                         action: "sendNotificationAfterPostDeletetion",
                         fromUserId: userInfo.userID,
@@ -126,11 +127,14 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
                       headers: {
                         "Content-Type":"multipart/form-data"
                         }
-                    }).then(response => 
-                        console.log(response.data))
+                    })
                   }
+              } else {
+                dispatch(setAlert({type:"error",text:"Your Post can't be deleted at the moment, try later", title:"Connection Problem",timeout: 3000}))
               }
           })
+        } else {
+          navigate("/")
         }
       })
     }
