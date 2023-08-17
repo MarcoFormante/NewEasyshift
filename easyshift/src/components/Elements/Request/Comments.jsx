@@ -3,12 +3,14 @@ import UserInfo from './UserInfo'
 import Locked from '../../../icons/locked.svg'
 import NoLocked from '../../../icons/noLocked.svg'
 import axios from '../../../AxiosApi/axios'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setAlert } from '../../../Redux/alertSlice'
 
 const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,totalComments,setLockUserComment }) => {
     const [comments, setComments] = useState([])
     const [noComments,setNoComments]=useState(false)
     const userInfo = useSelector((state) => state.userInfo.value)
+    const dispatch = useDispatch()
 
 //Get request Comments
     useEffect(() => {
@@ -22,16 +24,18 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
         }).then(response => {
             console.log(response.data);
             if (response.data.status === 1) {
-                
                 if (response?.data?.rowCount > 0) {
                     setComments([...response.data.comments])
                     setNoComments(false)
                 } else {
                     setNoComments(true)
                 }
+            } else {
+                dispatch(setAlert({type:"error",text:"At the moment, it is not possible to get the comments",title:"Connection Problem",timeout:3000}))
             }
         })
     }, [])
+
 
 //Delete Comment
     const onDeleteComment = (comment) => {
@@ -42,29 +46,31 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                 formData.append("commentId", comment.id)
                 formData.append("username", comment.username)
                 formData.append("requestId", comment.request_id)
-                formData.append("userId",comment.user_id)
+                formData.append("userId", comment.user_id)
                 axios.post(process.env.REACT_APP_API_URL + "commentApi.php",
                     formData,
                     {
                         headers: {
-                            "Content-Type":"x-www-form-urlencoded"
+                            "Content-Type": "x-www-form-urlencoded"
                         }
                     })
                     .then(response => {
                         console.log(response.data);
                         if (response.data.status === 1) {
+                            dispatch(setAlert({type:"success",text:"This comment has been deleted",title:"Comment Deleted",timeout:3000}))
                             setComments(comments.filter(c => c.id !== comment.id))
                             if (totalComments > 0) {
                                 handleSubtractComment()
+                            }
+                        } else {
+                            dispatch(setAlert({type:"error",text:"At the moment, it is not possible to delete the comment, try later",title:"Connection Problem",timeout:3000}))
                         }
-                    }
-                })
+                    })
             }
         }
-        
     }
 
-    const handleLockedRequest = (commentUserID) => {
+    const handleLockedRequest = (commentUserID,commentUsername) => {
         let userIsHandlingLockStatus = (commentUserID === userInfo.userID && lockedUserComment === userInfo.userID)
         if ((request.user_id === userInfo.userID ||  userIsHandlingLockStatus)) {
             const formData = new FormData()
@@ -73,12 +79,14 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
             formData.append("fromUserId", userInfo.userID)
             
             if (lockedUserComment === commentUserID) {
+                //if it's not user that is handling the lock status
                 if (!userIsHandlingLockStatus) {
                     formData.append("lockedUserId",JSON.stringify(["null",commentUserID]))
                 } else {
-                    formData.append("lockedUserId",JSON.stringify(["null",request.user_id]))
+                      //if it's the User that is handling the lock status
+                    formData.append("lockedUserId", JSON.stringify(["null", request.user_id]))
+                    
                 }
-                
                 axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
                     headers: {
                             "Content-Type":"x-www-form-urlencoded"
@@ -88,10 +96,12 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                         if (response.data.status === 1) {
                             setLockUserComment(response.data.lockedUserId)
                             request.locked_user_id = response.data.lockedUserIdl
+                            dispatch(setAlert({type:"info",text:"Now this Post is Unlocked ",title:"Unlocked Post",timeout:3000}))
                     }
                 })
                    
             } else {
+               
                 formData.append("lockedUserId",JSON.stringify(["notNull",commentUserID]))
                 axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
                     headers: {
@@ -102,9 +112,9 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                         if (response.data.status === 1) {
                             setLockUserComment(response.data.lockedUserId)
                             request.locked_user_id = response.data.lockedUserId
+                            dispatch(setAlert({type:"success",text:`You choose ${commentUsername}. This is now Locked`,title:"Locked Post",timeout:3000}))
                         }
                     })
-                  
             }
         }
     }
@@ -147,7 +157,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                         </span>
                         <span
                             className='lock btn'
-                            onClick={() =>comment.user_id  !== request.user_id && handleLockedRequest(comment.user_id)}
+                            onClick={() =>comment.user_id  !== request.user_id && handleLockedRequest(comment.user_id,comment.username)}
                             style={(lockedUserComment === comment.user_id)
                                 ?
                                 { backgroundImage: `url(${Locked})`, }

@@ -6,6 +6,7 @@ import Title from '../../Layout/Title/Title'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import { deleteAccount } from '../../../Redux/userSlice'
 import { loadingContext } from '../../../App'
+import { setAlert } from '../../../Redux/alertSlice'
 
 const DeleteAccount = () => {
     const [username, setUsername] = useState("")
@@ -37,8 +38,13 @@ const DeleteAccount = () => {
                         dispatch(deleteAccount)
                         sessionStorage.removeItem("userInfo")
                         sessionStorage.removeItem("token")
-                        alert("Your Account has been deleted")
-                        navigate("/")  
+                        dispatch(setAlert({type:"success",text:"Your account has been deleted",title:"Account Deleted",timeout:3000}))
+                        navigate("/")    
+                    }
+                    if (response?.data?.message?.match(/Username or Password is not correct/g)) {
+                        setTimeout(() => {
+                            dispatch(setAlert({type:"error",text:"Username or Password is not correct",title:"Inputs Problem",timeout:3000}))
+                        }, 1000);
                     }
                 })
                 } else {

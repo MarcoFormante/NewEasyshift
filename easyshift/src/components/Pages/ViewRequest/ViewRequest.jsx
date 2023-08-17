@@ -39,6 +39,7 @@ const ViewRequest = () => {
             })
               .then(response => {
                 if (response.data.status === 1) {
+                  console.log(response.data);
                   if (response.data.rowCount > 0) {
                     setRequest([...response.data.request])
                   } else {

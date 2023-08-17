@@ -2,14 +2,16 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setAlert } from '../../../Redux/alertSlice'
 
 const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
     const [notifications, setNotifications] = useState([])
     const navigate = useNavigate()
     const userInfo = useSelector((state) => state.userInfo.value)
     const location = useLocation()
-    const [toggleNotificationHandler,setToggleNotificationHandler] = useState(0)
+    const dispatch = useDispatch()
+    
 
     const deleteNotification = (id) => {
         CheckUser(userInfo)
@@ -36,8 +38,6 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
     }
 
     const viewRequest = (requestId, viewed, notificationId) => {
-        
-       
         if (viewed === 0) {
             axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
                 action: "markNotificationAsViewed",
@@ -49,21 +49,19 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
             })
         }
         if (requestId !== -1) {
+            navigate("/viewRequest/" + requestId, {
+                state:
+                {
+                    requestId,
+                    pathname: location.pathname.match(/viewRequest/g) ? "/home" : location.pathname,
+                    trigger:Math.random()
+                }   
+            })
             
-                navigate("/viewRequest/" + 62, {
-                    state:
-                    {
-                        requestId,
-                        pathname: location.pathname.match(/viewRequest/g) ? "/home" : location.pathname,
-                        trigger:Math.random()
-                    }
-                    
-                })
-            
-            
-        } else {
-            alert("This Post has been Deleted")
-        }
+            } else {
+                dispatch(setAlert({type:"warning",text:"This Post has been Deleted",title:"Post Deleted",timeout:3000}))
+                
+            }
 
         handleWindowToggle("")
 
@@ -92,7 +90,7 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
                         }
                     })
                 } else {
-                    //handle status 0
+                    dispatch(setAlert({type:"warning",text:"It is not possible to show notifications at the moment",title:"Connection Problem",timeout:3000}))
                 }
             })
     }

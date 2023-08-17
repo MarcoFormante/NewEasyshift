@@ -90,7 +90,7 @@ const RequestsHandler = ({requestTarget}) => {
                   
                   }else {
                    //handle can not show More requests ---  alert
-                  if (message?.match(/ no more requests/gi)) {
+                  if (message?.match(/ no more requests/gi) && isLoadingData) {
                     dispatchAlert("info", "No more requests at the moment", "Requests", 3000)
                   }
                 }

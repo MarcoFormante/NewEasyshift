@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux'
 import axios from '../../../AxiosApi/axios'
 
 const Profile = ({ handleWindowToggle }) => {
-  const [userTotalRequests,setUserTotalRequests] = useState()
   const userInfo = useSelector((state) => state.userInfo.value)
   const dispatch = useDispatch()
   const navigate = useNavigate()
