@@ -65,7 +65,8 @@ const Form = ({dispatchAlert}) => {
             </div>
             <div className='row'>
                <label htmlFor="password">Password <span className='required'>*</span> </label>
-               <input type="text" id='password' value={password} maxLength={60} onChange={(e)=> setPassword(e.target.value)} />
+                <input type="password" id='password' value={password} maxLength={60} onChange={(e) => setPassword(e.target.value)}
+          />
             </div>
               <input className='cta-btn' type="submit" value="ENTER" />
       </form>

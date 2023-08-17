@@ -36,6 +36,22 @@ components
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+.form.form__center--column .row .show-password {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background-color: #FFFFFF;
+  top: 42%;
+  background-image: url(/public/icons/view_off.svg);
+  background-size: cover;
+  background-position: center;
+  right: 2px;
+  cursor: pointer;
+}
+.form.form__center--column .row .show-password:active {
+  background-image: url(/public/icons/view.svg);
 }
 .form.form__center--column .row label {
   align-self: baseline;

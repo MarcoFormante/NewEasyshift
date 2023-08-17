@@ -6,6 +6,25 @@
 
         .row{
             @include flex_center(column);
+                position: relative;
+
+            .show-password{
+                width: 30px;
+                height: 30px;
+                position: absolute;
+                background-color: $white_color;
+                top: 42%;
+                background-image: url(/public/icons/view_off.svg);
+                background-size: cover;
+                background-position: center;
+                right: 2px;
+                cursor: pointer;
+
+                &:active{
+                    background-image: url(/public/icons/view.svg);
+                }
+
+               }
 
             label{
                 align-self: baseline;
@@ -26,5 +45,8 @@
 
 
         }
+
+       
+        
     }
 }

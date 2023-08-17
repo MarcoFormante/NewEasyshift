@@ -14,7 +14,6 @@ const Login = () => {
 
   return (
     <div>
-      
        <div className='container__flex--center--column gap-20'>
         <Title title={"EASYSHIFT"} quote={true} classname={"brand"} />
         <h2>Login</h2>
