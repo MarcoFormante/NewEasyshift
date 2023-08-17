@@ -263,6 +263,10 @@ components
   align-items: flex-start;
   gap: 1px;
 }
+.request-card__shift-request__container span {
+  max-width: 260px;
+  word-wrap: break-word;
+}
 .request-card__shift-request__container:not(.request-card__shift-request__container__title) {
   color: #d1d1d1;
 }

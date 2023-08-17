@@ -3,6 +3,7 @@ import axios from '../../../AxiosApi/axios'
 import {useDispatch, useSelector} from 'react-redux'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import { setRequests } from '../../../Redux/userSlice'
+import { setAlert } from '../../../Redux/alertSlice'
 
 const FormNewRequest = () => {
     const [date, setDate] = useState("")
@@ -26,30 +27,35 @@ const FormNewRequest = () => {
         })
         return errorsArray.length > 0 ? false : true
     }
-   
+
     const checkFormData = () => {
         let errorsArray = []
         const dateRegex = new RegExp(/\d{2,4}\-\d{1,2}\-\d{1,2}/)
-        const dateIsValid = date.match(dateRegex)
+        let dateIsValid = date.match(dateRegex) 
+        const CheckData = new Date(date)
+        let checkYear = CheckData.getFullYear() === new Date().getFullYear() || CheckData.getFullYear() === new Date().getFullYear() + 1;
         const shiftRegex = new RegExp(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
         const shiftStartIsValid = shiftStart.match(shiftRegex) 
         const shiftEndIsValid = shiftEnd.match(shiftRegex)
-        const requestMessageIsValid = requestMessage.length > 3 && requestMessage.length < 50;
+        const requestMessageIsValid = requestMessage.length > 3 && requestMessage.length <= 50;
         const userIdIsValid = userInfo.userID
         let formIsValid =
             errorsHandler(
                 errorsArray,
-                [dateIsValid, shiftStartIsValid, shiftEndIsValid,requestMessageIsValid,userIdIsValid],
-                ["Date", "Shift-start","Shift-end","Request","userId"]
+                [dateIsValid, shiftStartIsValid, shiftEndIsValid,requestMessageIsValid,userIdIsValid,checkYear],
+                ["Date", "Shift-start","Shift-end","Request","userId","Year"]
             )
-        console.log(formIsValid);
-        return formIsValid
+       
+        return {
+            formIsValid,
+            errorsArray
+        }
     }
-    
+
     const onSubmit = (e) => {
         e.preventDefault()
-       
-       if (checkFormData()) {
+        const formResult = checkFormData()
+       if (formResult.formIsValid) {
            CheckUser(userInfo)
                .then(response => {
                if (response.data.status === 1) {
@@ -73,22 +79,59 @@ const FormNewRequest = () => {
                             setShiftEnd("")
                             setRequestMessage("")
                             dispatch(setRequests(userInfo.requests + 1))
+                            dispatch(setAlert({type:"success",text:"New Request created",title:"New Request",timeout:3000}))
                         }
-                    }).catch(e => {
-                    console.log(e);
-                })
+                    })
                }
            })
-       } 
+       } else {
+           handleAlerts(formResult.errorsArray);
+       }
     }
 
+
+    function handleAlerts(errors) {
+        
+        errors.forEach(error => {
+            console.log(error);
+            dispatchAlerts(error)
+        })
+        
+        function dispatchAlerts(type) {
+            switch (type) {
+
+                case "Date":
+                        dispatch(setAlert({type:"error",text:"the Date is not correct "}))
+                    break;
+                
+                    case "Shift-start":
+                        dispatch(setAlert({type:"error",text:"The Shift-starts input is not correct "}))
+                    break;
+                
+                    case "Shift-end":
+                        dispatch(setAlert({type:"error",text:"The Shift-end input is not correct "}))
+                    break;
+                
+                    case "Request":
+                        dispatch(setAlert({type:"error",text:"Please enter the Request message that is between 4 and 50 characters in length "}))
+                    break;
+                
+                    case "Year":
+                        dispatch(setAlert({type:"error",text:"The Date is not correct "}))
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+    }
 
   return (
       <form className='form__new-request container__flex--center--column' onSubmit={onSubmit}>
         <div className='form__new-request__container'>
             <div className='inpt__container'>
                 <label htmlFor="date">Date</label>
-                <input type="date" name="date" id="date" value={date} onChange={(e)=>setDate(e.target.value)} />
+                  <input type="date" name="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
 
             <div className='inpt__container'>
@@ -108,7 +151,8 @@ const FormNewRequest = () => {
                     id="requestMessage"
                     cols="30"
                     rows="10"
-                    placeholder='your request...'
+                      placeholder='your request...'
+                      maxLength={50}
                     value={requestMessage}
                     onChange={(e) => setRequestMessage(e.target.value)}
                 >

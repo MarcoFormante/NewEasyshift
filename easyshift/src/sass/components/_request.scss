@@ -122,10 +122,15 @@
         &__container{
             @include flex(column,center,flex-start,1px);
 
+          span{
+            max-width: 260px;
+            word-wrap: break-word;
+          }
+
             &:not(&__title){
                 
                     color: darken($white_color,18);
-                
+                   
             }
 
             &--row{
@@ -142,6 +147,7 @@
 
         &__title{
             color: $white_color;
+           
             
         }
 
