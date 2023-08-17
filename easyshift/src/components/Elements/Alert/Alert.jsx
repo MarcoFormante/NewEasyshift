@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
+import './alert.css';
 import { useSelector } from 'react-redux';
 
 

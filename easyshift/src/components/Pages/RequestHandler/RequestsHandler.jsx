@@ -6,12 +6,16 @@ import axios from '../../../AxiosApi/axios'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { loadingContext } from '../../../App'
+import { setAlert } from '../../../Redux/alertSlice'
+import { useDispatch } from 'react-redux'
+
+
 export const scrollTargetContext = createContext()
 
 
 const RequestsHandler = ({requestTarget}) => {
   const [requests, setRequests] = useState([])
- const [isLoadingData,setIsLoadingData]=useState(false)
+  const [isLoadingData,setIsLoadingData]=useState(false)
   const [pageLimit, setPageLimit] = useState(0)
   const [totalRequests, setTotalRequests] = useState(0)
   const [canShowMore, setCanShowMore] = useState(true);
@@ -19,9 +23,17 @@ const RequestsHandler = ({requestTarget}) => {
   const navigate = useNavigate()
   const userInfo = useSelector((state) => state.userInfo.value || JSON.parse(sessionStorage.getItem("userInfo")))
   const location = useLocation()
+  const dispatch = useDispatch()
   const { isLoading, setIsLoading } = useContext(loadingContext)
+
+  function dispatchAlert(type, text, title, timeout) {
+    setTimeout(() => {
+      dispatch(setAlert({type,text,title,timeout}))
+    }, 1000);
+    
+  }
   
-  
+  //Reset Values
   useEffect(() => {
     setRequests([])
     setPageLimit(0)
@@ -31,6 +43,7 @@ const RequestsHandler = ({requestTarget}) => {
     setScrollTarget(null)
   }, [requestTarget])
 
+  //delete request in useState Array
   const deleteRequestFromArray = (requestId)=>{
     setRequests(requests.filter(req => req.id !== requestId))
   }
@@ -38,10 +51,9 @@ const RequestsHandler = ({requestTarget}) => {
 
   //Check token and get all requests
   useEffect(() => {
-    if (!isLoadingData) {
-      setIsLoading(true)
-    }
-      
+      if (!isLoadingData) {
+        setIsLoading(true)
+      }
       CheckUser(userInfo)
         .then(response => {
           if (response.data.status === 1) {
@@ -65,7 +77,6 @@ const RequestsHandler = ({requestTarget}) => {
             })
               .then(response => {
                 const { message } = response.data
-                console.log(message?.match(/ no more requests/gi));
                 if (response.data.status === 1) {
                   console.log(response.data.request);
                   setRequests([...requests, ...response?.data?.request])
@@ -73,8 +84,10 @@ const RequestsHandler = ({requestTarget}) => {
                   window.history.replaceState(null, "")
                   setCanShowMore(true)
                 } else {
-                  setCanShowMore(false)
-                  //handle can not show More requests with alert
+                   //handle can not show More requests with alert
+                  if (message?.match(/ no more requests/gi)) {
+                    dispatchAlert("info","No more requests at the moment","Requests",3000)
+                  }
                 }
               })
           } else {
@@ -104,11 +117,10 @@ const RequestsHandler = ({requestTarget}) => {
             top: document.querySelectorAll(".request-card")[scrollTarget]?.getBoundingClientRect().top - 50,
             behavior:"smooth"
           })
-        }, 100);
+    }, 100);
  }
 },[scrollTarget,pageLimit])
 
-  
   return (
     <div className={""}>
 
@@ -146,7 +158,8 @@ const RequestsHandler = ({requestTarget}) => {
           </span>
           <Link className='underline' style={{ color: 'white' }} to={"/newRequest"}> Add a Requests</Link>
         </div>
-        : ""}
+        : ""
+      }
        
 
       <scrollTargetContext.Provider value={{scrollTarget,setScrollTarget}}>

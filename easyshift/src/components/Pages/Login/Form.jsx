@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useDispatch,useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useDispatch} from 'react-redux'
 import { setUser } from '../../../Redux/userSlice'
 import axios from '../../../AxiosApi/axios'
 
@@ -11,7 +11,6 @@ const Form = ({dispatchAlert}) => {
   const dispatch = useDispatch()
   const [loginisValid, setLoginIsValid] = useState(null)
 
-  
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,16 +26,23 @@ const Form = ({dispatchAlert}) => {
       })
         .then(response => {
         if (response.data.status === 1) {
-          const user = { ...response.data.user };
+          const user = {...response.data.user};
           dispatch(setUser({}))
           dispatch(setUser({ userID: user.id, username: user.username, role: user.role_id }))
           sessionStorage.setItem("userInfo", JSON.stringify({ userID: user.id, username: user.username, role: user.role_id }))
           sessionStorage.setItem("token", response.data.token)
           setLoginIsValid(sessionStorage.getItem("token"))
+        } else {
+          if (response.data.message && response.data.message.match(/Error: Username or Password isn't valid/g)) {
+            dispatchAlert("error","Username or Password isn't valid","Credentials Error",3000)
+          } else {
+            dispatchAlert("error","Connection Problem, try again","",3000)
+          }
+         
         }
       })
     } else {
-      dispatchAlert("error", "Username and Password are required", "Input Error", 2000, null, false)
+      dispatchAlert("error", "Username and Password are required", "Input Error", 3000, null, false)
     }
     
   }
