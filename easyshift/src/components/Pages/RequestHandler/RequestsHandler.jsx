@@ -28,7 +28,8 @@ const RequestsHandler = ({requestTarget}) => {
 
   function dispatchAlert(type, text, title, timeout) {
     setTimeout(() => {
-      dispatch(setAlert({type,text,title,timeout}))
+      dispatch(setAlert({ type, text, title, timeout }))
+      setCanShowMore(false)
     }, 1000);
     
   }
@@ -78,15 +79,19 @@ const RequestsHandler = ({requestTarget}) => {
               .then(response => {
                 const { message } = response.data
                 if (response.data.status === 1) {
-                  console.log(response.data.request);
-                  setRequests([...requests, ...response?.data?.request])
-                  setTotalRequests(0)
-                  window.history.replaceState(null, "")
-                  setCanShowMore(true)
-                } else {
-                   //handle can not show More requests with alert
+
+                    let timeout = isLoadingData ? 1000 : 0
+                    setTimeout(() => {
+                      setRequests([...requests, ...response?.data?.request])
+                    setTotalRequests(0)
+                    window.history.replaceState(null, "")
+                    setCanShowMore(true)
+                    }, timeout);
+                  
+                  }else {
+                   //handle can not show More requests ---  alert
                   if (message?.match(/ no more requests/gi)) {
-                    dispatchAlert("info","No more requests at the moment","Requests",3000)
+                    dispatchAlert("info", "No more requests at the moment", "Requests", 3000)
                   }
                 }
               })
@@ -96,7 +101,8 @@ const RequestsHandler = ({requestTarget}) => {
         }).finally(() => {
          setTimeout(() => {
           setIsLoading(false)
-          setIsLoadingData(false)
+           setIsLoadingData(false)
+           
          }, 1000);
          
         })
@@ -174,7 +180,7 @@ const RequestsHandler = ({requestTarget}) => {
       
       {(!isLoading && requests.length > 5)
                     &&
-        <div className='btn container__flex--center--row pad-m show-more-btn mar-auto' style={!canShowMore ? { display: "none" } : { display: "flex" }}>
+        <div className='btn container__flex--center--row pad-m show-more-btn mar-auto' style={!canShowMore || isLoadingData ? { display: "none" } : { display: "flex" }}>
           <span className='cta-btn container__flex--center--row ' onClick={() => {
             setIsLoadingData(true)
             setPageLimit((location?.state?.pageLimit * 6 || pageLimit + 1))
