@@ -33,7 +33,6 @@ const DeleteAccount = () => {
                         "Content-Type":"x-www-form-urlencoded"
                     }
                 }).then(response => {
-                    console.log(response);
                     if (response.data.status === 1) {
                         dispatch(deleteAccount)
                         sessionStorage.removeItem("userInfo")

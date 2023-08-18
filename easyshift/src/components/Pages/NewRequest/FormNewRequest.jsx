@@ -72,8 +72,7 @@ const FormNewRequest = () => {
                     }
                 })
                     .then(response => {
-                        console.log(response.data);
-                        if (response.data.status === 1) {
+                            if (response.data.status === 1) {
                             setDate("")
                             setShiftStart("")
                             setShiftEnd("")
@@ -93,7 +92,6 @@ const FormNewRequest = () => {
     function handleAlerts(errors) {
         
         errors.forEach(error => {
-            console.log(error);
             dispatchAlerts(error)
         })
         

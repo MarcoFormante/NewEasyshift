@@ -39,7 +39,6 @@ const NewAccount = () => {
         }
       })
         .then(response => {
-          console.log(response.data);
           if (response.data.status === 1) {
             navigate("/")
           } else {
@@ -56,9 +55,7 @@ const NewAccount = () => {
         
     } else {
      //Handle Error Form
-      console.log("notValid");
       setIsLoading(false)
-
       if (!roleIsValid) {
         dispatch(setAlert({type:"error",text:"Please choose a role  between Duty and Photographer",title:"Role Error",timeout:5000}))
       }

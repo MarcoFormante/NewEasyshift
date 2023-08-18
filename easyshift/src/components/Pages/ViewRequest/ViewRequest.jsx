@@ -2,10 +2,11 @@ import React, { useContext, useEffect,useState } from 'react'
 import {useLocation, useNavigate, useParams} from 'react-router-dom'
 import CheckUser from '../../Helpers/CheckUser/CheckUser'
 import axios from '../../../AxiosApi/axios'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Title from '../../Layout/Title/Title'
 import RequestsContainer from '../../Elements/Request/RequestsContainer'
 import { loadingContext } from '../../../App'
+import { setAlert } from '../../../Redux/alertSlice'
 
 
 const ViewRequest = () => {
@@ -16,12 +17,13 @@ const ViewRequest = () => {
   const location = useLocation()
   let { id } = useParams()
   const [trigger, setTrigger] = useState(0)
-  const {setIsLoading} = useContext(loadingContext)
+  const { setIsLoading } = useContext(loadingContext)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setTrigger(location?.state?.trigger)
   },[location?.state?.trigger])
-  console.log(trigger);
+  
 
   useEffect(() => {
       setRequest([])
@@ -32,14 +34,18 @@ const ViewRequest = () => {
             const formData = new FormData()
             formData.append("action", "viewPost")
             formData.append("requestId", id)
+            if (location?.state?.notificationId) {
+              formData.append("notificationId", location.state.notificationId)
+            }
             axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
               headers: {
                 "Content-Type": "x-www-form-urlencoded",
               }
             })
               .then(response => {
+                
                 if (response.data.status === 1) {
-                  console.log(response.data);
+                 
                   if (response.data.rowCount > 0) {
                     setRequest([...response.data.request])
                   } else {
@@ -47,7 +53,9 @@ const ViewRequest = () => {
                   }
               
                 } else {
-                  alert(response.data.message)
+                  if (response?.data?.message?.match(/Error/g)) {
+                    dispatch(setAlert({type:"error",text:"it is no possible to view this post, connection problem",title:"Error",timeout:3000}))
+                  }
                 }
               }).finally(setTimeout(() => {
                 setIsLoading(false)
@@ -57,7 +65,6 @@ const ViewRequest = () => {
             navigate("/")
           }
         })
-     
   }, [trigger])
   
 

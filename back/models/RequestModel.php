@@ -148,6 +148,10 @@ use DBConnection;
                 if ($stmt->rowCount() > 0) {
                     $request = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo json_encode(['status'=>1,"request"=>[$request],"rowCount"=> $stmt->rowCount()]);
+
+                        $NotificationController = new NotificationController;
+                        $NotificationController->deleteNotification();
+                    
                 }else{
                     echo json_encode(['status'=>1,"rowCount"=> $stmt->rowCount()]);
                 }

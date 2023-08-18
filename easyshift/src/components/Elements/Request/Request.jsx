@@ -41,7 +41,6 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
             "Content-Type":"x-www-form-urlencoded"
           }
         }).then(response => {
-          console.log(response.data);
           if (response.data.status === 1) {
             setLockUserComment(parseInt(response.data.lockedUserId))
           }

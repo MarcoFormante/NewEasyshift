@@ -48,7 +48,8 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
                 {
                     requestId,
                     pathname: location.pathname.match(/viewRequest/g) ? "/home" : location.pathname,
-                    trigger:Math.random()
+                    trigger: Math.random(),
+                    notificationId: notificationId ?? null
                 }   
             })
             
@@ -78,7 +79,6 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
                             }
                         })
                         .then(response => {
-                            console.log(response.data);
                             if (response.data.status === 1) {
                             setNotifications([...response.data.notifications])
                         }

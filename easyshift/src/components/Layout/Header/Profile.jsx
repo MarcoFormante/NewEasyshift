@@ -21,7 +21,6 @@ const Profile = ({ handleWindowToggle }) => {
           "Content-Type":"x-www-form-urlencoded"
         }
       }).then(response => {
-        console.log(response.data);
         if (response.data.status === 1) {
           const totalRequest = response.data.totalRequests
           dispatch(setRequests(totalRequest))

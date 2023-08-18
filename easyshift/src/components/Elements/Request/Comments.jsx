@@ -22,7 +22,6 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                 "Content-Type":"x-www-form-urlencoded"
             }
         }).then(response => {
-            console.log(response.data);
             if (response.data.status === 1) {
                 if (response?.data?.rowCount > 0) {
                     setComments([...response.data.comments])
@@ -55,7 +54,6 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                         }
                     })
                     .then(response => {
-                        console.log(response.data);
                         if (response.data.status === 1) {
                             dispatch(setAlert({type:"success",text:"This comment has been deleted",title:"Comment Deleted",timeout:3000}))
                             setComments(comments.filter(c => c.id !== comment.id))
@@ -92,23 +90,20 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                             "Content-Type":"x-www-form-urlencoded"
                         }
                 }).then(response => {
-                    console.log(response.data.lockedUserId);
-                        if (response.data.status === 1) {
-                            setLockUserComment(response.data.lockedUserId)
-                            request.locked_user_id = response.data.lockedUserIdl
-                            dispatch(setAlert({type:"info",text:"Now this Post is Unlocked ",title:"Unlocked Post",timeout:3000}))
+                    if (response.data.status === 1) {
+                        setLockUserComment(response.data.lockedUserId)
+                        request.locked_user_id = response.data.lockedUserIdl
+                        dispatch(setAlert({type:"info",text:"Now this Post is Unlocked ",title:"Unlocked Post",timeout:3000}))
                     }
                 })
                    
             } else {
-               
                 formData.append("lockedUserId",JSON.stringify(["notNull",commentUserID]))
                 axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
                     headers: {
                             "Content-Type":"x-www-form-urlencoded"
                         }
                 }).then(response => {
-                    console.log(response.data);
                         if (response.data.status === 1) {
                             setLockUserComment(response.data.lockedUserId)
                             request.locked_user_id = response.data.lockedUserId

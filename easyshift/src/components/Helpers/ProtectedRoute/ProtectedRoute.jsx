@@ -23,20 +23,16 @@ const ProtectedRoute = ({ auth, redirectPath }) => {
           if (!token) {
             window.location.pathname = "/"
           } else {
-            if (token !== "45") {
                 navigate("/")
-            }
           }
-        })
+      })
     
         return () =>  window.removeEventListener("storage", () => {
           const token = sessionStorage.getItem("token")
           if (!token) {
             window.location.pathname = "/"
           } else {
-            if (token !== "45") {
-                navigate("/")
-            }
+              navigate("/")
           }
         })
     },[])

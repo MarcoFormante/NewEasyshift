@@ -36,6 +36,7 @@ class NotificationModel {
 
     public function deleteNotification(int $notificationId):void{
         if ($this->pdo) {
+            echo "si";
             $query = "DELETE FROM notifications WHERE id = :notificationId";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":notificationId",$notificationId,PDO::PARAM_INT);

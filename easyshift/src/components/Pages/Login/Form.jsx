@@ -51,9 +51,7 @@ const Form = ({dispatchAlert}) => {
   useEffect(() => {
     if (loginisValid) {
       window.location.pathname = "/home"
-    } else {
-      console.log("not valid");
-    }
+    } 
   },[loginisValid])
   
   return (

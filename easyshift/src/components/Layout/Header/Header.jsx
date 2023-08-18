@@ -62,7 +62,6 @@ const Header = () => {
       formdata.append("userId",userInfo.userID)
       axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", formdata
       ).then(response => {
-        console.log(response.data);
         if (response.data.totalNotifications) {
           setHasNotifications(true)
         } else {
