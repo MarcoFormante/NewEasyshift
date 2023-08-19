@@ -148,11 +148,12 @@ use DBConnection;
                 if ($stmt->rowCount() > 0) {
                     $request = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo json_encode(['status'=>1,"request"=>[$request],"rowCount"=> $stmt->rowCount()]);
-
+                }else{
+                    if (isset($_POST['notificationId'])) {
+                        require_once '../controllers/notificationController.php';
                         $NotificationController = new NotificationController;
                         $NotificationController->deleteNotification();
-                    
-                }else{
+                    }
                     echo json_encode(['status'=>1,"rowCount"=> $stmt->rowCount()]);
                 }
             }else{
@@ -167,21 +168,35 @@ use DBConnection;
 
     public function deleteRequest(int $requestId):void{
         if ($this->pdo) {
+            
             $querySelectRequest = "SELECT locked_user_id FROM requests WHERE id = :requestId"; 
             $stmt = $this->pdo->prepare($querySelectRequest);
             $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
             $lockedUserId = null;
             if ($stmt->execute()) {
                 $lockedUserId = $stmt->fetchColumn();
-            }
+                // if (is_int($lockedUserId)) {
+                //     $query = "SELECT user_id FROM requests WHERE requests.id = :requestId";
+                //     $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
+                //     if ($stmt->execute()) {
+                      
+                //         $fromUserId = $stmt->fetchColumn();
+                //         $query = "INSERT INTO notifications(user_id,message,from_user_id)
+                //         VALUES(1,'has delete a post where you were choosen',22)";
+                //         if($stmt->execute()){
+                //             echo "secondo";
+                //         }
+                //     }
+                // }
             $stmt = null;
             $query = "DELETE FROM requests WHERE id = :requestId";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":requestId",$requestId,PDO::PARAM_INT);
             if ($stmt->execute()) {
-                echo json_encode(['status'=>1,"message"=>"This Post has Been deleted","lockedUserId"=>$lockedUserId]);  
+                echo json_encode(['status'=>1,"message"=>"This Post has Been deleted","lockedUserId"=>$lockedUserId]); 
+                } 
             }else{
-                throw new Exception("Error: it is no possible to execute this command (delete request/$requestId) ");
+                throw new Exception("Error: it is no possible to execute this command (delete request) ");
             }
         }
     }

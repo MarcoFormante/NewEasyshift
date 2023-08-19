@@ -39,12 +39,12 @@ if (isset($_POST['action'])) {
 
                 
                 case 'sendNotificationAfterPostDeletetion':
-                    try {
-                        $notificationController = new NotificationController();
-                        $notificationController->sendNotificationAfterPostDeletetion();
-                    } catch (Exception $e) {
-                        echo json_encode(['status'=>0 ,"message"=> $e->getMessage()]);
-                    }
+                        // try {
+                        //     $notificationController = new NotificationController();
+                        //     $notificationController->sendNotificationAfterPostDeletetion();
+                        // } catch (Exception $e) {
+                        //     echo json_encode(['status'=>0 ,"message"=> $e->getMessage()]);
+                        // }
                     break;
 
                     

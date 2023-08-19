@@ -31,7 +31,7 @@ class NotificationController {
     }
 
 
-    public function sendNotification(int $userId = null,int $fromUserId,int $requestId,string $message):void{
+    public function sendNotification( $userId = null,int $fromUserId,int $requestId = null,string $message):void{
         $NotificationModel = new NotificationModel();
         $NotificationModel->sendNotification($userId,$fromUserId,$requestId,$message);
     }

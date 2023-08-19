@@ -36,12 +36,12 @@ class NotificationModel {
 
     public function deleteNotification(int $notificationId):void{
         if ($this->pdo) {
-            echo "si";
+          
             $query = "DELETE FROM notifications WHERE id = :notificationId";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":notificationId",$notificationId,PDO::PARAM_INT);
             if ($stmt->execute()) {
-                echo json_encode(['status'=> 1,"message"=> "The notification has been deleted"]);
+                // echo json_encode(['status'=> 1,"message"=> "The notification has been deleted"]);
             }else{
                 throw new Exception("Error Processing Request, Unable to delete this notification");
             }

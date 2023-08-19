@@ -109,25 +109,26 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
             }
           }) 
             .then(response => {
+              console.log(response.data);
               if (response.data.status === 1) {
                   dispatch(setAlert({type:"success",text:"Your Post has been deleted", title:"Post Deleted",timeout: 3000}))
                 if (userInfo.requests && userInfo.requests > 0) {
                   dispatch(setRequests(userInfo.requests - 1))
                 }
                   deleteRequestFromArray(request.id)
-                  const lockedUserId = response.data.lockedUserId
-                  if (lockedUserId !== false && lockedUserId !== null) {
-                        axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
-                        action: "sendNotificationAfterPostDeletetion",
-                        fromUserId: userInfo.userID,
-                        message : `has deleted his Post where you were chosen to change shift`,
-                        userId: lockedUserId
-                    },{
-                      headers: {
-                        "Content-Type":"multipart/form-data"
-                        }
-                    })
-                  }
+                  // const lockedUserId = response.data.lockedUserId
+                  // if (lockedUserId !== false && lockedUserId !== null) {
+                  //       axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
+                  //       action: "sendNotificationAfterPostDeletetion",
+                  //       fromUserId: userInfo.userID,
+                  //       message : `has deleted his Post where you were chosen to change shift`,
+                  //       userId: lockedUserId
+                  //   },{
+                  //     headers: {
+                  //       "Content-Type":"multipart/form-data"
+                  //       }
+                  //   })
+                  // }
               } else {
                 dispatch(setAlert({type:"error",text:"Your Post can't be deleted at the moment, try later", title:"Connection Problem",timeout: 3000}))
               }

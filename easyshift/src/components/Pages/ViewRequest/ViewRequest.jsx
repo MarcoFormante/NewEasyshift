@@ -43,7 +43,7 @@ const ViewRequest = () => {
               }
             })
               .then(response => {
-                
+                console.log(response.data);
                 if (response.data.status === 1) {
                  
                   if (response.data.rowCount > 0) {
