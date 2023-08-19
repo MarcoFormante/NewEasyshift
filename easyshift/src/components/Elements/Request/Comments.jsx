@@ -17,7 +17,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
         const formData = new FormData()
         formData.append("action","getComments")
         formData.append("requestId",request?.id)
-        axios.post(process.env.REACT_APP_API_URL + "commentApi.php", formData, {
+        axios.post("commentApi.php", formData, {
             headers: {
                 "Content-Type":"x-www-form-urlencoded"
             }
@@ -46,7 +46,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                 formData.append("username", comment.username)
                 formData.append("requestId", comment.request_id)
                 formData.append("userId", comment.user_id)
-                axios.post(process.env.REACT_APP_API_URL + "commentApi.php",
+                axios.post("commentApi.php",
                     formData,
                     {
                         headers: {
@@ -85,7 +85,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                     formData.append("lockedUserId", JSON.stringify(["null", request.user_id]))
                     
                 }
-                axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+                axios.post("requestApi.php", formData, {
                     headers: {
                             "Content-Type":"x-www-form-urlencoded"
                         }
@@ -99,7 +99,7 @@ const Comments = ({ request, newComment,lockedUserComment,handleSubtractComment,
                    
             } else {
                 formData.append("lockedUserId",JSON.stringify(["notNull",commentUserID]))
-                axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+                axios.post("requestApi.php", formData, {
                     headers: {
                             "Content-Type":"x-www-form-urlencoded"
                         }

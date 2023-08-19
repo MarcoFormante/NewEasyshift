@@ -60,7 +60,7 @@ const Header = () => {
       const formdata = new FormData()
       formdata.append("action", "checkNotifications")
       formdata.append("userId",userInfo.userID)
-      axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", formdata
+      axios.post("notificationApi.php", formdata
       ).then(response => {
         if (response.data.totalNotifications) {
           setHasNotifications(true)

@@ -33,7 +33,7 @@ const NewAccount = () => {
       formData.append("password", password)
       formData.append("role", role)
       formData.append("action", "createAccount")
-      axios.post(process.env.REACT_APP_API_URL + "userApi.php", formData, {
+      axios.post("userApi.php", formData, {
         headers: {
           "Content-Type": "x-www-form-urlencoded"
         }

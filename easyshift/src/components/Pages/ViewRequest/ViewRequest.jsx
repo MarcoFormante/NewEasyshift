@@ -37,7 +37,7 @@ const ViewRequest = () => {
             if (location?.state?.notificationId) {
               formData.append("notificationId", location.state.notificationId)
             }
-            axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+            axios.post("requestApi.php", formData, {
               headers: {
                 "Content-Type": "x-www-form-urlencoded",
               }

@@ -19,7 +19,7 @@ const Form = ({dispatchAlert}) => {
       formData.append("username", username)
       formData.append("password", password)
       formData.append("action", "login");
-      axios.post(`${process.env.REACT_APP_API_URL}userApi.php`, formData, {
+      axios.post(`userApi.php`, formData, {
         headers: {
           "Content-Type": "x-www-form-urlencoded",
         }

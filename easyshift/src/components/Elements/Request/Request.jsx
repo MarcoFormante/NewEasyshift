@@ -36,7 +36,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
       formData.append("action", "getLockedUserId")
       formData.append("requestId",request.id)
       if (showComments) {
-        axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+        axios.post( "equestApi.php", formData, {
           headers: {
             "Content-Type":"x-www-form-urlencoded"
           }
@@ -60,7 +60,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
             formData.append("requestId",value.requestId)
             formData.append("comment", value.comment)
             formData.append("requestUserID",request.user_id)
-            axios.post(process.env.REACT_APP_API_URL + "/commentApi.php", formData, {
+            axios.post("commentApi.php", formData, {
               headers: {
               "Content-Type":"x-www-form-urlencoded"
             }
@@ -100,7 +100,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
       CheckUser(userInfo)
         .then(response => {
         if (response.data.status === 1) {
-          axios.post(process.env.REACT_APP_API_URL + "requestApi.php", {
+          axios.post( "equestApi.php", {
             action: "deleteRequest",
             requestId : request.id
           }, {
@@ -118,7 +118,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
                   deleteRequestFromArray(request.id)
                   // const lockedUserId = response.data.lockedUserId
                   // if (lockedUserId !== false && lockedUserId !== null) {
-                  //       axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
+                  //       axios.post( "otificationApi.php", {
                   //       action: "sendNotificationAfterPostDeletetion",
                   //       fromUserId: userInfo.userID,
                   //       message : `has deleted his Post where you were chosen to change shift`,

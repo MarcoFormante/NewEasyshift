@@ -72,7 +72,7 @@ const RequestsHandler = ({requestTarget}) => {
             } else {
               formData.append("limit2", 6)
             }
-            axios.post(process.env.REACT_APP_API_URL + "requestApi.php", formData, {
+            axios.post("requestApi.php", formData, {
               headers: {
                 "Content-Type": "x-www-form-urlencoded",
               }

@@ -16,7 +16,7 @@ const Profile = ({ handleWindowToggle }) => {
       const formdata = new FormData()
       formdata.append("action", "getUserTotalRequests")
       formdata.append("userId",userInfo.userID)
-      axios.post(process.env.REACT_APP_API_URL + "userApi.php", formdata, {
+      axios.post("userApi.php", formdata, {
         headers: {
           "Content-Type":"x-www-form-urlencoded"
         }

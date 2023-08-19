@@ -17,7 +17,7 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
         CheckUser(userInfo)
             .then(response => {
             if (response.data.status === 1) {
-                axios.post(process.env.REACT_APP_API_URL + "notificationApi.php",
+                axios.post("notificationApi.php",
                     {
                         notificationId: id,
                         action: "deleteNotification"
@@ -33,7 +33,7 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
 
     const viewRequest = (requestId, viewed, notificationId) => {
         if (viewed === 0) {
-            axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", {
+            axios.post("notificationApi.php", {
                 action: "markNotificationAsViewed",
                 notificationId
             }, {
@@ -73,7 +73,7 @@ const Notifications = ({handleWindowToggle,windowToggle,windowType}) => {
                         const formdata = new FormData()
                         formdata.append("action", "getUserNotifications")
                         formdata.append("userId",userInfo.userID)
-                        axios.post(process.env.REACT_APP_API_URL + "notificationApi.php", formdata, {
+                        axios.post("notificationApi.php", formdata, {
                             headers: {
                                 "Content-Type":"x-www-form-urlencoded"
                             }

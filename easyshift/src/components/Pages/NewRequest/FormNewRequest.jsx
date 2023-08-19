@@ -66,7 +66,7 @@ const FormNewRequest = () => {
                 formData.append("shiftStart", shiftStart)
                 formData.append("shiftEnd", shiftEnd)
                 formData.append("request", requestMessage)
-                axios.post(process.env.REACT_APP_API_URL + "/requestApi.php", formData, {
+                axios.post("requestApi.php", formData, {
                     headers: {
                         "Content-Type": "x-www-form-urlencoded"
                     }

@@ -28,7 +28,7 @@ const DeleteAccount = () => {
                     formdata.append("username", username)
                     formdata.append("password", password)
                     formdata.append("userId",userInfo.userID)
-                    axios.post(process.env.REACT_APP_API_URL + "userApi.php", formdata, {
+                    axios.post("userApi.php", formdata, {
                         headers: {
                         "Content-Type":"x-www-form-urlencoded"
                     }
