@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate,useLocation } from 'react-router-dom'
+import { useNavigate,useLocation, Link } from 'react-router-dom'
 
 
 
@@ -7,22 +7,23 @@ const CommentsIcon = ({requestIndex, pageLimit, requestsLimit, request, showComm
   const navigate = useNavigate()
   const location = useLocation()
 
-  const viewRequest = () => {
-    if (!location.pathname.match(/viewRequest/)) {
-      navigate(`/viewRequest/${request.id}`, { state: { requestsLimit, pageLimit, requestIndex, pathname: location.pathname } })
-    }
+  // const viewRequest = () => {
+  //   if (!location.pathname.match(/viewRequest/)) {
+  //     navigate(`/viewRequest/${request.id}`, { state: { requestsLimit, pageLimit, requestIndex, pathname: location.pathname } })
+  //   }
    
-  }
+  // }
 
   return (
     <div className='request-card__comments'>
       <div className='request-card__comments__container'>
         <span className='created_at'>created on {new Date(request?.created_on).toLocaleDateString("fr")}</span>
         {!showComments &&
-          <span
-            className='request-card__comments__icon btn'
-            onClick={() => viewRequest() }>
-          </span>
+          <Link to={"/viewRequest/" + request.id}
+            replace={true}
+            state={{requestsLimit,pageLimit,requestIndex, pathname: location.pathname}}
+            className='request-card__comments__icon btn'>
+          </Link>
         }
     </div>
     </div>

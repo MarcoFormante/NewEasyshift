@@ -100,7 +100,7 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
       CheckUser(userInfo)
         .then(response => {
         if (response.data.status === 1) {
-          axios.post( "equestApi.php", {
+          axios.post( "requestApi.php", {
             action: "deleteRequest",
             requestId : request.id
           }, {

@@ -24,11 +24,12 @@ const ViewRequest = () => {
     setTrigger(location?.state?.trigger)
   },[location?.state?.trigger])
   
-
+console.log(location);
   useEffect(() => {
       setRequest([])
       CheckUser(userInfo)
         .then(response => {
+          console.log(response.data);
           if (response.data.status === 1) {
             setIsLoading(true)
             const formData = new FormData()
@@ -40,7 +41,7 @@ const ViewRequest = () => {
             axios.post("requestApi.php", formData, {
               headers: {
                 "Content-Type": "x-www-form-urlencoded",
-              }
+              },
             })
               .then(response => {
                 console.log(response.data);
