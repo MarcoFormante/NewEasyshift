@@ -9,7 +9,7 @@ const Form = ({dispatchAlert}) => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
-  const [loginisValid, setLoginIsValid] = useState(null)
+  const [loginIsValid, setLoginIsValid] = useState(null)
 
   
   const handleSubmit = (e) => {
@@ -49,10 +49,10 @@ const Form = ({dispatchAlert}) => {
  
 
   useEffect(() => {
-    if (loginisValid) {
+    if (loginIsValid) {
       window.location.pathname = "/home"
     } 
-  },[loginisValid])
+  },[loginIsValid])
   
   return (
     <div className='container__flex--center--column gap-20'>

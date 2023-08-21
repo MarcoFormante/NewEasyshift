@@ -423,34 +423,22 @@ components
   overflow: hidden;
   animation: loading-text 1.5s ease infinite alternate;
 }
-.loading-fp__item__circle-sd-left {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(40deg, #223e51, #407599);
-  border: 1px solid rgb(255, 255, 255);
-  transform-style: preserve-3d;
-  perspective-origin: 50% 50%;
-  backface-visibility: visible;
-  animation: spin 2s 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-  position: relative;
-  top: -70px;
-  right: 20px;
-}
-.loading-fp__item__circle-sd-right {
+.loading-fp__item__circle-sd {
   position: relative;
   top: -70px;
   left: 20px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  border: 3px solid rgb(255, 255, 255);
+  border-left: none;
+  border-bottom: none;
+  animation: spin 1s 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
   background: linear-gradient(40deg, #223e51, #407599);
-  border: 1px solid white;
-  border-color: linear-gradient(40deg, #223e51, #407599);
-  transform-style: preserve-3d;
-  perspective-origin: 50% 50%;
-  backface-visibility: visible;
-  animation: spin 2s 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+.loading-fp__item__circle-sd-left {
+  left: -20px;
+  animation: spin 1s 1s reverse cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
 }
 
 @keyframes spin {
@@ -1239,6 +1227,13 @@ a.brand__link {
     display: block;
     margin: auto;
   }
+}
+
+a.adm_page_btn {
+  color: white;
+  position: fixed;
+  top: 3px;
+  right: 3px;
 }
 
 .flex-wrap {

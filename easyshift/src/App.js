@@ -20,8 +20,9 @@ function App() {
       <Loading isLoading={isLoading} />
       <loadingContext.Provider value={{isLoading,setIsLoading}}>
         <Routes>
-        <Route exact path={'/'} element={<Login />} />
-        <Route path={'/newAccount'} element={<NewAccount />} />
+          <Route exact path={'/'} element={<Login />} />
+          <Route path={'/newAccount'} element={<NewAccount />} />
+          <Route path={'/reservedArea'} element={"Reserved"} />
         <Route path={'/*'} element={"Not Found"} />
           <Route element={<ProtectedRoute auth={sessionStorage.getItem("token")} redirectPath={"/"}/>}>
           <Route path={'/home'} element={<RequestsHandler requestTarget={"all"} />} />
