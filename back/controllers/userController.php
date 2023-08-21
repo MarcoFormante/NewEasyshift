@@ -27,4 +27,14 @@ class UserController{
             $UserModel = new UserModel();
             $UserModel->getUserTotalRequests($userId);
     }
+
+    public function getAllUsers(){
+        $UserModel = new UserModel();
+        $UserModel->getAllUsers();
+    }
+
+    public function validateUser(int $value, int $userId){
+        $UserModel = new UserModel();
+        $UserModel->validateUser($value,$userId);
+    }
 }

@@ -49,20 +49,43 @@ if (isset($_POST['action'])) {
                 $UserController = new UserController;
                 try {
                     $UserController->deleteAccount($username,$password,$userId);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                 }
             break;
+
 
             case 'getUserTotalRequests':
                 $userId = $_POST['userId'];
                 $UserController = new UserController;
                 try {
                     $UserController->getUserTotalRequests($userId);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                 }
             break;
+
+            case 'getAllUser':
+                $UserController = new UserController;
+                try {
+                   $UserController->getAllUsers();
+                } catch (Exception $e) {
+                    echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
+                }
+            break;
+
+
+            case 'validateUser':
+                $userId = $_POST['userId'];
+                $value = $_POST['value'];
+                $UserController = new UserController;
+                try {
+                   $UserController->getUserTotalRequests($value,$userId);
+                } catch (Exception $e) {
+                    echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
+                }
+            break;
+           
         
         default:
             echo json_encode(["status"=> 0 ,"message" => "Error: Action is Required"]);

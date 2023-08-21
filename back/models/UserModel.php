@@ -120,4 +120,36 @@ Class UserModel
         }
     }
 
+
+    public function getAllUsers(){
+        if ($this->pdo) {
+            $query = "SELECT * FROM users";
+            $stmt = $this->pdo->prepare($query);
+            if ($stmt->execute()) {
+                echo json_encode(["status"=>1]);
+            }else{
+                throw new Exception("Error Processing Request (execution)");
+            }
+        }else{
+            throw new Exception("Error Processing Request (pdo)");
+        }
+    }
+
+
+    public function validateUser(int $value, int $userId){
+        if ($this->pdo) {
+            $query = "UPDATE users SET is_validate = :value WHERE id = :userId";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":value",$value,PDO::PARAM_INT);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                echo json_encode(["status"=>1]);
+            }else{
+                throw new Exception("Error Processing Request (execution)");
+            }
+        }else{
+            throw new Exception("Error Processing Request (pdo)");
+        }
+    }
+
 }

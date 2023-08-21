@@ -1318,7 +1318,7 @@ body.fixed {
   overflow: hidden;
 }
 
-input {
+input:is(not input[type=checkbox]) {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
