@@ -7,49 +7,52 @@ const Form = ({ handleSubmit, username, password, setUsername, setPassword, setR
 
   useEffect(() => {
     if (showPasswordRef?.current) {
-      const ref = showPasswordRef.current
-      showPasswordRef.current?.addEventListener("mousedown",()=> {
+        const ref = showPasswordRef.current
+        
+      ref.addEventListener("mousedown",()=> {
         setShowPassword(true)
       })
-  
-      return () => {
-        ref.addEventListener("mousedown",()=> {
-          setShowPassword(true)
-        })
-      }
-    }
-  }, [])
-  
-
-  useEffect(() => {
-    if (showPasswordRef?.current) {
-      const ref = showPasswordRef.current
-      showPasswordRef?.current?.addEventListener("mouseleave",()=> {
+        
+      ref.addEventListener("touchstart",()=> {
+        setShowPassword(true)
+      })
+        
+      ref.addEventListener("mouseup",()=> {
         setShowPassword(false)
       })
-  
-      return () => {
-        ref.addEventListener("mouseup",()=> {
-          setShowPassword(false)
-        })
-      }
-    }
-  }, [])
-  
-  useEffect(() => {
-    if (showPasswordRef?.current) {
-      const ref = showPasswordRef.current
+        
       ref.addEventListener("mouseleave",()=> {
         setShowPassword(false)
       })
+        
+      ref.addEventListener("touchmove",()=> {
+        setShowPassword(false)
+      })
   
       return () => {
-        ref.addEventListener("mouseleave",()=> {
-          setShowPassword(false)
+        ref.removeEventListener("mousedown",()=> {
+          setShowPassword(true)
+        })
+          
+        ref.removeEventListener("touchstart",()=> {
+            setShowPassword(true)
+        })
+          
+        ref.removeEventListener("mouseup",()=> {
+            setShowPassword(false)
+        })
+          
+        ref.removeEventListener("mouseleave",()=> {
+            setShowPassword(false)
+        })
+          
+        ref.removeEventListener("touchmove",()=> {
+            setShowPassword(false)
         })
       }
     }
-  },[])
+  }, [])
+  
   
   return (
     <div className='container__flex--center--column gap-20'>

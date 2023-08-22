@@ -3,8 +3,8 @@
 namespace App\Controllers\UserController;
 require_once '../models/UserModel.php';
 use App\Models\UserModel\UserModel;
+use Exception;
 
- 
 class UserController{
 
     public function createAccount(string $username,string $password,int $role):void{
@@ -39,8 +39,20 @@ class UserController{
         $UserModel->getAllUsers($page);
     }
 
+
     public function validateUser(int $value, int $userId):void{
         $UserModel = new UserModel();
         $UserModel->validateUser($value,$userId);
+    }
+
+
+    public function updateUser(int $userId, string $username, string $password, int $role, string $secretCode):void{
+        if ($secretCode === getenv("SecretCodeEasyshift")) {
+            $UserModel = new UserModel();
+            $UserModel->updateUser($userId, $username,  $password,  $role, $secretCode);
+        }else{
+            throw new Exception("Error Processing Request (ce)");
+        }
+       
     }
 }

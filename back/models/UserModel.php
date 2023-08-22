@@ -25,7 +25,7 @@ Class UserModel
             if ($stmt->execute()) {
                     echo json_encode(["status"=> 1,"message"=> "New Account created!"]);
             }else{
-                throw new PDOException("Error: New account can't create, try again");
+                throw new PDOException("Error: New account can't be create, try again");
             }
         }else{
             throw new PDOException("Error: Database Connection Problem");
@@ -178,5 +178,44 @@ Class UserModel
             throw new PDOException("Error Processing Request (pdo)");
         }
     }
+
+
+    public function updateUser(int $userId, string $username, string $password, int $role){
+        $newPassword = password_hash($password,PASSWORD_BCRYPT);
+        if ($this->pdo) {
+            
+            if (!strlen($password) > 8 || $password === "undefined" || $password === null || $password ===  "") {
+                $query = "UPDATE users 
+                SET 
+                username = :username,
+                role_id = :role
+                WHERE id = :userId";
+                  $stmt = $this->pdo->prepare($query);
+            }else{
+                $query = "UPDATE users 
+                SET 
+                username = :username,
+                password = :password,
+                role_id = :role
+                WHERE id = :userId";
+                  $stmt = $this->pdo->prepare($query);
+                  $stmt->bindValue(":password",$newPassword,PDO::PARAM_STR);
+            }
+
+          
+            $stmt->bindValue(":username",$username,PDO::PARAM_STR);
+            
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":role",$role,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                echo json_encode(["status"=>1]);
+            }else{
+                throw new PDOException("Error Processing Request (execution)");
+            }
+        }else{
+            throw new PDOException("Error Processing Request (pdo)");
+        }
+    }
+
 
 }

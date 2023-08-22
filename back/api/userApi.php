@@ -29,6 +29,7 @@ if (isset($_POST['action'])) {
                 }
         break;
 
+
             //Login
             case 'login':
                     $username = $_POST['username'];
@@ -95,6 +96,21 @@ if (isset($_POST['action'])) {
                 $UserController = new UserController;
                 try {
                    $UserController->validateUser($value,$userId);
+                } catch (Exception $e) {
+                    echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
+                }
+            break;
+
+
+            case 'updateUser':
+                $userId = $_POST['userId'];
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $role = $_POST['role'];
+                $secretCode = $_POST['secretCode'];
+                $UserController = new UserController;
+                try {
+                    $UserController->updateUser( $userId,  $username,  $password,  $role,  $secretCode);
                 } catch (Exception $e) {
                     echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                 }
