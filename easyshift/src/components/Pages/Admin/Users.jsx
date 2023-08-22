@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import Title from '../../Layout/Title/Title'
 import ShowMore from '../../Elements/ShowMore/ShowMore'
+import { setUser } from '../../../Redux/userSlice'
 
 const Users = () => {
     const [users, setUsers] = useState([])
@@ -54,16 +55,33 @@ const Users = () => {
             }
         })
     }
+
     
-console.log(users[0]);
+    const deleteUser = (id, index) => {
+       
+        users.slice(index,index + 1)
+        axios.post("userApi.php",{ action: "adminDeleteUser", id }, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+        })
+            .then(response => {
+            if (response.data.status === 1) {
+                setUsers(users.filter(user => user.id !== id))
+            }
+        })
+    }
+    
+
   return (
     <div>
           <Link to={"/admin/home"}>Back</Link>
           <Title title={"Users"} />
           <TableAdmin
               target={"users"}
-              handleValidateUser={( userId,isValidate,index ) => handleValidateUser(userId,isValidate,index )}
+              handleValidateUser={handleValidateUser}
               users={users}
+              deleteUser={deleteUser}
           />
            <ShowMore maxLength={6}
                 pageLimit={pageLimit + 1}
@@ -71,7 +89,7 @@ console.log(users[0]);
                 isLoadingData={isLoadingData}
                 setIsLoadingData={(value) => setIsLoadingData(value)}
                 setPageLimit={(value) => setPageLimit(value)}
-                />
+            />
     </div>
   )
 }
@@ -81,7 +99,7 @@ export default Users
 
 const TableAdmin = (props) => {
     const [tHeads, setTheads] = useState([])
-   
+   const navigate = useNavigate()
 
     useEffect(() => {
        switch (props.target) {
@@ -120,9 +138,9 @@ const TableAdmin = (props) => {
                                 defaultChecked={user.is_validate}
                                 onClick={() => props.handleValidateUser(user.id,user.is_validate,index)}
                             />
-                        </td>
+                       </td>
                         <td>modify</td>
-                        <td>delete</td>
+                        <td onClick={() => props.deleteUser(user.id,index)}>delete</td>
                     </tr>
                     )}
                         </tbody>

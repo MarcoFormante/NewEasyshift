@@ -109,6 +109,22 @@ Class UserModel
     }
 
 
+    public function deleteUser(int $userId):void{
+        if ($this->pdo) {
+            $query = "DELETE FROM users WHERE id = :userId";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                echo json_encode(['status'=>1]);
+            }else{
+                throw new PDOException("Error: it is impossible to delete this account (Request can't execute)");
+            }
+        }else{
+            throw new PDOException("Error Processing Request(PDO problem)");
+        }
+    }
+
+
     public function getUserTotalRequests(int $userId):void{
         if ($this->pdo) {
             $query = "SELECT COUNT(id) as totalRequests FROM requests WHERE user_id = :userId";

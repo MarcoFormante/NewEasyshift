@@ -23,6 +23,12 @@ class UserController{
         $UserModel->deleteAccount($username,$password,$userId);
     }
 
+
+    public function deleteUser(int $userId):void{
+        $UserModel = new UserModel();
+        $UserModel->deleteUser($userId);
+    }
+
     public function getUserTotalRequests(int $userId):void{
             $UserModel = new UserModel();
             $UserModel->getUserTotalRequests($userId);

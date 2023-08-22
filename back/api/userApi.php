@@ -55,6 +55,18 @@ if (isset($_POST['action'])) {
             break;
 
 
+            case 'adminDeleteUser':
+                $userId = $_POST['id'];
+                $UserController = new UserController;
+                try {
+                    $UserController->deleteUser($userId);
+                } catch (Exception $e) {
+                    echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
+                }
+            break;
+
+
+
             case 'getUserTotalRequests':
                 $userId = $_POST['userId'];
                 $UserController = new UserController;
