@@ -33,8 +33,14 @@ const Form = ({dispatchAlert}) => {
           sessionStorage.setItem("token", response.data.token)
           setLoginIsValid(sessionStorage.getItem("token"))
         } else {
-          if (response.data.message && response.data.message.match(/Error: Username or Password isn't valid/g)) {
-            dispatchAlert("error","Username or Password isn't valid","Credentials Error",3000)
+          const errorMessage = response?.data?.message || null
+          if (errorMessage) {
+              if (errorMessage.match(/Error: Your account has not been validated yet/)) {
+                  dispatchAlert("error","Your account has not been validated yet","Error",3000)
+              } else if (errorMessage.match(/Error: Username or Password isn't valid/g)) {
+                  dispatchAlert("error","Username or Password isn't valid ","Error",3000)
+              }
+            
           } else {
             dispatchAlert("error","Connection Problem, try again","",3000)
           }

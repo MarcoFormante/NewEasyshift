@@ -178,15 +178,9 @@ const RequestsHandler = ({requestTarget}) => {
         />
       </scrollTargetContext.Provider>
       
-      {(!isLoading && requests.length > 5)
+      {
+        !isLoading && requests.length > 5
                     &&
-        // <div className='btn container__flex--center--row pad-m show-more-btn mar-auto' style={!canShowMore || isLoadingData ? { display: "none" } : { display: "flex" }}>
-        //   <span className='cta-btn container__flex--center--row '
-        //     onClick={() => {
-        //     setIsLoadingData(true)
-        //     setPageLimit((location?.state?.pageLimit * 6 || pageLimit + 1))
-        //   }}>Show more</span>
-        // </div>
         <div>
           <ShowMore maxLength={6}
             pageLimit={location?.state?.pageLimit * 6 || pageLimit + 1}

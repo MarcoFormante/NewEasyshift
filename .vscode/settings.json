@@ -1,5 +1,8 @@
 {
     "cSpell.enableFiletypes": [
         "jsonl"
+    ],
+    "cSpell.ignoreWords": [
+        "formdata"
     ]
 }

@@ -35,7 +35,7 @@ Class UserModel
     //Login
     public function login(string $username , string $password):void{
         if ($this->pdo) {
-            $validateAccountCode = 0;
+            $validateAccountCode = 1;
             $query = "SELECT * from users WHERE username = :username";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":username",$username,PDO::PARAM_STR);

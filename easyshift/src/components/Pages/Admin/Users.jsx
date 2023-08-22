@@ -2,43 +2,53 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import Title from '../../Layout/Title/Title'
+import ShowMore from '../../Elements/ShowMore/ShowMore'
 
 const Users = () => {
     const [users, setUsers] = useState([])
-    const [page,setPage]=useState(0)
+    const [pageLimit, setPageLimit] = useState(0)
+    const [isLoadingData, setIsLoadingData] = useState(false)
+    const [canShowMore,setCanShowMore] = useState(false)
 
     useEffect(() => {
-        axios.post("userApi.php", {action: "getAllUsers", page : page * 10}, {
+        axios.post("userApi.php", {action: "getAllUsers", page : pageLimit * 10}, {
             headers: {
               "Content-Type":"multipart/form-data"
           }
         }) 
         .then(response => {
             if (response.data.status === 1) {
-                console.log(response.data.users);
                 const newUsers = response.data.users 
-                setUsers([...users,...newUsers])
+                setUsers([...users, ...newUsers])
+                setIsLoadingData(false)
+                if (response.data.users.length  > 5) {
+                    setCanShowMore(true)
+                } else {
+                    setCanShowMore(false)
+                }
             }     
         })
-    },[page])
+    },[pageLimit])
 
 
-    const handleValidateUser = (userId, isValidate,index) => {
-        let value;
+    const handleValidateUser = (userId,isValidate,index ) => {
+        console.log(userId,isValidate,index )
+        let value = 0;
         if (isValidate === 0) {
             value = 1
         } else if (isValidate === 1) {
             value = 0;
         }
-        
+        console.log(value);
         const formdata = new FormData()
         formdata.append("action","validateUser")
         formdata.append("userId",userId)
         formdata.append("value",value)
         axios.post("userApi.php", formdata
         ).then(response => {
+            console.log(response.data);
             if (response.data.status === 1) {
-                users[index].isValidate = value
+                users[index].is_validate = value
                 console.log(users[index]);
                 console.log(response.data);
             }
@@ -50,39 +60,74 @@ console.log(users[0]);
     <div>
           <Link to={"/admin/home"}>Back</Link>
           <Title title={"Users"} />
-
-          <div className={'container__flex--center--row'}>
-            <table style={{width:"100%",textAlign:"center"}}>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>IsValidated</th>
-                    </tr>
-                </thead>
-                <tbody>
-              {users && users.map((user, index) =>          
-                <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.username}</td>
-                    <td>{user.role}</td>
-                      <td>
-                        <input type="checkbox"
-                            defaultChecked={user.isValidate}
-                            onClick={() => handleValidateUser(user.id,user.isValidate,index)}
-                        />
-                      </td>
-                    <td>modify</td>
-                    <td>delete</td>
-                </tr>
-                )}
-                    </tbody>
-            </table>
-        </div>
+          <TableAdmin
+              target={"users"}
+              handleValidateUser={( userId,isValidate,index ) => handleValidateUser(userId,isValidate,index )}
+              users={users}
+          />
+           <ShowMore maxLength={6}
+                pageLimit={pageLimit + 1}
+                canShowMore={canShowMore}
+                isLoadingData={isLoadingData}
+                setIsLoadingData={(value) => setIsLoadingData(value)}
+                setPageLimit={(value) => setPageLimit(value)}
+                />
     </div>
   )
 }
 
 export default Users
-// onClick={()=>setPage(page + 1)
+
+
+const TableAdmin = (props) => {
+    const [tHeads, setTheads] = useState([])
+   
+
+    useEffect(() => {
+       switch (props.target) {
+        case "users":
+            setTheads(["ID","Username","Role","isValidate","Modify","Delete"])
+            break;
+       
+        default:
+            break;
+       }
+        
+    },[props.target])
+    
+    return (
+        <div>
+            <div className={'container__flex--center--row'}>
+                <table style={{width:"100%",textAlign:"center"}}>
+                    <thead>
+                        <tr>
+                            {tHeads.map(th =>
+                                <>
+                                    <th>{th}</th>
+                                </>
+                            )}
+                        </tr>
+                    </thead>
+                        <tbody>
+                            
+               {props.users && props.users.map((user, index) =>          
+                    <tr key={user.id}>
+                        <td>{user.id}</td>
+                        <td>{user.username}</td>
+                        <td>{user.role_id}</td>
+                        <td>
+                            <input type="checkbox"
+                                defaultChecked={user.is_validate}
+                                onClick={() => props.handleValidateUser(user.id,user.is_validate,index)}
+                            />
+                        </td>
+                        <td>modify</td>
+                        <td>delete</td>
+                    </tr>
+                    )}
+                        </tbody>
+                </table>
+              </div>
+        </div>
+    )
+}
