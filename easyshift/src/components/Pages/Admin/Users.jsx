@@ -1,27 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import Title from '../../Layout/Title/Title'
 
 const Users = () => {
-    const [users, setUsers] = useState([{
-            id: 10,
-            username: "test",
-            role: 0,
-            isValidate:0
-        },
-        {
-            id: 11,
-            username: "test",
-            role: 0,
-            isValidate:0
-        }
-    ])
+    const [users, setUsers] = useState([])
+    const [page,setPage]=useState(0)
+
+    useEffect(() => {
+        axios.post("userApi.php", {action: "getAllUsers", page : page * 10}, {
+            headers: {
+              "Content-Type":"multipart/form-data"
+          }
+        }) 
+        .then(response => {
+            if (response.data.status === 1) {
+                console.log(response.data.users);
+                const newUsers = response.data.users 
+                setUsers([...users,...newUsers])
+            }     
+        })
+    },[page])
 
 
     const handleValidateUser = (userId, isValidate,index) => {
         let value;
-
         if (isValidate === 0) {
             value = 1
         } else if (isValidate === 1) {
@@ -42,13 +45,13 @@ const Users = () => {
         })
     }
     
-
+console.log(users[0]);
   return (
     <div>
           <Link to={"/admin/home"}>Back</Link>
           <Title title={"Users"} />
 
-          <div className='container__flex--center--row'>
+          <div className={'container__flex--center--row'}>
             <table style={{width:"100%",textAlign:"center"}}>
                 <thead>
                     <tr>
@@ -82,3 +85,4 @@ const Users = () => {
 }
 
 export default Users
+// onClick={()=>setPage(page + 1)

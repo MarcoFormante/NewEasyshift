@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { loadingContext } from '../../../App'
 import { setAlert } from '../../../Redux/alertSlice'
 import { useDispatch } from 'react-redux'
+import ShowMore from '../../Elements/ShowMore/ShowMore'
 
 
 export const scrollTargetContext = createContext()
@@ -179,15 +180,27 @@ const RequestsHandler = ({requestTarget}) => {
       
       {(!isLoading && requests.length > 5)
                     &&
-        <div className='btn container__flex--center--row pad-m show-more-btn mar-auto' style={!canShowMore || isLoadingData ? { display: "none" } : { display: "flex" }}>
-          <span className='cta-btn container__flex--center--row '
-            onClick={() => {
-            setIsLoadingData(true)
-            setPageLimit((location?.state?.pageLimit * 6 || pageLimit + 1))
-          }}>Show more</span>
-      </div>}
+        // <div className='btn container__flex--center--row pad-m show-more-btn mar-auto' style={!canShowMore || isLoadingData ? { display: "none" } : { display: "flex" }}>
+        //   <span className='cta-btn container__flex--center--row '
+        //     onClick={() => {
+        //     setIsLoadingData(true)
+        //     setPageLimit((location?.state?.pageLimit * 6 || pageLimit + 1))
+        //   }}>Show more</span>
+        // </div>
+        <div>
+          <ShowMore maxLength={6}
+            pageLimit={location?.state?.pageLimit * 6 || pageLimit + 1}
+            canShowMore={canShowMore}
+            isLoadingData={isLoadingData}
+            setIsLoadingData={(value) => setIsLoadingData(value)}
+            setPageLimit={(value) => setPageLimit(value)}
+          />
+        </div>
+     }
     </div>
   )
 }
 
 export default RequestsHandler
+
+

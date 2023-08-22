@@ -65,10 +65,12 @@ if (isset($_POST['action'])) {
                 }
             break;
 
-            case 'getAllUser':
+
+            case 'getAllUsers':
                 $UserController = new UserController;
                 try {
-                   $UserController->getAllUsers();
+                    $page = $_POST['page'];
+                   $UserController->getAllUsers($page);
                 } catch (Exception $e) {
                     echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                 }
@@ -80,7 +82,7 @@ if (isset($_POST['action'])) {
                 $value = $_POST['value'];
                 $UserController = new UserController;
                 try {
-                   $UserController->getUserTotalRequests($value,$userId);
+                   $UserController->validateUser($value,$userId);
                 } catch (Exception $e) {
                     echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                 }

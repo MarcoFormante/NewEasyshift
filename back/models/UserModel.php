@@ -6,7 +6,8 @@ require_once 'DBConnection.php';
 use App\Models\DBConnection\DBConnection;
 use PDO;
 use Exception;
-use stdClass;
+use PDOException;
+
 
 Class UserModel
 {
@@ -24,10 +25,10 @@ Class UserModel
             if ($stmt->execute()) {
                     echo json_encode(["status"=> 1,"message"=> "New Account created!"]);
             }else{
-                throw new Exception("Error: New account can't create, try again");
+                throw new PDOException("Error: New account can't create, try again");
             }
         }else{
-            throw new Exception("Error: Database Connection Problem");
+            throw new PDOException("Error: Database Connection Problem");
         }
     }
 
@@ -52,7 +53,7 @@ Class UserModel
                             ];
                             require_once '../helpers/JWT/Jwt.php';
                             $token = JWTEncode($userInfo);
-                        echo json_encode(["status"=>1,"user"=> $userInfo,"token"=> $token]);
+                            echo json_encode(["status"=>1,"user"=> $userInfo,"token"=> $token]);
                          
                         }else{
                             throw new Exception("Error: Your account has not been validated yet");
@@ -64,10 +65,10 @@ Class UserModel
                     throw new Exception("Error: Username or Password isn't valid");
                 }
             }else{
-                throw new Exception("Error: Unable to log in , try again");
+                throw new PDOException("Error: Unable to log in , try again");
             }
         }else{
-            throw new Exception("Error: Unable to log in, Connection problem");
+            throw new PDOException("Error: Unable to log in, Connection problem");
         }
     }
 
@@ -91,7 +92,7 @@ Class UserModel
                         if ($stmt->execute()) {
                             echo json_encode(['status'=>1]);
                         }else{
-                            throw new Exception("Error: it is impossible to delete your account (Request can't execute)");
+                            throw new PDOException("Error: it is impossible to delete your account (Request can't execute)");
                         }
                     }else{
                         throw new Exception("Username or Password is not correct");
@@ -99,7 +100,11 @@ Class UserModel
                 }else{
                     throw new Exception("Username or Password is not correct");
                 } 
+            }else{
+                throw new PDOException("Error Processing Request(PDO problem)");
             }
+        }else{
+            throw new PDOException("Error Processing Request(PDO problem)");
         }
     }
 
@@ -113,25 +118,31 @@ Class UserModel
                 $totalRequests = $stmt->fetchColumn();
                 echo json_encode(['status'=>1,"totalRequests"=>$totalRequests]);
             }else{
-                throw new Exception("Error Processing Request(Query Execution)");
+                throw new PDOException("Error Processing Request(Query Execution)");
             }
         }else{
-            throw new Exception("Error Processing Request(PDO problem)");
+            throw new PDOException("Error Processing Request(PDO problem)");
         }
     }
 
 
-    public function getAllUsers(){
+    public function getAllUsers(int $page){
         if ($this->pdo) {
-            $query = "SELECT * FROM users";
+            $query = "SELECT * FROM users LIMIT :page,10 ";
             $stmt = $this->pdo->prepare($query);
-            if ($stmt->execute()) {
-                echo json_encode(["status"=>1]);
+            $stmt->bindValue(":page",$page,PDO::PARAM_INT);
+            if ($stmt->execute()){
+                    $users = [];
+                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        $users[] = $row;
+                    }
+                    echo json_encode(["status" => 1 ,"users" => $users]);
+                
             }else{
-                throw new Exception("Error Processing Request (execution)");
+                throw new PDOException("Error Processing Request (execution)");
             }
         }else{
-            throw new Exception("Error Processing Request (pdo)");
+            throw new PDOException("Error Processing Request (pdo)");
         }
     }
 
@@ -145,10 +156,10 @@ Class UserModel
             if ($stmt->execute()) {
                 echo json_encode(["status"=>1]);
             }else{
-                throw new Exception("Error Processing Request (execution)");
+                throw new PDOException("Error Processing Request (execution)");
             }
         }else{
-            throw new Exception("Error Processing Request (pdo)");
+            throw new PDOException("Error Processing Request (pdo)");
         }
     }
 

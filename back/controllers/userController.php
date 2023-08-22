@@ -28,12 +28,12 @@ class UserController{
             $UserModel->getUserTotalRequests($userId);
     }
 
-    public function getAllUsers(){
+    public function getAllUsers(int $page):void{
         $UserModel = new UserModel();
-        $UserModel->getAllUsers();
+        $UserModel->getAllUsers($page);
     }
 
-    public function validateUser(int $value, int $userId){
+    public function validateUser(int $value, int $userId):void{
         $UserModel = new UserModel();
         $UserModel->validateUser($value,$userId);
     }
