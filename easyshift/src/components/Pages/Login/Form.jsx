@@ -28,8 +28,8 @@ const Form = ({dispatchAlert}) => {
         if (response.data.status === 1) {
           const user = {...response.data.user};
           dispatch(setUser({}))
-          dispatch(setUser({ userID: user.id, username: user.username, role: user.role_id }))
-          sessionStorage.setItem("userInfo", JSON.stringify({ userID: user.id, username: user.username, role: user.role_id }))
+          dispatch(setUser({ userID: user.id, username: user.username, role_id: user.role_id }))
+          sessionStorage.setItem("userInfo", JSON.stringify({ userID: user.userID, username: user.username, role_id: user.role_id }))
           sessionStorage.setItem("token", response.data.token)
           setLoginIsValid(sessionStorage.getItem("token"))
         } else {

@@ -45,7 +45,7 @@ function App() {
           </Route>
 
           {/* Protected Route for admin */}
-          <Route element={<AdminProtectedRoute/>}>
+          <Route element={<AdminProtectedRoute auth={sessionStorage.getItem("adminToken")} redirectPath={"/"}/>}>
             <Route path={"/admin/home"} element={<Home />} />
             <Route path={"/admin/users"} element={<Users/>} />
             <Route path={"/admin/requests"} element={<Requests/>} />

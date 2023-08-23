@@ -1248,6 +1248,10 @@ body {
   gap: 20px;
 }
 
+.gap-40 {
+  gap: 40px;
+}
+
 a.brand__link {
   color: #407599;
   border-bottom: 1px solid #FFFFFF;
@@ -1302,6 +1306,10 @@ a.adm_page_btn {
   text-align: center;
 }
 
+.txt-medium {
+  font-size: 24px;
+}
+
 .mar-top-m {
   margin-top: 24px;
 }
@@ -1344,6 +1352,25 @@ a.adm_page_btn {
 }
 .overflow-y--hidden.scroll-visible::-webkit-scrollbar-track-piece {
   background-color: #223e51;
+}
+
+.admin-home-icon {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+}
+.admin-home-icon--user {
+  background-image: url(../icons/user_icon.svg);
+}
+.admin-home-icon--requests {
+  background-image: url(../icons/requests_icon.svg);
+}
+.admin-home-icon--notifications {
+  background-image: url(../icons/notifications.svg);
+}
+
+.link-w {
+  color: black;
 }
 
 html {

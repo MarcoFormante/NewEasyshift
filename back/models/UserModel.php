@@ -46,7 +46,7 @@ Class UserModel
                     if (password_verify($password,$userPassword)) {
                         if ($user["is_validate"] === $validateAccountCode) {
                             $userInfo = [
-                                "id"=>$user['id'],
+                                "userID"=>$user['id'],
                                 "username"=>$user['username'],
                                 "role_id"=> $user['role_id'],
                                 "is_validate" => $user['is_validate']
@@ -144,7 +144,7 @@ Class UserModel
 
     public function getAllUsers(int $page){
         if ($this->pdo) {
-            $query = "SELECT * FROM users LIMIT :page,10 ";
+            $query = "SELECT * FROM users WHERE is_validate < 2 LIMIT :page,10 ";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":page",$page,PDO::PARAM_INT);
             if ($stmt->execute()){
@@ -159,6 +159,48 @@ Class UserModel
             }
         }else{
             throw new PDOException("Error Processing Request (pdo)");
+        }
+    }
+
+
+    public function adminLogin(string $username, string $password, string $secretCode){
+
+        if ($this->pdo) {
+            $query = "SELECT * FROM users WHERE is_validate = 2";
+            $stmt = $this->pdo->prepare($query);
+            if ($stmt->execute()){
+                $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+                $adminPass = $admin['password'];
+                $adminUsername = $admin['username'];
+                $adminCanLogin = $this->checkAdminValues($adminPass,$adminUsername,$password,$username,$secretCode);
+                if ($adminCanLogin) {
+                        $adminInfo = [
+                            "userID"=>$admin['id'],
+                            "username"=>$admin['username'],
+                            "role_id"=> $admin['role_id'],
+                            "is_validate" => $admin['is_validate']
+                        ];
+                        require_once '../helpers/JWT/Jwt.php';
+                        $token = JWTEncode($adminInfo);
+                        echo json_encode(["status"=> 1,"adminInfo"=> $adminInfo,"token"=> $token]);
+                }else{
+                    throw new Exception("Error: Incorrect input values");  
+                }
+                
+            }else{
+                throw new PDOException("Error Processing Request (execution)");
+            }
+        }else{
+            throw new PDOException("Error Processing Request (pdo)");
+        }
+    }
+
+
+    private function checkAdminValues(string $adminPass,string $adminUsername,string $userPassword,string $username,string $secretCode):bool{
+        if (password_verify($userPassword,$adminPass) &&  $adminUsername === $username &&  $secretCode === getenv('SecretCodeEasyshift')) {
+            return true;
+        }else{
+            return false;
         }
     }
 

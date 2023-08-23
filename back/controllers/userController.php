@@ -39,6 +39,11 @@ class UserController{
         $UserModel->getAllUsers($page);
     }
 
+    public function adminLogin(string $username, string $password, string $secretCode){
+        $UserModel = new UserModel();
+        $UserModel->adminLogin($username, $password, $secretCode);
+    }
+
 
     public function validateUser(int $value, int $userId):void{
         $UserModel = new UserModel();

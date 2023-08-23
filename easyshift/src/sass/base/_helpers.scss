@@ -14,12 +14,18 @@
 
 .container__flex--center--row{
     @include flex_center(row);
+
 }
 
 
 .gap-20{
     gap: 20px;
 }
+
+.gap-40{
+    gap: 40px;
+}
+
 
 
 a.brand__link{
@@ -81,6 +87,10 @@ z-index: 200;
     text-align: center;
 }
 
+.txt-medium{
+    font-size: map-get($font_size,"medium");
+}
+
 .mar-top-m{
     margin-top: 24px;
 }
@@ -136,4 +146,25 @@ z-index: 200;
 }
 
 
+.admin-home-icon{
+    width: 40px;
+    height: 40px;
+    background-size: cover;
 
+    &--user{
+        background-image: url(../icons/user_icon.svg);
+    }
+
+    &--requests{
+        background-image: url(../icons/requests_icon.svg);
+    }
+
+    &--notifications{
+        background-image: url(../icons/notifications.svg);
+    }
+}
+
+
+.link-w{
+    color: black;
+}

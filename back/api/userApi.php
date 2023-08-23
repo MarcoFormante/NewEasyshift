@@ -89,6 +89,19 @@ if (isset($_POST['action'])) {
                 }
             break;
 
+            case 'adminLogin':
+                $UserController = new UserController;
+                try {
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+                    $secretCode = $_POST['secretCode'];
+                   $UserController->adminLogin($username,$password,$secretCode);
+                } catch (Exception $e) {
+                    echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
+                }
+            break;
+            
+
 
             case 'validateUser':
                 $userId = $_POST['userId'];
