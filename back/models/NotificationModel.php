@@ -6,6 +6,7 @@ namespace App\Models\NotificationModel;
 use App\Models\DBConnection\DBConnection;
 use Exception;
 use PDO;
+use PDOException;
 
 require_once 'DBConnection.php';
 class NotificationModel {
@@ -34,6 +35,32 @@ class NotificationModel {
     }
 
 
+    public function getAllNotifications(int $limit):void{
+        if ($this->pdo) {
+            $query = "SELECT users.username,notifications.id,user_id,request_id,message,viewed,from_user_id FROM notifications
+            JOIN users ON users.id  = notifications.from_user_id
+            ORDER BY notifications.id DESC
+            LIMIT :limit,10";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":limit",$limit,PDO::PARAM_INT);
+            if ($stmt->execute()) {
+
+                $notifications = [];
+               
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $notifications[] = $row;
+                }
+                echo json_encode(['status'=> 1,"notifications"=> $notifications]);
+               
+            }else{
+                throw new PDOException("Error : Unable to execute the request");
+            }
+        }else{
+            throw new PDOException("Error Processing Request, Unable to access the database");
+        }
+    }
+
+
     public function deleteNotification(int $notificationId):void{
         if ($this->pdo) {
           
@@ -41,7 +68,7 @@ class NotificationModel {
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":notificationId",$notificationId,PDO::PARAM_INT);
             if ($stmt->execute()) {
-                // echo json_encode(['status'=> 1,"message"=> "The notification has been deleted"]);
+                 echo json_encode(['status'=> 1,"message"=> "The notification has been deleted"]);
             }else{
                 throw new Exception("Error Processing Request, Unable to delete this notification");
             }

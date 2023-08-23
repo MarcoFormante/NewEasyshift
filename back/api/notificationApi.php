@@ -19,6 +19,16 @@ if (isset($_POST['action'])) {
             }
         break; 
 
+
+        case 'getAllNotifications':
+            try {
+                $notificationController = new NotificationController();
+                $notificationController->getAllNotifications();
+            } catch (Exception $e) {
+                echo json_encode(['status'=>0 ,"message"=> $e->getMessage()]);
+            }
+        break; 
+
         case 'deleteNotification':
             try {
                 $notificationController = new NotificationController();
@@ -27,6 +37,7 @@ if (isset($_POST['action'])) {
                 echo json_encode(['status'=>0 ,"message"=> $e->getMessage()]);
             }
             break;
+
 
             case 'markNotificationAsViewed':
                 try {
@@ -38,10 +49,10 @@ if (isset($_POST['action'])) {
                 break;
 
                 
-                case 'sendNotificationAfterPostDeletetion':
+                case 'sendNotificationAfterPostDeletion':
                         // try {
                         //     $notificationController = new NotificationController();
-                        //     $notificationController->sendNotificationAfterPostDeletetion();
+                        //     $notificationController->sendNotificationAfterPostDeletion();
                         // } catch (Exception $e) {
                         //     echo json_encode(['status'=>0 ,"message"=> $e->getMessage()]);
                         // }

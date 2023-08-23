@@ -202,7 +202,6 @@ Class UserModel
                   $stmt->bindValue(":password",$newPassword,PDO::PARAM_STR);
             }
 
-          
             $stmt->bindValue(":username",$username,PDO::PARAM_STR);
             
             $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);

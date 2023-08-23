@@ -10,9 +10,14 @@ const TableAdmin = (props) => {
         case "users":
             setTheads(["ID","Username","Role","isValidate","Modify","Delete"])
         break;
+            
         case "requests":
             setTheads(["ID","Username","Role","Date","Shift start","Shift end","Request","Total comments", "Locked userID","Created on","Delete"])
-        break;   
+        break;  
+        
+        case "notifications":
+            setTheads(["ID","User Id","Message","viewed","Request ID","From userID","Delete"])
+        break;     
            
        
         default:
@@ -21,7 +26,7 @@ const TableAdmin = (props) => {
         
     }, [props.target])
     
-    
+
     return (
         <div>
             <div className={'overflow-y--hidden scroll-visible'}>
@@ -48,8 +53,8 @@ const TableAdmin = (props) => {
                                 onClick={() => props.handleValidateUser(user.id,user.is_validate,index)}
                             />
                        </td>
-                        <td className='btn' onClick={()=>props.handleModifyUserValues(user.username,user.role_id,user.id)}><span className='edit'></span></td>
-                        <td className='btn' onClick={() => props.deleteUser(user.id,index)}><span className='delete'></span></td>
+                        <td><span className='edit btn' onClick={()=>props.handleModifyUserValues(user.username,user.role_id,user.id)}></span></td>
+                        <td><span className='delete btn' onClick={() => props.deleteUser(user.id,index)}></span></td>
                     </tr>
                         )}
 
@@ -62,11 +67,26 @@ const TableAdmin = (props) => {
                         <td>{new Date(request.date).toLocaleDateString()}</td>
                         <td>{request.shift_start}</td>
                         <td>{request.shift_end}</td>
-                        <td>{request.request}</td>
+                        <td style={{minWidth:200}}>{request.request}</td>
                         <td>{request.total_comments}</td>
                         <td>{request.locked_user_id || "null"}</td>
                         <td>{request.created_on}</td>
-                        <td className='btn' onClick={() => props.deleteRequest(request.id,index)}><span className='delete'></span></td>
+                        <td><span className='delete btn' onClick={() => props.deleteRequest(request.id,index)}></span></td>
+                    </tr>
+                        )}
+                        
+
+                        {/* setTheads(["ID","User Id","Message","viewed","Request ID","From userID","Delete"]) */}
+                        {/* IF Target is Notifications */}
+                          {props.notifications && props.notifications.map((notification, index) =>          
+                    <tr key={notification.id + "_notifications"}>
+                        <td>{notification.id}</td>
+                        <td>{notification.user_id}</td>
+                        <td style={{minWidth:200}}>{notification.username + " " + notification.message}</td>
+                        <td>{notification.viewed}</td>
+                        <td>{notification.request_id}</td>
+                        <td>{notification.from_user_id}</td>
+                        <td><span className='delete btn' onClick={() => props.deleteNotification(notification.id)}></span></td>
                     </tr>
                     )}
                         </tbody>

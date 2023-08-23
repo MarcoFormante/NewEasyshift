@@ -14,19 +14,29 @@ class NotificationController {
             $NotificationModel = new NotificationModel();
             $NotificationModel->getUserNotifications($_POST['userId']);
         }else{
-            //handle no userId
+            //handle no user-Id
             throw new Exception("Error: it is no possible to get Notifications (userId problem)");
         }
     }
 
+    public function getAllNotifications():void{
+        if (isset($_POST['limit'])) {
+            $NotificationModel = new NotificationModel();
+            $NotificationModel->getAllNotifications($_POST['limit']);
+        }else{
+            //handle no Limit value
+            throw new Exception("Error: it is no possible to get Notifications (Limit value problem)");
+        }
+    }
 
-    public function deleteNotification(){
+
+    public function deleteNotification():void{
         if (isset($_POST['notificationId'])) {
             $NotificationModel = new NotificationModel();
             $NotificationModel->deleteNotification($_POST['notificationId']);
         }else{
-            //handle no userId
-            throw new Exception("Error: it is no possible to get Notifications (userId problem)");
+            //handle no Notification-Id
+            throw new Exception("Error: it is no possible to get Notifications (notification-Id problem)");
         }
     }
 
@@ -35,6 +45,7 @@ class NotificationController {
         $NotificationModel = new NotificationModel();
         $NotificationModel->sendNotification($userId,$fromUserId,$requestId,$message);
     }
+
 
     public function sendNotificationAfterPostDeletetion():void{
         if (isset($_POST['fromUserId'])  && isset($_POST['message']) && isset($_POST['userId'])) {
