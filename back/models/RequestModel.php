@@ -14,7 +14,7 @@ use DBConnection;
     public function getAllRequests(int $limit,$limit2){
         
         if ($this->pdo) {
-            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
+            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,requests.created_on,locked_user_id,
 			(SELECT COUNT(*) FROM comments WHERE comments.request_id = requests.id) as total_comments
             FROM requests
             INNER JOIN users ON users.id = requests.user_id
@@ -22,7 +22,7 @@ use DBConnection;
             LIMIT :limit,6" ; 
 
         if ($limit2 !== null) {
-            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
+            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,requests.created_on,locked_user_id,
 			(SELECT COUNT(*) FROM comments WHERE comments.request_id = requests.id) as total_comments
             FROM requests
             INNER JOIN users ON users.id = requests.user_id
@@ -81,7 +81,7 @@ use DBConnection;
 //GET USER REQUESTS ($limit,$userId)   
     public function getMyRequests(int $limit, int $userId):void{
         if ($this->pdo) {
-            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
+            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,requests.created_on,locked_user_id,
 			(SELECT COUNT(*) FROM comments WHERE comments.request_id = requests.id) as total_comments
             FROM requests
             INNER JOIN users ON users.id = :userId
@@ -136,7 +136,7 @@ use DBConnection;
 
     public function viewPost(int $requestId){
         if ($this->pdo) {
-            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,created_on,locked_user_id,
+            $query = "SELECT requests.id ,users.id AS user_id,users.username,users.role_id,date,shift_start,shift_end,request,requests.created_on,locked_user_id,
 			0 as total_comments
             FROM requests
             INNER JOIN users ON users.id = requests.user_id

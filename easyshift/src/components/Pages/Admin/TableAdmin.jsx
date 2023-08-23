@@ -8,7 +8,7 @@ const TableAdmin = (props) => {
         switch (props.target) {
            
         case "users":
-            setTheads(["ID","Username","Role","isValidate","Modify","Delete"])
+            setTheads(["ID","Username","Role","isValidate","Created on","Modify","Delete"])
         break;
             
         case "requests":
@@ -16,7 +16,7 @@ const TableAdmin = (props) => {
         break;  
         
         case "notifications":
-            setTheads(["ID","User Id","Message","viewed","Request ID","From userID","Delete"])
+            setTheads(["ID","User Id","Message","viewed","Request ID","From userID","Created on","Delete"])
         break;     
            
        
@@ -52,7 +52,8 @@ const TableAdmin = (props) => {
                                 defaultChecked={user.is_validate}
                                 onClick={() => props.handleValidateUser(user.id,user.is_validate,index)}
                             />
-                       </td>
+                        </td>
+                        <td>{new Date(user.created_on).toLocaleDateString()}</td>
                         <td><span className='edit btn' onClick={()=>props.handleModifyUserValues(user.username,user.role_id,user.id)}></span></td>
                         <td><span className='delete btn' onClick={() => props.deleteUser(user.id,index)}></span></td>
                     </tr>
@@ -75,8 +76,6 @@ const TableAdmin = (props) => {
                     </tr>
                         )}
                         
-
-                        {/* setTheads(["ID","User Id","Message","viewed","Request ID","From userID","Delete"]) */}
                         {/* IF Target is Notifications */}
                           {props.notifications && props.notifications.map((notification, index) =>          
                     <tr key={notification.id + "_notifications"}>
@@ -86,6 +85,7 @@ const TableAdmin = (props) => {
                         <td>{notification.viewed}</td>
                         <td>{notification.request_id}</td>
                         <td>{notification.from_user_id}</td>
+                        <td>{new Date(notification.created_on).toLocaleString()}</td>
                         <td><span className='delete btn' onClick={() => props.deleteNotification(notification.id)}></span></td>
                     </tr>
                     )}

@@ -37,7 +37,7 @@ class NotificationModel {
 
     public function getAllNotifications(int $limit):void{
         if ($this->pdo) {
-            $query = "SELECT users.username,notifications.id,user_id,request_id,message,viewed,from_user_id FROM notifications
+            $query = "SELECT users.username,notifications.id,notifications.created_on,user_id,request_id,message,viewed,from_user_id FROM notifications
             JOIN users ON users.id  = notifications.from_user_id
             ORDER BY notifications.id DESC
             LIMIT :limit,10";
