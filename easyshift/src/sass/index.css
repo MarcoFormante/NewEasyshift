@@ -1332,6 +1332,7 @@ a.adm_page_btn {
   height: 100%;
   background-color: #223e51;
   z-index: 100;
+  overflow-y: scroll;
 }
 .fixed-page__center-element {
   position: absolute;

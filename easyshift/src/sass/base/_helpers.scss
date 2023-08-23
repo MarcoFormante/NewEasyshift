@@ -114,6 +114,7 @@ z-index: 200;
     height: 100%;
     background-color: $secondary_color;
     z-index: 100;
+    overflow-y: scroll;
 
     &__center-element{
         position: absolute;
@@ -167,4 +168,6 @@ z-index: 200;
 
 .link-w{
     color: black;
+    // color:#4c4d61
 }
+

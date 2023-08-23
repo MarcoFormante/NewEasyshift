@@ -64,7 +64,7 @@ const Form = () => {
             <input className='cta-btn' type="submit" value="Enter" />
       </form>
       <span>
-       Are not you a ADMIN? <Link className='btn brand__link' to={"/"}>Exit</Link>
+       If you are not an Admin please go back  <Link className='btn brand__link' to={"/"}>Exit</Link>
         </span>
     </div>
 

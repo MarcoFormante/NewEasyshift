@@ -59,7 +59,7 @@ class CommentModel{
         
 
 // DELETE COMMENT
-        public function deleteComment(int $requestId,int $commentId,string $username,int $userId){
+        public function deleteComment(int $commentId){
             if ($this->pdo) {
                 $query="DELETE FROM comments WHERE id = :commentId ";
                 $stmt = $this->pdo->prepare($query);

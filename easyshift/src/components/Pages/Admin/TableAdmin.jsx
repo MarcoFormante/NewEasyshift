@@ -12,12 +12,16 @@ const TableAdmin = (props) => {
         break;
             
         case "requests":
-            setTheads(["ID","Username","Role","Date","Shift start","Shift end","Request","Total comments", "Locked userID","Created on","Delete"])
+            setTheads(["ID","Username","Role","Date","Shift start","Shift end","Request","Total comments", "Locked userID","Created on",!props.requestOff && "Delete"])
         break;  
         
         case "notifications":
             setTheads(["ID","User Id","Message","viewed","Request ID","From userID","Created on","Delete"])
-        break;     
+                break; 
+        
+        case "comments":
+            setTheads(["ID","User Id","Username","Comment","Request ID","Delete"])
+        break;
            
        
         default:
@@ -60,19 +64,21 @@ const TableAdmin = (props) => {
                         )}
 
                     {/* IF Target is Requests */}
-                        {props.requests && props.requests.map((request, index) =>          
-                    <tr key={request.id + "_requests"}>
+                        {props.requests && props.requests.map((request, index) => 
+                         
+                            <tr key={request.id + "_requests"} style={props.borderWhite ? { background: "#4c4d40" } : {}}>
+                               
                         <td>{request.id}</td>
                         <td>{request.username}</td>
                         <td>{request.role_id}</td>
-                        <td>{new Date(request.date).toLocaleDateString()}</td>
+                        <td>{new Date(request.date).toLocaleDateString() }  </td>
                         <td>{request.shift_start}</td>
                         <td>{request.shift_end}</td>
                         <td style={{minWidth:200}}>{request.request}</td>
-                        <td>{request.total_comments}</td>
+                        <td className='btn' onClick={()=> !props.requestOff &&  props.handleViewComments(request.id)}>{request.total_comments}</td>
                         <td>{request.locked_user_id || "null"}</td>
-                        <td>{request.created_on}</td>
-                        <td><span className='delete btn' onClick={() => props.deleteRequest(request.id,index)}></span></td>
+                        <td>{new Date(request.created_on).toLocaleDateString()}</td>
+                       { !props.requestOff && <td><span className='delete btn' onClick={() => props.deleteRequest(request.id,index)}></span></td>}
                     </tr>
                         )}
                         
@@ -87,6 +93,18 @@ const TableAdmin = (props) => {
                         <td>{notification.from_user_id}</td>
                         <td>{new Date(notification.created_on).toLocaleString()}</td>
                         <td><span className='delete btn' onClick={() => props.deleteNotification(notification.id)}></span></td>
+                    </tr>
+                        )}
+                        
+                        {/* IF Target is comments */}
+                        {props.comments && props.comments.map((comment, index) =>          
+                        <tr key={comment.id + "_comments"} style={ { background: "#4c4d60" }} >
+                        <td>{comment.id}</td>
+                        <td>{comment.user_id}</td>
+                        <td style={{minWidth:200}}>{comment.username}</td>
+                        <td style={{minWidth:200}}>{comment.comment}</td>
+                        <td>{comment.request_id}</td>
+                        <td><span className='delete btn' onClick={() => props.deleteComment(comment.id)}></span></td>
                     </tr>
                     )}
                         </tbody>
