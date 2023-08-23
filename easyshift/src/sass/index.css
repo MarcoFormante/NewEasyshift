@@ -1323,6 +1323,7 @@ a.adm_page_btn {
   width: 100%;
   height: 100%;
   background-color: #223e51;
+  z-index: 100;
 }
 .fixed-page__center-element {
   position: absolute;

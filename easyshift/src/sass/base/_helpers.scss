@@ -103,6 +103,7 @@ z-index: 200;
     width: 100%;
     height: 100%;
     background-color: $secondary_color;
+    z-index: 100;
 
     &__center-element{
         position: absolute;

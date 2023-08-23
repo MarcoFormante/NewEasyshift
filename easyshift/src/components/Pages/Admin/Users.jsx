@@ -88,7 +88,7 @@ const Users = () => {
     <div className={`${valuesToModify.lastUsername ? "fixed-page" : ""}`}>
           
         <div>
-            <Link to={"/admin/home"}><span className='back-btn'></span></Link>
+            <Link to={"/admin/home"}><span className='back-btn' style={{top:5}}></span></Link>
             <Title title={"Users"} />
             <TableAdmin
                 target={"users"}
@@ -247,9 +247,7 @@ const ModifyUserWindow = ({ lastUsername, lastRole, userId, handleModifyUserValu
     return (
 
         <div className='fixed-page'>
-            
-            <div  onClick={()=>handleModifyUserValues(null)}>back</div>
-
+            <div onClick={()=>handleModifyUserValues(null)}><span className='back-btn' style={{top:5}}></span></div>
             <div className='container__flex--center--column gap-20 fixed-page__center-element'>
        <form className='form form__center--column' onSubmit={handleSubmit}>
             <div className='row'>

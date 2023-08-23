@@ -5,6 +5,7 @@ import Title from '../../Layout/Title/Title'
 const Home = () => {
     return (
         <div>
+            <Link to={"/"}><span className='back-btn' style={{top:5}}></span></Link>
             <Title quote={false} title={"Reserved Area"}/>
         <div className='container__flex--center--column mar-top-m gap-20'>
             <Link to={"/admin/users"}>Users</Link>
