@@ -661,6 +661,39 @@ components
   color: #407599;
 }
 
+.admin-table {
+  overflow-y: hidden;
+  padding: 10px;
+}
+.admin-table tr {
+  background-color: #223e51;
+  overflow-y: hidden;
+}
+.admin-table tr th, .admin-table tr td {
+  padding: 10px;
+  min-width: 100px;
+}
+.admin-table input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+}
+.admin-table td > span.edit {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: auto;
+  background-image: url(../icons/edit.svg);
+  background-size: cover;
+}
+.admin-table td > span.delete {
+  width: 25px;
+  height: 25px;
+  display: block;
+  margin: auto;
+  background-image: url(../icons/delete.svg);
+  background-size: cover;
+}
+
 /*
 layout: header
 */
@@ -1296,6 +1329,20 @@ a.adm_page_btn {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.overflow-y--hidden {
+  overflow-y: hidden;
+}
+.overflow-y--hidden.scroll-visible::-webkit-scrollbar {
+  display: block;
+  background-color: rgb(187, 187, 187);
+}
+.overflow-y--hidden.scroll-visible::-webkit-scrollbar-thumb {
+  background-color: rgb(196, 196, 196);
+}
+.overflow-y--hidden.scroll-visible::-webkit-scrollbar-track-piece {
+  background-color: #223e51;
 }
 
 html {

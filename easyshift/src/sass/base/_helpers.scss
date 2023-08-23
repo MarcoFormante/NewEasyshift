@@ -113,4 +113,26 @@ z-index: 200;
 }
 
 
+.overflow-y--hidden{
+    overflow-y: hidden;
+
+    &.scroll-visible{
+
+        &::-webkit-scrollbar{
+            display: block;
+            background-color: rgb(187, 187, 187);
+        }
+
+        &::-webkit-scrollbar-thumb{
+            background-color: rgb(196, 196, 196);
+        }
+
+        &::-webkit-scrollbar-track-piece{
+            background-color: $secondary_color;
+        }
+    }
+    
+}
+
+
 

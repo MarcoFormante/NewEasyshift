@@ -13,7 +13,8 @@ const Users = () => {
     const [pageLimit, setPageLimit] = useState(0)
     const [isLoadingData, setIsLoadingData] = useState(false)
     const [canShowMore, setCanShowMore] = useState(false)
-    const [valuesToModify,setValuesToModify]= useState({})
+    const [valuesToModify, setValuesToModify] = useState({})
+    const dispatch = useDispatch()
 
     useEffect(() => {
         axios.post("userApi.php", {action: "getAllUsers", page : pageLimit * 10}, {
@@ -37,25 +38,25 @@ const Users = () => {
 
 
     const handleValidateUser = (userId,isValidate,index ) => {
-        console.log(userId,isValidate,index )
+       
         let value = 0;
         if (isValidate === 0) {
             value = 1
         } else if (isValidate === 1) {
             value = 0;
         }
-        console.log(value);
         const formdata = new FormData()
         formdata.append("action","validateUser")
         formdata.append("userId",userId)
         formdata.append("value",value)
         axios.post("userApi.php", formdata
         ).then(response => {
-            console.log(response.data);
+            
             if (response.data.status === 1) {
                 users[index].is_validate = value
-                console.log(users[index]);
-                console.log(response.data);
+                dispatch(setAlert({ type: "success", text: "User Update", title: "Success", timeout: 5000 }))
+            } else {
+                dispatch(setAlert({type:"error",text:"Connection Problem",title:"Error",timeout:5000}))
             }
         })
     }
@@ -70,6 +71,9 @@ const Users = () => {
             .then(response => {
             if (response.data.status === 1) {
                 setUsers(users.filter(user => user.id !== id))
+                dispatch(setAlert({ type: "success", text: "User Deleted", title: "Success", timeout: 5000 }))
+            } else {
+                dispatch(setAlert({type:"error",text:"Connection Problem",title:"Error",timeout:5000}))
             }
         })
     }
@@ -84,7 +88,7 @@ const Users = () => {
     <div className={`${valuesToModify.lastUsername ? "fixed-page" : ""}`}>
           
         <div>
-            <Link to={"/admin/home"}>Back</Link>
+            <Link to={"/admin/home"}><span className='back-btn'></span></Link>
             <Title title={"Users"} />
             <TableAdmin
                 target={"users"}
@@ -122,7 +126,6 @@ export default Users
 // modifyUserWindow
 
 const ModifyUserWindow = ({ lastUsername, lastRole, userId, handleModifyUserValues }) => {
-    console.log(userId);
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState(lastUsername)
     const [password, setPassword] = useState("")

@@ -19,32 +19,32 @@ const TableAdmin = (props) => {
     
     return (
         <div>
-            <div className={'container__flex--center--row'}>
-                <table style={{width:"100%",textAlign:"center"}}>
+            <div className={'overflow-y--hidden scroll-visible'}>
+                <table className='admin-table' style={{ width: "100%", textAlign: "center" }}>
                     <thead>
                         <tr>
                             {tHeads.map(th =>
-                                <>
-                                    <th>{th}</th>
-                                </>
+                                <th key={"sd" + th}>{th}</th>
                             )}
                         </tr>
                     </thead>
                         <tbody>
                             
                {props.users && props.users.map((user, index) =>          
-                    <tr key={user.id}>
+                    <tr key={user.id + "_users"}>
                         <td>{user.id}</td>
                         <td>{user.username}</td>
                         <td>{user.role_id}</td>
                         <td>
-                            <input type="checkbox"
+                           <input
+                                type="checkbox"
+                                className='btn'
                                 defaultChecked={user.is_validate}
                                 onClick={() => props.handleValidateUser(user.id,user.is_validate,index)}
                             />
                        </td>
-                        <td onClick={()=>props.handleModifyUserValues(user.username,user.role_id,user.id)}>modify</td>
-                        <td onClick={() => props.deleteUser(user.id,index)}>delete</td>
+                        <td className='btn' onClick={()=>props.handleModifyUserValues(user.username,user.role_id,user.id)}><span className='edit'></span></td>
+                        <td className='btn' onClick={() => props.deleteUser(user.id,index)}><span className='delete'></span></td>
                     </tr>
                     )}
                         </tbody>

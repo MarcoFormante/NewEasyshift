@@ -1,0 +1,36 @@
+.admin-table{
+    overflow-y: hidden;
+    padding: 10px;
+    tr{
+        background-color: $secondary_color;
+        overflow-y: hidden;
+
+        th,td{
+            padding: 10px;
+            min-width: 100px;
+        }
+    }   
+
+    input[type="checkbox"]{
+        width: 20px;
+        height: 20px;
+    }
+
+    td > span.edit{
+        width: 20px;
+        height: 20px;
+        display: block;
+        margin: auto;
+        background-image: url(../icons/edit.svg);
+        background-size:cover;
+    }
+
+    td > span.delete{
+        width: 25px;
+        height: 25px;
+        display: block;
+        margin: auto;
+        background-image: url(../icons/delete.svg);
+        background-size:cover;
+    }
+}
