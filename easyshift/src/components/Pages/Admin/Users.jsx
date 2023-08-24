@@ -169,7 +169,6 @@ const ModifyUserWindow = ({ lastUsername, lastRole, userId, handleModifyUserValu
                         
                         axios.post("userApi.php", formdata).then(response => {
                             if (response.data.status === 1) {
-                                console.log(response.data);
                                 dispatch(setAlert({ type: "success", text: "User Update", title: "Success", timeout: 5000 }))
                                 setPassword("")
                                 setRole("")

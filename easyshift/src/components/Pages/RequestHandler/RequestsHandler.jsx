@@ -59,7 +59,6 @@ const RequestsHandler = ({requestTarget}) => {
       }
       CheckUser(userInfo)
         .then(response => {
-          console.log(response.data);
           if (response.data.status === 1) {
             const formData = new FormData()
             formData.append("action", "getAllRequests")

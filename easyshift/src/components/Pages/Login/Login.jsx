@@ -15,7 +15,6 @@ const Login = () => {
   
   function visibleAdmPath() {
     setAdmPath(admPath + 1)
-    console.log(admPath);
   }
   
 

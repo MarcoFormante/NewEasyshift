@@ -30,7 +30,6 @@ const Requests = () => {
                   }
                 }) 
                   .then(response => {
-                  console.log(response.data);
                   if (response.data.status === 1) {
                         const newRequests = response.data.request 
                         setRequests([...requests, ...newRequests])
@@ -83,7 +82,6 @@ const Requests = () => {
                 }
             }
         ).then(response => {
-            console.log(response.data);
             if (response.data.status === 1) {
                 if (response.data.rowCount > 0) {
                     
@@ -100,7 +98,6 @@ const Requests = () => {
 
 
     const closeCommentWindow = () => {
-        console.log("si");
         setComments([])
     }
 

@@ -24,12 +24,12 @@ const ViewRequest = () => {
     setTrigger(location?.state?.trigger)
   },[location?.state?.trigger])
   
-console.log(location);
+
   useEffect(() => {
       setRequest([])
       CheckUser(userInfo)
         .then(response => {
-          console.log(response.data);
+          
           if (response.data.status === 1) {
             setIsLoading(true)
             const formData = new FormData()
@@ -44,9 +44,7 @@ console.log(location);
               },
             })
               .then(response => {
-                console.log(response.data);
                 if (response.data.status === 1) {
-                 
                   if (response.data.rowCount > 0) {
                     setRequest([...response.data.request])
                   } else {
