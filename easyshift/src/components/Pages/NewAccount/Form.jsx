@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 
-const Form = ({ handleSubmit, username, password, setUsername, setPassword, setRole }) => {
+const Form = ({ handleSubmit, username, password, setUsername, setPassword, setRole,secretCode,setSecretCode }) => {
   const [showPassword, setShowPassword] = useState(false)
   const showPasswordRef = React.useRef(null)
 
@@ -74,6 +74,10 @@ const Form = ({ handleSubmit, username, password, setUsername, setPassword, setR
                   <option value="0" >Photographer</option>
                   <option value="1">Duty</option>
               </select>
+        </div>
+        <div className='row'>
+              <label htmlFor="secret-code">Secret Code <span className='required'>*</span> </label>
+                <input type="password" id='secret-code' value={secretCode} maxLength={60} onChange={(e)=> setSecretCode(e.target.value)}  />
             </div>
             <input className='cta-btn' type="submit" value="REGISTER" />
       </form>

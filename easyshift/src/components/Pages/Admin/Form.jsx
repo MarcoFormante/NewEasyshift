@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
-import { setAlert } from '../../../Redux/alertSlice'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../Redux/userSlice'
 
@@ -24,7 +23,6 @@ const Form = () => {
     
     axios.post("userApi.php", formdata)
       .then(response => {
-        console.log(response.data);
         if (response.data.status === 1) {
           if (response.data.token && response.data.adminInfo) {
               const adminInfo = response.data.adminInfo

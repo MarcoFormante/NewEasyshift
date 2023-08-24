@@ -12,7 +12,6 @@ import Loading from './components/Elements/Loading/Loading'
 import ReservedArea from './components/Pages/Admin/ReservedArea';
 import Home from './components/Pages/Admin/Home';
 import AdminProtectedRoute from './components/Pages/Admin/AdminProtectedRoute';
-import ShowRequest from './components/Pages/Admin/ShowRequest';
 import Notifications from './components/Pages/Admin/Notifications';
 import Requests from './components/Pages/Admin/Requests';
 import Users from './components/Pages/Admin/Users';
@@ -50,7 +49,7 @@ function App() {
             <Route path={"/admin/users"} element={<Users/>} />
             <Route path={"/admin/requests"} element={<Requests/>} />
             <Route path={"/admin/notifications"} element={<Notifications/>} />
-            <Route path={"/admin/showRequest"} element={<ShowRequest/>} />
+            
           </Route>
         </Routes>
         </loadingContext.Provider>

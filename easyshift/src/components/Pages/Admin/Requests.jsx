@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Title from '../../Layout/Title/Title'
 import TableAdmin from './TableAdmin'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from '../../../AxiosApi/axios'
 import { setAlert } from '../../../Redux/alertSlice'
 import ShowMore from '../../Elements/ShowMore/ShowMore'
 import Comments from './Comments'
+import CheckUser from '../../Helpers/CheckUser/CheckUser'
 
 const Requests = () => {
 
@@ -17,31 +18,38 @@ const Requests = () => {
     const [comments, setComments] = useState([])
     const [requestTarget,setRequestTarget] = useState([])
     const dispatch = useDispatch()
+    const userInfo = useSelector(state => state.userInfo.value) || sessionStorage.getItem("userInfo")
 
     useEffect(() => {
-        axios.post("requestApi.php", {action: "getAllRequests", target:"all", limit : pageLimit * 10 , limit2: 10}, {
-          headers: {
-            "Content-Type":"multipart/form-data"
-        }
-      }) 
-        .then(response => {
-        console.log(response.data);
-        if (response.data.status === 1) {
-              const newRequests = response.data.request 
-              setRequests([...requests, ...newRequests])
-              setIsLoadingData(false)
-              if (response.data.request.length  > 5) {
-                  setCanShowMore(true)
-              } else {
-                setCanShowMore(false)  
+        CheckUser(userInfo)
+            .then(response => {
+            if (response.data.status === 1) {
+                axios.post("requestApi.php", {action: "getAllRequests", target:"all", limit : pageLimit * 10 , limit2: 10}, {
+                    headers: {
+                      "Content-Type":"multipart/form-data"
+                  }
+                }) 
+                  .then(response => {
+                  console.log(response.data);
+                  if (response.data.status === 1) {
+                        const newRequests = response.data.request 
+                        setRequests([...requests, ...newRequests])
+                        setIsLoadingData(false)
+                        if (response.data.request.length  > 5) {
+                            setCanShowMore(true)
+                        } else {
+                          setCanShowMore(false)  
+                      }
+          
+                  } else {
+                      if (response?.data?.message?.match(/Error : no more requests/)) {
+                          dispatch(setAlert({type:"info",text:" No more requests",title:"",timeout:5000}))
+                      }
+                    }
+                })
             }
-
-        } else {
-            if (response?.data?.message?.match(/Error : no more requests/)) {
-                dispatch(setAlert({type:"info",text:" No more requests",title:"",timeout:5000}))
-            }
-          }
-      })
+        })
+        
   }, [pageLimit])
   
 

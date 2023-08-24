@@ -109,7 +109,6 @@ const Request = ({ requestIndex, pageLimit, requestsLimit, request, showComments
             }
           }) 
             .then(response => {
-              console.log(response.data);
               if (response.data.status === 1) {
                   dispatch(setAlert({type:"success",text:"Your Post has been deleted", title:"Post Deleted",timeout: 3000}))
                 if (userInfo.requests && userInfo.requests > 0) {

@@ -16,11 +16,15 @@ const Home = () => {
         dispatch(deleteAccount())
         navigate("/")
     }
+
     useEffect(() => {
-        console.log(userInfo)
         CheckUser(userInfo)
-        .then(response => console.log(response.data))
-    })
+            .then(response => {
+            if (response.data.status !== 1) {
+                resetSession()
+            }
+        })
+    },[])
 
     return (
         <div>
@@ -47,5 +51,5 @@ const Home = () => {
     </div>
   )
 }
-
+export const {resetSession} = Home
 export default Home

@@ -16,10 +16,11 @@ if (isset($_POST['action'])) {
         case 'createAccount':
                 $username = $_POST['username'];
                 $password = $_POST['password'];
+                $secretCode = $_POST['secretCode'];
                 $role = $_POST['role'];
                 $UserController =  new UserController;
                 try {
-                    $UserController->createAccount($username,$password,$role);
+                    $UserController->createAccount($username,$password,$role,$secretCode);
                 } catch (\Exception $e) {
                     if (preg_match("/Duplicate entry '$username'/",$e->getMessage())) {
                         echo json_encode(["status"=> 0 ,"message" => "Error: This name has already been taken"]);
@@ -79,6 +80,7 @@ if (isset($_POST['action'])) {
             break;
 
 
+
             case 'getAllUsers':
                 $UserController = new UserController;
                 try {
@@ -88,6 +90,8 @@ if (isset($_POST['action'])) {
                     echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                 }
             break;
+
+
 
             case 'adminLogin':
                 $UserController = new UserController;
@@ -100,8 +104,8 @@ if (isset($_POST['action'])) {
                     echo json_encode(["status"=> 0 ,"message" => $e->getMessage()]); 
                 }
             break;
-            
 
+            
 
             case 'validateUser':
                 $userId = $_POST['userId'];

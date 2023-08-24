@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux'
 const NewAccount = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [secretCode, setSecretCode] = useState("")
     const [role, setRole] = useState(null)
     const navigate = useNavigate()
     const { setIsLoading } = useContext(loadingContext)
@@ -22,7 +23,8 @@ const NewAccount = () => {
     const passwordRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,60}$/)
     let passwordIsValid = password.match(passwordRegex) 
     let roleIsValid = (+role === 0 || +role === 1) && role !== ""
-    let formIsValid = usernameIsValid && passwordIsValid && roleIsValid
+    let secretCodeIsValid = secretCode.length > 0
+    let formIsValid = usernameIsValid && passwordIsValid && roleIsValid && secretCodeIsValid
 
     if (formIsValid) {
       setIsLoading(true)
@@ -32,6 +34,7 @@ const NewAccount = () => {
       formData.append("username", name)
       formData.append("password", password)
       formData.append("role", role)
+      formData.append("secretCode",secretCode)
       formData.append("action", "createAccount")
       axios.post("userApi.php", formData, {
         headers: {
@@ -39,13 +42,16 @@ const NewAccount = () => {
         }
       })
         .then(response => {
-          console.log(response.data);
           if (response.data.status === 1) {
+            dispatch(setAlert({ type: "success", text: "New Account Created", title: "", timeout: 5000 }))
             navigate("/")
           } else {
             setTimeout(() => {
-              if (response.data.message && response.data.message.match(/Error: This name has already been taken/g)) {
+              if (response?.data?.message && response.data.message.match(/Error: This name has already been taken/g)) {
                 dispatch(setAlert({ type: "error", text: "This name has already been taken", title: "Username Error", timeout: 5000 }))
+
+              }else if (response?.data?.message && response.data.message.match(/Error: Secret Code is not valid/)) {
+                dispatch(setAlert({ type: "error", text: "The Secret Code is not Valid", title: "Error", timeout: 5000 }))
               }
             }, 1000)
           }
@@ -57,6 +63,11 @@ const NewAccount = () => {
     } else {
      //Handle Error Form
       setIsLoading(false)
+
+      if (!secretCodeIsValid) {
+        dispatch(setAlert({type:"error",text:"The Secret Code is Required",title:"Error",timeout:5000}))
+      }
+      
       if (!roleIsValid) {
         dispatch(setAlert({type:"error",text:"Please choose a role  between Duty and Photographer",title:"Role Error",timeout:5000}))
       }
@@ -80,16 +91,18 @@ const NewAccount = () => {
 
   return (
     <div>
-    <div className='container__flex--center--column'>
+    <div className='container__flex--center--column pad-b-s'>
         <Title title={"EASYSHIFT"} quote={true} classname={"brand"} />
         <h2>Register</h2>
         <Form
-        username={username}
-        handleSubmit={handleSubmit}
-        password={password}
-        setPassword={(value) => setPassword(value)}
-        setUsername={(value) => setUsername(value)}
-        setRole={(value)=>setRole(value)}  
+          username={username}
+          handleSubmit={handleSubmit}
+          password={password}
+          setPassword={(value) => setPassword(value)}
+          setUsername={(value) => setUsername(value)}
+          setRole={(value) => setRole(value)}  
+          secretCode={secretCode}
+          setSecretCode={(value)=>setSecretCode(value)}
         />
     </div>
 </div>

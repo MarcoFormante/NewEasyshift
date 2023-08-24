@@ -7,9 +7,14 @@ use Exception;
 
 class UserController{
 
-    public function createAccount(string $username,string $password,int $role):void{
-        $UserModel = new UserModel();
-        $UserModel->createAccount($username,$password,$role);
+    public function createAccount(string $username,string $password,int $role,string $secretCode):void{
+        if ($secretCode === getenv("SecretCodeEasyshift")) {
+            $UserModel = new UserModel();
+            $UserModel->createAccount($username,$password,$role);
+        }else{
+            throw new Exception("Error: Secret Code is not valid");
+        }
+       
     }
 
     public function login(string $username,string $password){

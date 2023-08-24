@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from '../../../AxiosApi/axios'
 import Title from '../../Layout/Title/Title'
 import ShowMore from '../../Elements/ShowMore/ShowMore'
 import TableAdmin from './TableAdmin'
 import { setAlert } from '../../../Redux/alertSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import CheckUser from '../../Helpers/CheckUser/CheckUser'
 
 
 const Users = () => {
@@ -15,25 +16,35 @@ const Users = () => {
     const [canShowMore, setCanShowMore] = useState(false)
     const [valuesToModify, setValuesToModify] = useState({})
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const userInfo = useSelector(state => state.userInfo.value) || sessionStorage.getItem("userInfo")
 
     useEffect(() => {
-        axios.post("userApi.php", {action: "getAllUsers", page : pageLimit * 10}, {
-            headers: {
-              "Content-Type":"multipart/form-data"
-          }
-        }) 
-        .then(response => {
-            if (response.data.status === 1) {
-                const newUsers = response.data.users 
-                setUsers([...users, ...newUsers])
-                setIsLoadingData(false)
-                if (response.data.users.length  > 5) {
-                    setCanShowMore(true)
-                } else {
-                    setCanShowMore(false)
-                }
-            }     
+        CheckUser(userInfo)
+            .then(response => {
+            if (response.data.status ===1) {
+                axios.post("userApi.php", {action: "getAllUsers", page : pageLimit * 10}, {
+                    headers: {
+                      "Content-Type":"multipart/form-data"
+                  }
+                }) 
+                .then(response => {
+                    if (response.data.status === 1) {
+                        const newUsers = response.data.users 
+                        setUsers([...users, ...newUsers])
+                        setIsLoadingData(false)
+                        if (response.data.users.length  > 5) {
+                            setCanShowMore(true)
+                        } else {
+                            setCanShowMore(false)
+                        }
+                    }     
+                })
+            } else {
+                navigate("/")
+            }
         })
+        
     },[pageLimit])
 
 
@@ -134,6 +145,8 @@ const ModifyUserWindow = ({ lastUsername, lastRole, userId, handleModifyUserValu
     const refId = React.useRef(userId)
     const showPasswordRef = React.useRef()
     const dispatch = useDispatch()
+    const userInfo = useSelector(state => state.userInfo.value) || sessionStorage.getItem("userInfo")
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -142,57 +155,62 @@ const ModifyUserWindow = ({ lastUsername, lastRole, userId, handleModifyUserValu
         let passwordIsValid = password.match(passwordRegex) 
         let roleIsValid = (+role === 0 || +role === 1) && role !== ""
         let formIsValid = usernameIsValid && (passwordIsValid || password.length === 0) && roleIsValid
-        
-
         if (formIsValid) {
-            const formdata = new FormData()
-            formdata.append("action","updateUser")
-            formdata.append("userId",refId.current)
-            formdata.append("username",username)
-            formdata.append("password",password)
-            formdata.append("role",role)
-            formdata.append("secretCode",secretCode)
-            axios.post("userApi.php", formdata).then(response => {
-                console.log(response);
-                if (response.data.status === 1) {
-                    console.log(response.data);
-                    dispatch(setAlert({ type: "success", text: "User Update", title: "Success", timeout: 5000 }))
-                    setPassword("")
-                    setRole("")
-                    setUsername("")
-                    setSecretCode("")
-                } else {
-                    const message = response.data.message
-                    console.log(message.match(/s/));
-                    if (message.match(/Error Processing Request \(ce\)/)) {
-                        console.log("eee");
-                        dispatch(setAlert({type:"error",text:"Incorrect Secret Code",title:"Error",timeout:5000}))
+            CheckUser(userInfo)
+                .then(response => {
+                    if (response.data.status === 1) {
+                        const formdata = new FormData()
+                        formdata.append("action", "updateUser")
+                        formdata.append("userId", refId.current)
+                        formdata.append("username", username)
+                        formdata.append("password", password)
+                        formdata.append("role", role)
+                        formdata.append("secretCode", secretCode)
+                        
+                        axios.post("userApi.php", formdata).then(response => {
+                            if (response.data.status === 1) {
+                                console.log(response.data);
+                                dispatch(setAlert({ type: "success", text: "User Update", title: "Success", timeout: 5000 }))
+                                setPassword("")
+                                setRole("")
+                                setUsername("")
+                                setSecretCode("")
+                            } else {
+                                const message = response?.data?.message
+                                if (message?.match(/Error Processing Request \(ce\)/)) {
+                                    dispatch(setAlert({ type: "error", text: "Incorrect Secret Code", title: "Error", timeout: 5000 }))
+                                } else {
+                                    dispatch(setAlert({ type: "error", text: "Connection Problem", title: "Error", timeout: 5000 }))
+                                }
+                            }
+                        })
+                    } else {
+                        navigate("/")
                     }
-                }
-            })
+                })
         }else {
             //Handle Error Form
-             
-             if (!roleIsValid) {
-               dispatch(setAlert({type:"error",text:"Please choose a role  between Duty and Photographer",title:"Role Error",timeout:5000}))
-             }
-       
-             if (!passwordIsValid) {
-                 dispatch(
-                   setAlert({
-                   type: "error",
-                   text: "Please create a password that includes at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*), and has a length between 8 and 60 characters.",
-                   title: "Password Error",
-                   timeout: 5000
-               }))
-             }
-       
-             if (!usernameIsValid) {
-               dispatch(setAlert({type:"error",text:"Please enter a username that is between 4 and 20 characters in length",title:"Username Error",timeout:5000}))
-             }
-           }
+            if (!roleIsValid) {
+                dispatch(setAlert({ type: "error", text: "Please choose a role  between Duty and Photographer", title: "Role Error", timeout: 5000 }))
+            }
+   
+            if (!passwordIsValid) {
+                dispatch(
+                    setAlert({
+                        type: "error",
+                        text: "Please create a password that includes at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*), and has a length between 8 and 60 characters.",
+                        title: "Password Error",
+                        timeout: 5000
+                    }))
+            }
+   
+            if (!usernameIsValid) {
+                dispatch(setAlert({ type: "error", text: "Please enter a username that is between 4 and 20 characters in length", title: "Username Error", timeout: 5000 }))
+            }
+        }
+           
+           
     }
-
 
     useEffect(() => {
         if (showPasswordRef?.current) {
